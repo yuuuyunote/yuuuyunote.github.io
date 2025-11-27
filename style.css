@@ -185,7 +185,7 @@ main:not(.hero) {
 
 /* 2. X (Twitter) アイコン */
 .x-card h3 .contact-icon {
-    color: #111; /* X（Twitter）のブランドカラー（青） */
+    color: #FFF; /* X（Twitter）のブランドカラー（青） */
 }
 
 /* --- noteロゴのカスタム画像設定 (画像埋め込みの場合) --- */
