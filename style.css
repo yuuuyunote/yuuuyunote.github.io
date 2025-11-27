@@ -169,3 +169,27 @@ main:not(.hero) {
 .x-button:hover { background-color: #0c85d0; }
 .note-button { background-color: #4CAF50; color: white; }
 .note-button:hover { background-color: #45a049; }
+/*ロゴをカラーにする*/
+/* --- コンタクトページ - アイコンのスタイル --- */
+.contact-icon {
+    margin-right: 10px; /* タイトルテキストとの間にスペースを空ける */
+    font-size: 1.2em; /* アイコンを少し大きくする */
+}
+
+/* カードごとにアイコンの色をブランドカラーに設定 */
+
+/* 1. Discord アイコン */
+.discord-card h3 .contact-icon {
+    color: #7289da; /* Discordのブランドカラー（紫） */
+}
+
+/* 2. X (Twitter) アイコン */
+.x-card h3 .contact-icon {
+    color: #1da1f2; /* X（Twitter）のブランドカラー（青） */
+}
+
+/* 3. note / ブログ アイコン */
+/* noteのロゴにカラーはないため、今回はボタンの色（緑）に合わせて統一感を出す */
+.note-card h3 .contact-icon {
+    color: #4CAF50; /* 緑系 */
+}
