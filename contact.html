@@ -12,20 +12,37 @@
             </ul>
         </nav>
     </header>
-<main>
-    <h2>お問い合わせ</h2>
-    <p>ご質問やご依頼はこちらからご連絡ください。</p>
-    <form class="contact-form">
-        <label for="name">お名前:</label>
-        <input type="text" id="name" name="name" required>
+<main class="contact-page">
+    <h2>コンタクト・リンク集</h2>
+    <p class="intro-text">
+        私の活動に関する最新情報や連絡はこちらからお願いします。
+    </p>
 
-        <label for="email">メールアドレス:</label>
-        <input type="email" id="email" name="email" required>
+    <div class="card-container">
 
-        <label for="message">メッセージ:</label>
-        <textarea id="message" name="message" required></textarea>
+        <div class="contact-card discord-card">
+            <h3>Discord コミュニティ</h3>
+            <p>私の活動拠点となっているDiscordサーバーはこちらです。質問や交流はこちらで。</p>
+            <a href="【ここにDiscordサーバーの招待リンクを入れる】" class="card-button discord-button" target="_blank">
+                Discordに参加する
+            </a>
+        </div>
 
-        <button type="submit" class="button">送信</button>
-        </form>
+        <div class="contact-card x-card">
+            <h3>X (Twitter)</h3>
+            <p>日々の活動や開発の進捗など、リアルタイムな情報を発信しています。</p>
+            <a href="【ここにXのアカウントURLを入れる】" class="card-button x-button" target="_blank">
+                X (Twitter)をフォロー
+            </a>
+        </div>
+
+        <div class="contact-card note-card">
+            <h3>note / ブログ</h3>
+            <p>開発技術や考え方など、長文での記事はこちらで公開しています。</p>
+            <a href="【ここにnoteのURLを入れる】" class="card-button note-button" target="_blank">
+                noteを読む
+            </a>
+        </div>
+
+    </div>
 </main>
-...
