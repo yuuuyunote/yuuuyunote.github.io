@@ -20,7 +20,7 @@ header {
     display: flex;
     justify-content: space-between; /* ロゴとナビゲーションを両端に配置 */
     align-items: center;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #333333;
 }
 
 .logo {
@@ -61,8 +61,8 @@ nav ul li a:hover {
 
 .hero h1 {
     font-size: 3em;
-    margin-bottom: 15px;
-    color: #222;
+    margin-bottom: 20px;
+    color: #FFF;
 }
 
 .hero p {
