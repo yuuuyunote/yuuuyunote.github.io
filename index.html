@@ -3,181 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ダークモード プロジェクト ホームページ</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLMDJz9T4K8vCqKq6m/I/A923hI8gJ76PqJqN4M1+9P1bL7QjQ/94V/A2YwE6T7Lg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <style>
-        /* グローバルスタイル */
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #000000; /* 全体の背景色を黒に */
-            color: #ffffff; /* 全体の文字色を白に */
-            scroll-behavior: smooth;
-        }
-        /* 各セクションのパディング調整 */
-        section {
-            padding: 80px 16px; /* 上下のパディングを大きく取る */
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        /* メインビジュアルの背景（例として固定の高さとグラデーションを設定） */
-        #home {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            /* 暗めのグラデーションを重ねることで文字を読みやすくする */
-            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.6)), 
-                        url('https://placehold.co/1920x1080/1a1a1a/cccccc?text=PROJECT+VISUAL') center center / cover no-repeat;
-        }
-        /* SNSアイコンのホバーエフェクト */
-        .social-link-card {
-            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
-        }
-        .social-link-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
-            background-color: #1a1a1a;
-        }
-        /* スティッキーヘッダーのためのカスタムCSS */
-        #header-nav {
-            backdrop-filter: blur(10px);
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 50;
-        }
-    </style>
-</head>
-<body class="bg-black text-white">
-
-    <header id="header-nav" class="sticky top-0 w-full shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <a href="#home" class="text-3xl font-extrabold tracking-widest text-white hover:text-gray-300 transition duration-300">
-                <span class="text-green-400">D</span>ARK<span class="text-green-400">M</span>ODE
-            </a>
-
-            <nav class="hidden md:flex space-x-8">
-                <a href="#home" class="text-lg font-medium hover:text-green-400 transition duration-300">ホーム</a>
-                <a href="#about" class="text-lg font-medium hover:text-green-400 transition duration-300">概要</a>
-                <a href="#contents" class="text-lg font-medium hover:text-green-400 transition duration-300">コンテンツ</a>
-                <a href="#social" class="text-lg font-medium hover:text-green-400 transition duration-300">SNS</a>
-            </nav>
-
-            <button class="md:hidden text-white text-2xl hover:text-green-400">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
+    <title>KOKONATSU Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    </head>
+<body>
+    <header>
+        <div class="logo">Kokonatsu.top</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">ホーム</a></li>
+                <li><a href="about.html">自己紹介</a></li>
+                <li><a href="discord.html">Discordサーバー紹介</a></li>
+                <li><a href="contact.html">コンタクト</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <main>
-        <section id="home" class="text-center">
-            <h1 class="text-5xl md:text-7xl font-black mb-4 leading-tight">
-                あなたの<span class="text-green-400">世界</span>を、ここで見つける
-            </h1>
-            <p class="text-xl md:text-3xl text-gray-300 mb-8 max-w-3xl mx-auto">
-                最新の活動や情報、コミュニティへのアクセスはすべてこちらから。
-            </p>
-            <a href="#social" class="inline-block px-8 py-3 text-lg font-semibold bg-green-500 text-black rounded-lg shadow-lg hover:bg-green-400 transition duration-300 transform hover:scale-105">
-                SNSをチェックする
-            </a>
-        </section>
-
-        <section id="about" class="border-t border-gray-800">
-            <h2 class="text-4xl font-bold text-center mb-16 uppercase">ABOUT US</h2>
-
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="relative rounded-xl overflow-hidden shadow-2xl">
-                    <img src="https://placehold.co/600x400/222222/ffffff?text=PROFILE+IMAGE" 
-                            alt="プロフィール画像" 
-                            class="w-full h-auto object-cover rounded-xl transition duration-500 ease-in-out transform hover:scale-105">
-                    <div class="absolute inset-0 bg-black bg-opacity-30"></div>
-                </div>
-                <div>
-                    <h3 class="text-3xl font-semibold mb-4 text-green-400">活動テーマとミッション</h3>
-                    <p id="mission-statement" class="text-lg text-gray-300 mb-6">
-                        私たちは、**最新テクノロジー、ゲーム攻略、クリエイティブな制作**を深く掘り下げ、
-                        視聴者やフォロワーの皆様に新しい発見と感動を提供することを目指しています。
-                        <br><br>
-                        情熱を持って未知の領域に挑み、常に最高品質の情報を発信し続けることが私たちのミッションです。
-                    </p>
-                    <ul class="space-y-3 text-gray-400 list-disc list-inside">
-                        <li>高品質なコンテンツを週に一度以上公開</li>
-                        <li>コミュニティとの活発な交流を最優先</li>
-                        <li>常に新しい技術やトレンドに挑戦</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="contents" class="border-t border-gray-800">
-            <h2 class="text-4xl font-bold text-center mb-16 uppercase">LATEST CONTENTS</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-gray-900 p-4 rounded-xl shadow-xl transition duration-300 hover:bg-gray-800">
-                    <img src="https://placehold.co/400x225/333333/cccccc?text=VIDEO+THUMBNAIL+1" 
-                            alt="最新コンテンツ1" 
-                            class="w-full h-auto object-cover rounded-lg mb-4">
-                    <h3 class="text-xl font-semibold mb-2 text-green-400">次世代AIツールの徹底解説</h3>
-                    <p class="text-gray-400 text-sm">2025.11.22 公開 | 開発者向けに最新AIフレームワークの活用法を解説。</p>
-                </div>
-                
-                <div class="bg-gray-900 p-4 rounded-xl shadow-xl transition duration-300 hover:bg-gray-800">
-                    <img src="https://placehold.co/400x225/333333/cccccc?text=VIDEO+THUMBNAIL+2" 
-                            alt="最新コンテンツ2" 
-                            class="w-full h-auto object-cover rounded-lg mb-4">
-                    <h3 class="text-xl font-semibold mb-2 text-green-400">人気ゲームの隠された裏技</h3>
-                    <p class="text-gray-400 text-sm">2025.11.15 公開 | コミュニティで話題のゲームの秘密を大公開！</p>
-                </div>
-
-                <div class="bg-gray-900 p-4 rounded-xl shadow-xl transition duration-300 hover:bg-gray-800">
-                    <img src="https://placehold.co/400x225/333333/cccccc?text=VIDEO+THUMBNAIL+3" 
-                            alt="最新コンテンツ3" 
-                            class="w-full h-auto object-cover rounded-lg mb-4">
-                    <h3 class="text-xl font-semibold mb-2 text-green-400">独創的なアート作品のメイキング</h3>
-                    <p class="text-gray-400 text-sm">2025.11.08 公開 | デジタルペインティングの制作過程をノーカットで紹介。</p>
-                </div>
-            </div>
-
-            <div class="text-center mt-12">
-                <a href="https://www.youtube.com/@YouTube" target="_blank" class="text-lg font-medium text-green-400 hover:underline">
-                    もっと見る <i class="fas fa-arrow-right ml-2"></i>
-                </a>
-            </div>
-        </section>
-
-        <section id="social" class="border-t border-gray-800">
-            <h2 class="text-4xl font-bold text-center mb-16 uppercase">CONNECT WITH US</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <a href="https://x.com/x" target="_blank" class="social-link-card block bg-gray-900 p-8 rounded-xl text-center border-2 border-transparent hover:border-blue-500">
-                    <i class="fab fa-x-twitter text-6xl mb-4 text-white"></i>
-                    <h3 class="text-2xl font-bold mb-2">X (旧Twitter)</h3>
-                    <p class="text-gray-400">リアルタイムでの情報発信と交流</p>
-                </a>
-                
-                <a href="https://www.youtube.com/@YouTube" target="_blank" class="social-link-card block bg-gray-900 p-8 rounded-xl text-center border-2 border-transparent hover:border-red-600">
-                    <i class="fab fa-youtube text-6xl mb-4 text-red-600"></i>
-                    <h3 class="text-2xl font-bold mb-2">YouTube</h3>
-                    <p class="text-gray-400">メインとなる動画コンテンツを公開</p>
-                </a>
-
-                <a href="https://discord.com/" target="_blank" class="social-link-card block bg-gray-900 p-8 rounded-xl text-center border-2 border-transparent hover:border-indigo-500">
-                    <i class="fab fa-discord text-6xl mb-4 text-indigo-500"></i>
-                    <h3 class="text-2xl font-bold mb-2">Discord</h3>
-                    <p class="text-gray-400">コミュニティメンバーとの雑談や質問対応</p>
-                </a>
-            </div>
-        </section>
+    <main class="hero">
+        <h1>私のポートフォリオへようこそ</h1>
+        <p>制作物やスキル、活動内容を紹介しています。</p>
+        <a href="about.html" class="button">さらに詳しく</a>
     </main>
 
-    <footer class="bg-gray-900 py-6 mt-12 border-t border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-gray-500 text-sm">
-                &copy; 2025 DARKMODE PROJECT. All Rights Reserved.
-            </p>
-            <p class="text-gray-500 text-xs mt-1">
-                このサイトは黒ベースと白文字でデザインされています。
-            </p>
-        </div>
+    <footer>
+        <p>&copy; 2025 Kokonatsu. All rights reserved.</p>
     </footer>
 </body>
 </html>
