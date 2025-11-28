@@ -258,7 +258,88 @@ main:not(.hero-section) {
     margin-bottom: 25px;
     flex-grow: 1;
 }
+/* --- 制作物のハイライトエリア (修正) --- */
 
+/* 既存の .highlight-card はそのままにし、新しいデザインは .new-style-card で定義 */
+.highlight-card {
+    /* 既存のスタイルを維持し、new-style-cardで上書き・追加 */
+}
+
+.new-style-card { /* 新しいカードデザイン */
+    background-color: #1a1a1a; /* 添付画像に近い、より暗い背景色 */
+    padding: 25px; /* 少し小さめに */
+    border-radius: 8px; /* 角を少し丸める */
+    width: 100%;
+    max-width: 320px; /* カードの最大幅を調整 */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5); /* 影を控えめに */
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #282828; /* 細い境界線を追加 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.new-style-card:hover {
+    transform: translateY(-3px); /* 少し浮き上がる */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7); /* ホバーで影を強調 */
+    border-color: #444; /* ホバーで境界線を強調 */
+}
+
+/* カード内の要素の調整 */
+.new-style-card .card-tag {
+    /* 既存のタグスタイルはそのまま */
+    font-size: 0.7em; /* タグを少し小さく */
+    padding: 3px 7px;
+    margin-bottom: 12px;
+}
+
+.new-style-card h4 {
+    font-size: 1.3em; /* タイトルを少し小さく */
+    margin-bottom: 10px;
+    line-height: 1.4; /* 行間を調整 */
+    min-height: 60px; /* タイトルの高さが揃うように */
+}
+
+.new-style-card p {
+    font-size: 0.9em; /* 説明文を少し小さく */
+    margin-bottom: 20px;
+    flex-grow: 1;
+    color: #b0b0b0; /* 説明文の色を少し薄く */
+}
+
+.new-style-card .button {
+    font-size: 0.95em; /* ボタンの文字サイズを調整 */
+    padding: 10px 18px;
+    border-radius: 6px; /* ボタンの角丸を調整 */
+}
+
+
+/* --- 新しいタグカラー --- */
+.card-tag.tag-gray {
+    background-color: #555; /* 落ち着いたグレー */
+    color: white;
+}
+
+/* --- 新しいボタンカラー --- */
+.button-note-gray {
+    background-color: #444; /* noteの新作カード用ボタン */
+    color: white;
+}
+.button-note-gray:hover {
+    background-color: #666;
+}
+
+/* レスポンシブ対応の調整 (任意) */
+@media (max-width: 768px) {
+    .new-style-card {
+        max-width: 90%; /* スマホでカードの幅を広げる */
+    }
+}
+@media (max-width: 480px) {
+    .new-style-card h4 {
+        font-size: 1.2em;
+    }
+}
 /* ------------------------------------------------------------------ */
 /* 4. コンタクトページ専用スタイル         */
 /* ------------------------------------------------------------------ */
