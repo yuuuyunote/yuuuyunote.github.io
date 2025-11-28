@@ -869,3 +869,63 @@ footer {
         text-align: center;
     }
 }
+/*自己紹介*/
+@media (max-width: 768px) {
+    .profile-section {
+        flex-direction: column; /* 画像とテキストを縦並びに */
+        text-align: center;
+    }
+    .profile-image-container {
+        margin-bottom: 20px;
+    }
+
+    /* 統計エリア（選ばれる理由と実績） */
+    .stats-container, .stats-container-sm {
+        flex-wrap: wrap; /* 統計項目を折り返す */
+        justify-content: center;
+    }
+    .stat-item, .stat-item-sm {
+        flex-basis: 45%; /* 2列表示 */
+        margin-bottom: 30px;
+    }
+    .stat-number, .stat-number-sm {
+        font-size: 2.5em;
+    }
+    
+    .bot-cards-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .bot-card {
+        max-width: 90%;
+    }
+    
+    .skills-list ul {
+        justify-content: center;
+    }
+}
+/*ホーム*/
+@media (max-width: 768px) {
+
+    .hero-section {
+        padding: 100px 5%;
+    }
+    .hero-section h1 {
+        font-size: 2.5em;
+    }
+    .hero-actions {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .button-lg {
+        width: 100%;
+
+    /* 制作物ハイライトカード (新しいスタイル) */
+    .highlight-cards-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .highlight-card, .new-style-card {
+        max-width: 90%;
+    }
+}
