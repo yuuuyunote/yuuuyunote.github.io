@@ -7,6 +7,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     </head>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const menuToggle = document.querySelector('.menu-toggle');
+        const mainNav = document.getElementById('main-nav');
+
+        // ボタンがクリックされたときの処理
+        menuToggle.addEventListener('click', () => {
+            // main-nav に 'nav-open' クラスを追加/削除する
+            mainNav.classList.toggle('nav-open');
+        });
+    });
+</script>
 <body>
 <header>
     <div class="logo">ゆううゆサイト</div>
