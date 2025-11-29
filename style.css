@@ -853,25 +853,38 @@ footer {
 /* ------------------------------------------------------------------ */
 /* --- 8.レスポンシブ対応 (スマートフォン向け) --- */
 /* ------------------------------------------------------------------ */
+/* ------------------------------------------------------------------ */
+/* --- 8.レスポンシブ対応 (スマートフォン向け) --- */
+/* ------------------------------------------------------------------ */
 @media (max-width: 768px) {
 
-    /* 1. ハンバーガーボタンを表示する */
+    /* --- ヘッダーのメインナビゲーション制御 --- */
+
+    /* 1. PC用のナビゲーションを非表示にする（最重要） */
+    nav {
+        /* nav#main-nav のIDを持つ要素に影響を与えるため、
+           このdisplay: none; は nav#main-nav の定義で上書きされます */
+        /* PC画面での flex を上書き */
+        display: none;
+    }
+    
+    /* 2. ハンバーガーボタンを表示する */
     .menu-toggle {
         display: block; /* 狭い画面幅で表示 */
-        position: absolute; /* ヘッダー内の右上に配置 */
+        position: absolute; /* ヘッダー内の右上に配置を強制 */
         right: 20px;
         top: 15px;
     }
 
-    /* 2. ナビゲーションの表示と配置を修正 */
+    /* 3. クリック時に表示されるドロップダウンメニューの定義 */
     nav#main-nav {
         display: none; /* デフォルトでは非表示 */
         flex-direction: column;
         position: absolute;
-        top: 61px; /* ヘッダーの下に配置 (ヘッダーの高さによる) */
+        top: 61px; /* ヘッダーの下に配置 */
         left: 0;
         width: 100%;
-        background-color: #1e1e1e; /* ヘッダーと同じ背景色 */
+        background-color: #1e1e1e;
         border-top: 1px solid #333;
         z-index: 999;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
@@ -879,25 +892,17 @@ footer {
     
     /* JavaScriptで 'nav-open' クラスが付いたときだけ表示 */
     nav#main-nav.nav-open {
-        display: flex; 
+        display: flex; /* これによりナビゲーションが表示される */
     }
 
+    /* ... 既存のナビゲーションの縦並びスタイルはそのまま ... */
     nav#main-nav ul {
         flex-direction: column;
         width: 100%;
         padding: 10px 0;
     }
 
-    nav#main-nav ul li {
-        margin: 0;
-        text-align: center;
-        border-bottom: 1px solid #282828; /* 区切り線 */
-    }
-
-    nav#main-nav ul li a {
-        display: block;
-        padding: 15px 0;
-    }
+    /* ... 既存の自己紹介、ホーム、サーバー紹介などのレスポンシブ修正はそのまま ... */
 }
 
 /*自己紹介*/
