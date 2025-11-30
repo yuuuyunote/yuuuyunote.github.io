@@ -1,38 +1,16 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-        <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ゆううゆサイト</title>
-    <link rel="stylesheet" href="style.css">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
-    </head>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const menuToggle = document.querySelector('.menu-toggle');
-        const mainNav = document.getElementById('main-nav');
-
-        // 要素が正しく読み込まれているかチェック
-        if (menuToggle && mainNav) {
-            menuToggle.addEventListener('click', () => {
-                // main-nav に 'nav-open' クラスを追加/削除する
-                mainNav.classList.toggle('nav-open');
-                
-                // アイコンを三本線 (fa-bars) と バツ (fa-times) で切り替える (任意)
-                const icon = menuToggle.querySelector('i');
-                if (icon) {
-                    icon.classList.toggle('fa-bars');
-                    icon.classList.toggle('fa-times');
-                }
-            });
-        } else {
-            // console.error("ハンバーガーメニューの要素が見つかりませんでした。"); // エラー確認用
-        }
-    });
-</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ゆううゆサイト</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+</head>
 <body>
+
 <header>
     <div class="logo">ゆううゆサイト</div>
     
@@ -40,13 +18,14 @@
         <i class="fas fa-bars"></i>
     </button>
     
-<nav id="main-nav"> 
-        <ul>
-            <li><a href="index.html" class="active">ホーム</a></li> <li><a href="about.html">自己紹介</a></li>
+    <nav id="main-nav"> 
+        <ul>
+            <li><a href="index.html" class="active">ホーム</a></li> 
+            <li><a href="about.html">自己紹介</a></li>
             <li><a href="discord.html">運営中のサーバー</a></li>
             <li><a href="contact.html">コンタクト</a></li>
-        </ul>
-    </nav>
+        </ul>
+    </nav>
 </header>
 
 <main>
@@ -54,11 +33,11 @@
         <h1>最高のDiscordライフを</h1>
         <p>Discordサーバーやnoteを読んでDiscord強者になろう！</p>
         <div class="maintenance-message" style="
-        background-color: #ff4d4d; /* 目を引く赤色 */
-        color: white; /* 白い文字 */
-        font-size: 1.2em; /* フォントサイズを大きく */
-        font-weight: bold; /* 太字 */
-        padding: 15px 25px; /* 上下左右のパディング */
+        background-color: #ff4d4d; /*注意喚起メッセージ*/
+        color: white;
+        font-size: 1.2em;
+        font-weight: bold;
+        padding: 15px 25px;
         border-radius: 8px; /* 角を丸く */
         margin: 30px auto; /* 上下の余白と中央寄せ */
         max-width: 600px; /* 最大幅を設定 */
@@ -119,8 +98,33 @@
 </section>
 </main>
 
-    <footer>
-        <p>&copy; 2025 Yuuuyu. All rights reserved.</p>
-    </footer>
+<footer>
+    <p>&copy; 2025 Yuuuyu. All rights reserved.</p>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const menuToggle = document.querySelector('.menu-toggle');
+        const mainNav = document.getElementById('main-nav');
+
+        // 要素が正しく読み込まれているかチェック
+        if (menuToggle && mainNav) {
+            menuToggle.addEventListener('click', () => {
+                // main-nav に 'nav-open' クラスを追加/削除する
+                mainNav.classList.toggle('nav-open');
+                
+                // アイコンを三本線 (fa-bars) と バツ (fa-times) で切り替える (任意)
+                const icon = menuToggle.querySelector('i');
+                if (icon) {
+                    icon.classList.toggle('fa-bars');
+                    icon.classList.toggle('fa-times');
+                }
+            });
+        } else {
+            // console.error("ハンバーガーメニューの要素が見つかりませんでした。"); // エラー確認用
+        }
+    });
+</script>
+
 </body>
 </html>
