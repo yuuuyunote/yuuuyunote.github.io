@@ -1,9 +1,15 @@
-<title>運営中のサーバーサーバー</title>
+<!DOCTYPE html>
+<html lang="ja">
 <head>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>運営中のサーバー | ゆううゆサイト</title> 
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
+<body>
+
 <header>
     <div class="logo">ゆううゆサイト</div>
     
@@ -11,15 +17,16 @@
         <i class="fas fa-bars"></i>
     </button>
     
-    <nav id="main-nav"> 
+    <nav id="main-nav">    
         <ul>
             <li><a href="index.html">ホーム</a></li>
-            <li><a href="about.html" class="active">自己紹介</a></li> 
-            <li><a href="discord.html">運営中のサーバー</a></li>
+            <li><a href="about.html">自己紹介</a></li> 
+            <li><a href="discord.html" class="active">運営中のサーバー</a></li>
             <li><a href="contact.html">コンタクト</a></li>
         </ul>
     </nav>
 </header>
+
 <main>
     <section class="discord-intro-section">
         <h2>コミュニティ参加とサポート活動</h2>
@@ -76,3 +83,25 @@
             </div>
     </section>
 </main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const menuToggle = document.querySelector('.menu-toggle');
+        const mainNav = document.getElementById('main-nav');
+
+        if (menuToggle && mainNav) {
+            menuToggle.addEventListener('click', () => {
+                mainNav.classList.toggle('nav-open');
+                
+                const icon = menuToggle.querySelector('i');
+                if (icon) {
+                    icon.classList.toggle('fa-bars');
+                    icon.classList.toggle('fa-times');
+                }
+            });
+        }
+    });
+</script>
+
+</body>
+</html>
