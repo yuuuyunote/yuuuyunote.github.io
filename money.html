@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>利子付き借金返済カウンター</title>
+    <style>
+        /* --- CSS --- */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #d9534f;
+            margin-bottom: 5px;
+            font-size: 1.5rem;
+        }
+
+        #debt-amount-container {
+            margin-bottom: 30px;
+        }
+
+        #debt-amount {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #d9534f;
+            transition: color 0.5s;
+            display: block;
+        }
+        
+        #debt-amount::after {
+            content: ' 円';
+            font-size: 2rem;
+            margin-left: 5px;
+        }
+
+        .info-box {
+            background-color: #fce8e8; /* 薄い赤 */
+            color: #d9534f;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        button {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.1rem;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #4cae4c;
+        }
+
+        .message {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>借金残高 (年利15%)</h1>
+        <div id="debt-amount-container">
+            <span id="debt-amount">100,000</span>
+        </div>
+        
+        <div class="info-box" id="interest-info">
+            前回返済日：<span id="last-date">---</span>
+        </div>
+
+        <div class="input-group">
+            <label for="payment-input">今回返済する金額 (円)</label>
+            <input type="number" id="payment-input" placeholder="例: 10000" min="1" required>
+        </div>
+
+        <button id="record-payment">返済を記録する</button>
+
+        <p class="message" id="status-message">目標まであと少し！頑張りましょう！</p>
+    </div>
+
+    <script>
+        /* --- JavaScript --- */
+        // 1. 初期設定
+        const debtAmountElement = document.getElementById('debt-amount');
+        const paymentInput = document.getElementById('payment-input');
+        const recordButton = document.getElementById('record-payment');
+        const statusMessage = document.getElementById('status-message');
+        const lastDateElement = document.getElementById('last-date');
+
+        // 定数設定
+        const annualRate = 0.15; // 年利 15%
+        const dailyRate = annualRate / 365; // 日歩
+
+        // 変数設定
+        let totalDebt = 100000; // 初期残高 100,000円
+        // 最終返済日（初回は今日のデータを記録）
+        let lastPaymentDate = new Date(); 
+        
+        // ページ読み込み時に初期残高を表示
+        updateDisplay();
+
+
+        // 2. 表示更新関数
+        function updateDisplay() {
+            debtAmountElement.textContent = Math.round(totalDebt).toLocaleString();
+            lastDateElement.textContent = lastPaymentDate.toLocaleDateString('ja-JP');
+
+            if (totalDebt <= 0) {
+                debtAmountElement.style.color = '#5cb85c'; // 緑色
+                statusMessage.textContent = '🎊 借金完済おめでとうございます！ 🎊';
+                recordButton.disabled = true;
+            } else {
+                debtAmountElement.style.color = '#d9534f'; // 赤色
+                statusMessage.textContent = '目標まであと少し！頑張りましょう！';
+                recordButton.disabled = false;
+            }
+        }
+
+
+        // 3. アニメーション関数 (前回と同じ)
+        function animateCounter(startValue, endValue, duration = 800) {
+            let startTime = null;
+            const range = endValue - startValue; 
+            
+            if (window.currentAnimation) {
+                cancelAnimationFrame(window.currentAnimation);
+            }
+
+            function frame(timestamp) {
+                if (!startTime) startTime = timestamp;
+                const progress = timestamp - startTime;
+                const percentage = Math.min(progress / duration, 1);
+                
+                // 現在表示すべき値を計算し、小数点以下を四捨五入
+                const currentValue = Math.round(startValue + (range * percentage));
+
+                debtAmountElement.textContent = currentValue.toLocaleString();
+                
+                if (percentage < 1) {
+                    window.currentAnimation = requestAnimationFrame(frame);
+                } else {
+                    // アニメーション完了後、最終的な表示を確定し、全体を更新
+                    updateDisplay();
+                }
+            }
+            
+            window.currentAnimation = requestAnimationFrame(frame);
+        }
+
+        
+        // 4. 利子計算と返済処理
+        function recordPayment() {
+            const payment = parseInt(paymentInput.value, 10);
+            const today = new Date();
+
+            if (isNaN(payment) || payment <= 0) {
+                alert('有効な返済額を入力してください。');
+                return;
+            }
+            if (totalDebt <= 0) return;
+
+            // --- 利子計算 ---
+            // 経過日数を計算
+            const diffTime = today.getTime() - lastPaymentDate.getTime();
+            // 1日のミリ秒数 (1000ms * 60s * 60min * 24h)
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+            
+            if (diffDays > 0) {
+                // 利子を計算 (日割り)
+                const interest = totalDebt * dailyRate * diffDays;
+                totalDebt += interest;
+                alert(`${diffDays}日経過したため、利子として ${Math.round(interest).toLocaleString()} 円が加算されました。`);
+            }
+            
+            // --- 返済処理 ---
+            const startDebt = totalDebt;
+            
+            // 返済額を差し引く
+            const newDebt = Math.max(0, totalDebt - payment);
+
+            // 総残高と最終返済日を更新
+            totalDebt = newDebt;
+            lastPaymentDate = today;
+
+            // アニメーションを開始
+            animateCounter(startDebt, newDebt, 800);
+
+            // 入力欄をクリア
+            paymentInput.value = '';
+        }
+
+        recordButton.addEventListener('click', recordPayment);
+    </script>
+
+</body>
+</html>
