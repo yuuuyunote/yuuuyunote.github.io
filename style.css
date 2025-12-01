@@ -1,7 +1,4 @@
-/* ================================================================== */
-/* 0. リセットと基本設定                   */
-/* ================================================================== */
-
+/* ===基本設定=== */
 * {
     margin: 0;
     padding: 0;
@@ -9,19 +6,14 @@
 }
 
 body {
-    /* 修正: 確実に上部の空白をリセット */
     margin-top: 0; 
-    
     font-family: 'Helvetica Neue', Arial, sans-serif;
     line-height: 1.6;
-    background-color: #121212; /* 濃い黒背景 */
-    color: #f4f4f4; /* 明るいテキスト */
+    background-color: #121212;
+    color: #f4f4f4;
 }
 
-/* ------------------------------------------------------------------ */
-/* 1. ヘッダーとナビゲーション             */
-/* ------------------------------------------------------------------ */
-
+/* ===ヘッダーとナビゲーション===  */
 header {
     background-color: #1e1e1e;
     color: #f4f4f4;
@@ -30,16 +22,12 @@ header {
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #333;
-
     /* 上部固定 */
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1000;
-    
-    /* 修正: position: fixed が設定されているため、position: relative は不要 */
-    /* position: relative; */ 
+    z-index: 1000; 
 }
 
 .logo {
@@ -47,9 +35,9 @@ header {
     font-weight: bold;
 }
 
-/* PCでのハンバーガーボタンを非表示に定義 */
+/* PCでのハンバーガーボタンを非表示に */
 .menu-toggle {
-    display: none; /* PCでは常に非表示 */
+    display: none;
     background: none;
     border: none;
     color: #f4f4f4; 
@@ -59,7 +47,6 @@ header {
     padding: 5px;
 }
 
-/* PCでのナビゲーション */
 nav {
     display: flex; 
 }
@@ -73,40 +60,29 @@ nav ul li {
     margin-left: 20px;
 }
 
-/* --- 動的な下線アニメーションのためのリンク設定 --- */
-
+/* --- 動的な下線アニメーション設定 --- */
 nav ul li a {
     text-decoration: none;
     color: #f4f4f4;
     transition: color 0.3s;
-    
-    /* 👇 必須: 下線配置の基準点にするため */
     position: relative; 
-    /* リンクと下線の間にスペースを作る */
     padding-bottom: 5px; 
     display: block; 
 }
 
-/* 下線（疑似要素）の設定 */
 nav ul li a:after {
     content: '';
     position: absolute;
-    bottom: 0; /* リンクの下端に配置 */
+    bottom: 0;
     left: 0;
     right: 0;
-    height: 3px; /* 下線の太さ */
-    background-color: #7289da; /* 下線の色 (Discord Blue) */
-    
-    /* 速度と変化の種類を定義 */
+    height: 3px;
+    background-color: #7289da;
     transition: transform 0.4s ease-out; 
-    
-    /* 初期状態: 横幅を0にする（非表示） */
     transform: scaleX(0); 
-    /* 中央から外に伸びるように原点を中央に設定 */
     transform-origin: bottom center; 
 }
 
-/* ホバー時: 下線を100%の幅で表示（中央から左右に伸びる） */
 nav ul li a:hover {
     color: #7289da;
 }
@@ -114,7 +90,6 @@ nav ul li a:hover:after {
     transform: scaleX(1);
 }
 
-/* アクティブなリンク: 常に下線を100%の幅で表示 */
 nav ul li a.active {
     color: #7289da; 
 }
@@ -122,25 +97,17 @@ nav ul li a.active:after {
     transform: scaleX(1);
 }
 
-
-/* ------------------------------------------------------------------ */
-/* 2. メインコンテンツと共通スタイル       */
-/* ------------------------------------------------------------------ */
-
-/* ヘッダー固定によるコンテンツの重なり解消 (すべてのメインコンテンツに適用) */
+/* ===メインコンテンツと共通スタイル=== */
 main {
-    /* 95pxを保持 */
     padding-top: 95px !important; 
 }
 
-/* ページごとの一般的なメインコンテンツのスタイル */
 main:not(.hero-section) { 
     padding: 40px 5%;
     max-width: 1000px;
     margin: 0 auto;
 }
 
-/* ボタンの共通スタイル */
 .button {
     display: inline-block;
     background-color: #7289da;
@@ -156,7 +123,6 @@ main:not(.hero-section) {
     background-color: #5b6fb6;
 }
 
-/* 共通ボタンサイズ */
 .button-small {
     padding: 8px 15px;
     font-size: 0.9em;
