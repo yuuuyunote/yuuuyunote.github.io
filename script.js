@@ -1,4 +1,4 @@
-/* --- script.js --- */
+/* --- script.js (借金追加機能付き) --- */
 
 // 1. 初期設定とDOM要素の取得
 const debtAmountElement = document.getElementById('debt-amount');
@@ -7,6 +7,15 @@ const recordButton = document.getElementById('record-payment');
 const statusMessage = document.getElementById('status-message');
 const lastDateElement = document.getElementById('last-date');
 
+// ★★★ 追加要素のDOMを取得 ★★★
+// index.html に追加することを前提とします。
+// 以下の要素を index.html の input-group の下などに追加してください。
+// <input type="number" id="borrow-input" placeholder="例: 50000" min="1" required>
+// <button id="record-borrow">借金を追加する</button>
+const borrowInput = document.getElementById('borrow-input');
+const borrowButton = document.getElementById('record-borrow');
+
+
 // 定数設定
 const annualRate = 0.15; // 年利 15%
 const dailyRate = annualRate / 365; // 日歩
@@ -14,7 +23,8 @@ const INITIAL_DEBT = 100000; // 初期残高 100,000円
 
 // 変数設定 (LocalStorageから読み込むか、初期値を使用)
 let totalDebt;
-let lastPaymentDate; 
+let lastInterestDate; // 利子計算の基準日として使用
+// let lastPaymentDate; は使用せず、lastInterestDateで統一
 
 
 // 2. LocalStorageからデータを読み込む関数
@@ -22,21 +32,18 @@ function loadData() {
     // 借金残高の読み込み
     const savedDebt = localStorage.getItem('debtAmount');
     if (savedDebt !== null && !isNaN(parseFloat(savedDebt))) {
-        // 保存データがあれば読み込み
         totalDebt = parseFloat(savedDebt);
     } else {
-        // なければ初期値
         totalDebt = INITIAL_DEBT; 
     }
 
-    // 最終返済日の読み込み
-    const savedDate = localStorage.getItem('lastDate');
+    // 利子計算の基準日の読み込み
+    const savedDate = localStorage.getItem('lastInterestDate');
     if (savedDate !== null && !isNaN(parseInt(savedDate, 10))) {
-        // 保存データがあれば読み込み
-        lastPaymentDate = new Date(parseInt(savedDate, 10));
+        lastInterestDate = new Date(parseInt(savedDate, 10));
     } else {
-        // なければ現在の日付
-        lastPaymentDate = new Date(); 
+        // 保存がなければ現在の日付
+        lastInterestDate = new Date(); 
     }
 }
 
@@ -44,25 +51,26 @@ function loadData() {
 function saveData() {
     // totalDebtを保存
     localStorage.setItem('debtAmount', totalDebt);
-    // lastPaymentDateをミリ秒 (数値) にして保存
-    localStorage.setItem('lastDate', lastPaymentDate.getTime());
+    // lastInterestDateをミリ秒 (数値) にして保存
+    localStorage.setItem('lastInterestDate', lastInterestDate.getTime());
 }
 
 
-// 4. 表示更新関数
+// 4. 表示更新関数 (変更なし)
 function updateDisplay() {
-    // 小数点を四捨五入して表示
     debtAmountElement.textContent = Math.round(totalDebt).toLocaleString();
-    lastDateElement.textContent = lastPaymentDate.toLocaleDateString('ja-JP');
+    lastDateElement.textContent = lastInterestDate.toLocaleDateString('ja-JP');
 
     if (totalDebt <= 0) {
-        debtAmountElement.style.color = '#5cb85c'; // 緑色
+        debtAmountElement.style.color = '#5cb85c';
         statusMessage.textContent = '🎊 借金完済おめでとうございます！ 🎊';
         recordButton.disabled = true;
+        if (borrowButton) borrowButton.disabled = true; // 追加
     } else {
-        debtAmountElement.style.color = '#d9534f'; // 赤色
+        debtAmountElement.style.color = '#d9534f';
         statusMessage.textContent = '目標まであと少し！頑張りましょう！';
         recordButton.disabled = false;
+        if (borrowButton) borrowButton.disabled = false; // 追加
     }
 }
 
@@ -88,7 +96,7 @@ function animateCounter(startValue, endValue, duration = 800) {
         if (percentage < 1) {
             window.currentAnimation = requestAnimationFrame(frame);
         } else {
-            updateDisplay(); // アニメーション完了後に表示を確定
+            updateDisplay();
         }
     }
     
@@ -96,7 +104,7 @@ function animateCounter(startValue, endValue, duration = 800) {
 }
 
 
-// 6. 利子計算と返済処理
+// 6. 利子計算と返済処理 (利子基準日の変数名を変更)
 function recordPayment() {
     const payment = parseInt(paymentInput.value, 10);
     const today = new Date();
@@ -108,43 +116,80 @@ function recordPayment() {
     if (totalDebt <= 0) return;
 
     // --- 利子計算 ---
-    // 経過日数を計算
-    const diffTime = today.getTime() - lastPaymentDate.getTime();
-    // 1日のミリ秒数
+    const diffTime = today.getTime() - lastInterestDate.getTime();
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
     
+    let interestAdded = 0;
     if (diffDays > 0) {
-        const interest = totalDebt * dailyRate * diffDays;
-        totalDebt += interest;
-        alert(`${diffDays}日経過したため、利子として ${Math.round(interest).toLocaleString()} 円が加算されました。`);
+        interestAdded = totalDebt * dailyRate * diffDays;
+        totalDebt += interestAdded;
+        alert(`${diffDays}日経過したため、利子として ${Math.round(interestAdded).toLocaleString()} 円が加算されました。`);
     }
     
     // --- 返済処理 ---
     const startDebt = totalDebt;
-    
     const newDebt = Math.max(0, totalDebt - payment);
 
-    // 総残高と最終返済日を更新
+    // 総残高を更新
     totalDebt = newDebt;
-    lastPaymentDate = today;
+    // 利子計算の基準日を今日に更新（返済したため）
+    lastInterestDate = today;
 
-    // *** ここでLocalStorageにデータを保存 ***
     saveData();
-
-    // アニメーションを開始
     animateCounter(startDebt, newDebt, 800);
-
-    // 入力欄をクリア
     paymentInput.value = '';
 }
 
 
-// 7. 初期化処理
-// ページ読み込み時に実行されます
+// 7. ★★★ 借金追加処理（新しい関数） ★★★
+function recordBorrow() {
+    const borrowAmount = parseInt(borrowInput.value, 10);
+    const today = new Date();
+
+    if (isNaN(borrowAmount) || borrowAmount <= 0) {
+        alert('有効な借入額を入力してください。');
+        return;
+    }
+    
+    // --- 利子計算（追加時も利子を確定させる） ---
+    // 利子を計算し、元本に加算します
+    const diffTime = today.getTime() - lastInterestDate.getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+    
+    let interestAdded = 0;
+    if (diffDays > 0) {
+        interestAdded = totalDebt * dailyRate * diffDays;
+        totalDebt += interestAdded;
+        alert(`${diffDays}日経過したため、利子として ${Math.round(interestAdded).toLocaleString()} 円が加算されました。`);
+    }
+
+    // --- 借入額の追加 ---
+    const startDebt = totalDebt;
+    const newDebt = totalDebt + borrowAmount;
+
+    // 総残高を更新
+    totalDebt = newDebt;
+    // 利子計算の基準日を今日に更新（借入によって残高が変わったため）
+    lastInterestDate = today; 
+
+    alert(`${borrowAmount.toLocaleString()} 円の借金が追加されました！`);
+
+    saveData();
+    animateCounter(startDebt, newDebt, 800); // カウンターは増えるアニメーション
+    borrowInput.value = '';
+}
+
+
+// 8. 初期化処理
 function initialize() {
-    loadData(); // 保存データがあれば読み込む
-    updateDisplay(); // 表示を初期化
+    loadData();
+    updateDisplay();
     recordButton.addEventListener('click', recordPayment);
+    
+    // ★★★ 借金追加ボタンのイベントリスナーを設定 ★★★
+    if (borrowButton) {
+        borrowButton.addEventListener('click', recordBorrow);
+    }
 }
 
 // スクリプトの実行開始
