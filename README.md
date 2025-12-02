@@ -1,1 +1,2 @@
-# yuuuyu.github.io
+ゆううゆ（yuuuyu000）のサイトです。
+HTMLとCSS、JavaScriptの練習用にも使っています。Geminiと一緒にやってるので目標は一人で作れるようになること！
