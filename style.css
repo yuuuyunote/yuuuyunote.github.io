@@ -271,8 +271,8 @@ main:not(.hero-section) {
     margin-bottom: 15px;
     color: white;
 }
-.card-tag.tag-red { background-color: #f75a5a; }
-.card-tag.tag-green { background-color: #4ac970; }
+.card-tag.tag-red { background-color: #4ac970; }
+.card-tag.tag-green { background-color: #f75a5a; }
 .card-tag.tag-pink { background-color: #8c5af7; }
 
 .highlight-card h4 {
