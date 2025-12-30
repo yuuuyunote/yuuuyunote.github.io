@@ -976,3 +976,164 @@ footer {
         max-width: 90%;
     }
 }
+
+/* ------------------------------------------------------------------ */
+/* News & Blog コンテナ全体のレイアウト */
+/* ------------------------------------------------------------------ */
+.news-blog-wrapper {
+    padding: 60px 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.news-blog-container {
+    display: flex;
+    gap: 40px; /* 左右のカラムの間隔 */
+}
+
+.news-column, .blog-column {
+    flex: 1; /* 左右均等の幅 */
+}
+
+/* ヘッダー部分 (News / Blog タイトル) */
+.column-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #333;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.header-titles {
+    display: flex;
+    align-items: baseline;
+    gap: 15px;
+}
+
+.main-title {
+    font-size: 2.2em;
+    font-weight: bold;
+    font-family: 'Helvetica', 'Arial Black', sans-serif;
+    letter-spacing: 1px;
+}
+
+.sub-title {
+    font-size: 0.9em;
+    color: #888;
+}
+
+/* 画像風 Moreボタン */
+.more-btn {
+    background-color: #ff5e7e; /* ピンク */
+    color: white;
+    text-decoration: none;
+    font-size: 0.85em;
+    font-weight: bold;
+    padding: 4px 15px 4px 35px;
+    border-radius: 50px;
+    position: relative;
+    transition: 0.3s;
+}
+
+.more-btn::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    background-color: white; /* 白い丸 */
+    border-radius: 50%;
+}
+
+.more-btn:hover {
+    opacity: 0.8;
+}
+
+/* ------------------------------------------------------------------ */
+/* News リストアイテム（左側） */
+/* ------------------------------------------------------------------ */
+.list-item {
+    padding: 20px 0;
+    border-bottom: 1px solid #333;
+}
+
+.item-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.date-text {
+    font-family: monospace;
+    font-weight: bold;
+    color: #eee;
+    margin-right: 10px;
+}
+
+/* タグの共通スタイル */
+.tag {
+    font-size: 0.7em;
+    font-weight: bold;
+    padding: 2px 10px;
+    border-radius: 50px;
+    color: #121212;
+}
+
+.tag-yellow { background-color: #ffcc00; }
+.tag-gray   { background-color: #666; color: white; }
+.tag-pink   { background-color: #ff85a1; }
+.tag-blue   { background-color: #7289da; color: white; }
+.tag-purple { background-color: #8c5af7; color: white; }
+
+.item-link {
+    color: #f4f4f4;
+    text-decoration: none;
+    font-size: 0.95em;
+    line-height: 1.5;
+    transition: 0.2s;
+}
+
+.item-link:hover {
+    color: #7289da;
+}
+
+/* ------------------------------------------------------------------ */
+/* Blog リストアイテム（右側・縦日付レイアウト） */
+/* ------------------------------------------------------------------ */
+.blog-item {
+    display: flex;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid #333;
+}
+
+.vertical-date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-right: 1px solid #444;
+    padding-right: 20px;
+    min-width: 70px;
+}
+
+.v-year { font-size: 0.7em; color: #888; }
+.v-day  { font-size: 1.3em; font-weight: bold; color: #eee; line-height: 1; margin: 2px 0; }
+.v-week { font-size: 0.7em; color: #888; font-weight: bold; }
+
+.blog-content {
+    flex: 1;
+}
+
+/* ------------------------------------------------------------------ */
+/* レスポンシブ対応 (スマホで1カラムにする) */
+/* ------------------------------------------------------------------ */
+@media (max-width: 900px) {
+    .news-blog-container {
+        flex-direction: column;
+        gap: 60px;
+    }
+}
