@@ -836,6 +836,86 @@ main:not(.hero-section) {
     .achieve-num { font-size: 2.5em; }
 }
 
+/* --- コンタクトページ：Stepsセクション --- */
+.workflow-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.workflow-step {
+    background: #1e1e1e;
+    padding: 30px;
+    border-radius: 12px;
+    position: relative;
+    border: 1px solid #333;
+    text-align: left;
+}
+
+.step-num {
+    display: block;
+    font-size: 2em;
+    font-weight: 900;
+    color: #7289da;
+    opacity: 0.3;
+    margin-bottom: 10px;
+}
+
+.workflow-step h3 {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.workflow-step p {
+    font-size: 0.9em;
+    color: #ccc;
+    line-height: 1.6;
+}
+
+/* --- コンタクトページ：FAQセクション --- */
+.faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.faq-item {
+    background: #1e1e1e;
+    margin-bottom: 20px;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #333;
+}
+
+.faq-question {
+    font-weight: bold;
+    color: #7289da;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+
+.faq-answer {
+    color: #ccc;
+    line-height: 1.7;
+    font-size: 0.95em;
+}
+
+/* --- 強制表示設定 (スクロールアニメーションが動かない場合用) --- */
+/* もしJavaScriptでアニメーションをさせていない場合は、これを有効にしてください */
+.reveal {
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+/* モバイル対応：Stepsを1列にする */
+@media (max-width: 768px) {
+    .workflow-container {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* ------------------------------------------------------------------ */
 /* 5. 自己紹介ページ (about.html) スタイル */
 /* ------------------------------------------------------------------ */
