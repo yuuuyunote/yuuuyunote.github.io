@@ -253,7 +253,7 @@ main:not(.hero-section) {
 
 /* スクロールアニメーション用の設定 */
 .reveal {
-    opacity: 0;
+    opacity: 1;
     transform: translateY(30px);
     transition: all 0.8s ease-out;
 }
