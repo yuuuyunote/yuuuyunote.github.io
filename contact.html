@@ -28,46 +28,77 @@
     </nav>
 </header>
 
-<main class="contact-page">
-    <h2>コンタクト</h2>
-    <p class="intro-text">
-        フォロー・参加を気軽にお待ちしています！
-    </p>
+<main>
+    <section class="contact-intro">
+        <h1>Let's Talk!</h1>
+        <p class="intro-text">
+            「こんなサーバーにしたい」「ここがちょっと不便」など、<br>
+            Discordに関するお悩みがあれば、趣味の範囲でゆるっとお手伝いします！
+        </p>
+    </section>
 
-    <div class="card-container">
-
-        <div class="contact-card discord-card">
-            <h3><i class="fab fa-discord contact-icon"></i>Discord</h3>
-            <p>運営中のDiscordサーバー。Discordの最新情報や運営相談実施しています。</p>
-            <a href="https://discord.gg/g78KdZSfrb" class="card-button discord-button" target="_blank">
-                Discordに参加する
-            </a>
+    <section class="workflow-section reveal">
+        <h2 class="section-title-center">Steps</h2>
+        <p class="section-subtitle-center">完成までのイメージ</p>
+        
+        <div class="workflow-container">
+            <div class="workflow-step">
+                <span class="step-num">01</span>
+                <h3>まずは雑談から</h3>
+                <p>DiscordやXで「こんなことできる？」と気軽に声をかけてください。やりたいことを一緒に膨らませましょう。</p>
+            </div>
+            <div class="workflow-step">
+                <span class="step-num">02</span>
+                <h3>プランを考える</h3>
+                <p>どんなチャンネルやBotが必要か、僕の方で整理して「こんなのどう？」と提案します。</p>
+            </div>
+            <div class="workflow-step">
+                <span class="step-num">03</span>
+                <h3>作ってみる</h3>
+                <p>実際にサーバーをいじります。作業中も「ここはこうしてほしい」などのリクエストは大歓迎です。</p>
+            </div>
+            <div class="workflow-step">
+                <span class="step-num">04</span>
+                <h3>あそびにいく</h3>
+                <p>完成！その後も、使い方がわからなくなったりしたら、いつでも聞いてください。</p>
+            </div>
         </div>
+    </section>
 
-        <div class="contact-card x-card">
-            <h3><i class="fab fa-x-twitter contact-icon"></i>X (Twitter)</h3>
-            <p>日々の活動やnoteの記事のアップデート情報など、リアルタイムな情報を発信しています。</p>
-            <a href="https://x.com/yuuuyu0000" class="card-button x-button" target="_blank">
-                X をフォロー
-            </a>
+    <section class="contact-methods reveal">
+        <div class="card-container">
+            <div class="contact-card discord-card">
+                <h3><i class="fab fa-discord contact-icon"></i>Discord</h3>
+                <p>一番反応が早いです。フレンド申請お待ちしてます！</p>
+                <button class="card-button discord-button" onclick="copyDiscordID()">IDをコピーする</button>
+            </div>
+            <div class="contact-card x-card">
+                <h3><i class="fab fa-x-twitter contact-icon"></i>X (Twitter)</h3>
+                <p>DMも開放しています。フォローもお気軽にどうぞ。</p>
+                <a href="https://x.com/あなたのユーザー名" class="card-button x-button" target="_blank">DMを送ってみる</a>
+            </div>
         </div>
+    </section>
 
-        <div class="contact-card note-card">
-            <h3>
-                <svg width="25" height="25" viewBox="0 0 493 493" fill="none" xmlns="http://www.w3.org/2000/svg" class="contact-svg-icon">
-                    <rect x="1" y="1" width="490.2" height="490.2" rx="104" fill="white"/>
-                    <path d="M139.2 141.7C180.4 141.7 236.8 139.6 277.3 140.7C331.6 142.1 352.1 165.8 352.8 224.2C353.5 257.3 352.8 351.9 352.8 351.9H294C294 269.1 294.3 255.4 294 229.3C293.3 206.3 286.8 195.4 269.1 193.3C250.4 191.2 198 193 198 193V352H139.2V141.7Z" fill="#040000"/>
-                    <rect x="1" y="1" width="490.2" height="490.2" rx="104" stroke="#EBEBEB" stroke-width="2"/>
-                </svg>
-                note
-            </h3>
-            <p>botの使い方やDiscordの最新情報を共有しています。</p>
-            <a href="https://note.com/yuuuyugbp" class="card-button note-button" target="_blank">
-                note を読む
-            </a>
+    <section class="faq-section reveal">
+        <h2 class="section-title-center">Q&A</h2>
+        <p class="section-subtitle-center">よく聞かれること</p>
+        
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">Q. 本当に無料でいいんですか？</div>
+                <div class="faq-answer">はい！趣味でやっているのでお金は不要です。もしサーバーが盛り上がったら、そこに僕も混ぜてくれると嬉しいです（笑）</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Q. まだ構想が全然決まっていないのですが…</div>
+                <div class="faq-answer">全然大丈夫です。「なんとなく人が集まる場所が欲しい」くらいの段階から一緒に考えましょう。</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Q. 権限設定だけとか、小さいことでもいいですか？</div>
+                <div class="faq-answer">もちろんです。Botの導入ひとつ、チャンネルの整理ひとつからお手伝いします。</div>
+            </div>
         </div>
-
-    </div>
+    </section>
 </main>
 
 <script>
