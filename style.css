@@ -752,6 +752,59 @@ main:not(.hero-section) {
     color: #555;
 }
 
+/* --- Network Section --- */
+.network-section {
+    padding: 80px 5%;
+    background: #0d0d0d;
+}
+
+.network-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    max-width: 1100px;
+    margin: 40px auto 0;
+}
+
+.network-card {
+    background: linear-gradient(145deg, #161616, #0f0f0f);
+    padding: 35px;
+    border-radius: 15px;
+    border: 1px solid #222;
+    text-align: left;
+    transition: 0.3s ease;
+}
+
+.network-card:hover {
+    border-color: #7289da;
+    box-shadow: 0 0 20px rgba(114, 137, 218, 0.1);
+}
+
+.network-card i {
+    font-size: 1.8rem;
+    color: #7289da;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.network-card h4 {
+    font-size: 1.25rem;
+    color: #fff;
+    margin-bottom: 12px;
+}
+
+.network-card p {
+    font-size: 0.9rem;
+    color: #888;
+    line-height: 1.7;
+}
+
+/* モバイル調整 */
+@media (max-width: 768px) {
+    .activity-hero { padding-top: 80px; }
+    .stat-num { font-size: 2rem; }
+}
+
 /* ------------------------------------------------------------------ */
 /* 4. コンタクトページ専用スタイル         */
 /* ------------------------------------------------------------------ */
