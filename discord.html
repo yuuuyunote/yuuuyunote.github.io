@@ -3,24 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>運営中のサーバー | ゆううゆサイト</title> 
-    
+    <title>Activity | ゆううゆサイト</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 
 <header>
     <div class="logo">ゆううゆサイト</div>
-    
     <button class="menu-toggle" aria-label="メニューを開く/閉じる">
         <i class="fas fa-bars"></i>
     </button>
-    
-    <nav id="main-nav">    
+    <nav id="main-nav">
         <ul>
             <li><a href="index.html">ホーム</a></li>
-            <li><a href="about.html">自己紹介</a></li> 
+            <li><a href="about.html">自己紹介</a></li>
             <li><a href="discord.html" class="active">運営中のサーバー</a></li>
             <li><a href="contact.html">コンタクト</a></li>
         </ul>
@@ -28,74 +25,57 @@
 </header>
 
 <main>
-    <section class="discord-intro-section">
-        <h2>コミュニティ参加とサポート活動</h2>
-        <p>私が運営・管理しているDiscordサーバーとサポートを担当しているBotをご紹介します。一緒に楽しめるサーバーへの参加をお待ちしています。</p>
-        <div class="maintenance-message" style="
-        background-color: #00552e; /* 目を引く赤色 */
-        color: white; /* 白い文字 */
-        font-size: 1.1em; /* フォントサイズを大きく */
-        font-weight: bold; /* 太字 */
-        padding: 15px 25px; /* 上下左右のパディング */
-        border-radius: 8px; /* 角を丸く */
-        margin: 30px auto; /* 上下の余白と中央寄せ */
-        max-width: 600px; /* 最大幅を設定 */
-        text-align: center; /* 文字を中央寄せ */
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); /* 影で浮き出す */
-        display: block; /* 確実にブロック要素として扱う */
-    ">
-        現在制作中の為、全てのサーバーを掲載出来ていません。
-    </div>
+    <section class="activity-hero">
+        <div class="hero-content">
+            <span class="badge">Official & Beyond</span>
+            <h1>Guide Base +</h1>
+            <p class="hero-lead">「公式を超える活用術」を、その手に。</p>
+        </div>
     </section>
 
-    <section class="server-list-section">
-        <h3>運営・管理サーバー</h3>
-        <div class="server-cards-container">
-            
-            <div class="server-card">
-                <div class="server-icon-area">
-                    <img src="images/servericon01" alt="Guide Base + アイコン" class="server-icon">
-                </div>
-                <h4>Guide Base +</h4>
-                <p>Discordの最新情報や運営相談、誰もが楽しめる雑談サーバーです。</p>
-                <a href="https://discord.gg/g78KdZSfrb" class="button button-discord-blue" target="_blank">サーバーに参加する</a>
-            </div>
-
-            <div class="server-card">
-                <div class="server-icon-area">
-                    <img src="images/servericon02" alt="開発サーバーアイコン" class="server-icon">
-                </div>
-                <h4>Nサーバー</h4>
-                <p>NotionやNoteの情報共有、コミュニティの輪を広げています</p>
-                <a href="https://discord.gg/S63B4Bm3hB" class="button button-discord-blue" target="_blank">サーバーに参加する</a>
-            </div>
-
-            </div>
+    <section class="stats-grid">
+        <div class="stat-item">
+            <span class="stat-num">500+</span>
+            <span class="stat-label">Members</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-num">No.1</span>
+            <span class="stat-label">Asia Leak Speed</span>
+        </div>
+        <div class="stat-item highlight">
+            <span class="stat-num">World Exclusive</span>
+            <span class="stat-label">Global Alliance</span>
+        </div>
     </section>
 
-    <section class="bot-support-section">
-        <h3>サポーター</h3>
-        <div class="support-bot-cards-container">
-            
-            <div class="support-bot-card">
-                <div class="bot-info">
-                    <img src="images/bot_support_a.png" alt="Bot A アイコン" class="bot-support-icon">
-                    <h4>Fortify</h4>
-                </div>
-                <p>不審行動の検知、スパム対策、レイド防止など、基本機能を標準で備えています。</p>
-                <a href="https://fortifybot.com/" class="button button-secondary-green" target="_blank">Botをみてみる</a>
-            </div>
+    <section class="features-section">
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+            <h3>Asia's Fastest News</h3>
+            <p>独自のルートから得られる最新アップデート情報を、アジア最速で配信。Discordで「情弱」になる隙を与えません。</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-globe"></i></div>
+            <h3>Global Alliance</h3>
+            <p>Wumpus CentralやDiscord Previewsと<strong>世界で唯一の情報協定</strong>を締結。世界基準の情報をダイレクトに届けます。</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-magic"></i></div>
+            <h3>Beyond the Manual</h3>
+            <p>公式ヘルプには載っていない、限界を突破する活用術を伝授。設定の「正解」をここで体験してください。</p>
+        </div>
+    </section>
 
-            <div class="support-bot-card">
-                <div class="bot-info">
-                    <img src="images/bot_support_b.png" alt="Bot B アイコン" class="bot-support-icon">
-                    <h4>【Bot 名 B】</h4>
-                </div>
-                <p>特定の分野（例：ゲーム統計、モデレーション）で、Botの安定稼働と新機能の提案を行っています。</p>
-                <a href="【Bot の招待リンク or 公式サイト】" class="button button-secondary-green" target="_blank">Botを導入する</a>
-            </div>
-            
-            </div>
+    <section class="join-section">
+        <div class="join-container">
+            <h2>Join the Frontier</h2>
+            <p>Discord廃人たちが集う、国内有数の高密度コミュニティ。<br>
+            情報も交流も、すべてはここ「GBP」に集約される。</p>
+            <a href="https://discord.gg/g78KdZSfrb" class="join-button" target="_blank">
+                <i class="fab fa-discord"></i> GBPに参加する
+            </a>
+            <p class="join-note">※招待リンクから最前線へ入場できます</p>
+        </div>
     </section>
 </main>
 
@@ -103,11 +83,9 @@
     document.addEventListener('DOMContentLoaded', () => {
         const menuToggle = document.querySelector('.menu-toggle');
         const mainNav = document.getElementById('main-nav');
-
         if (menuToggle && mainNav) {
             menuToggle.addEventListener('click', () => {
                 mainNav.classList.toggle('nav-open');
-                
                 const icon = menuToggle.querySelector('i');
                 if (icon) {
                     icon.classList.toggle('fa-bars');
