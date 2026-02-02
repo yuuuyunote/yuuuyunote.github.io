@@ -605,6 +605,153 @@ main:not(.hero-section) {
     }
 }
 
+/* --- Activity Page (GBP) --- */
+.activity-hero {
+    padding: 100px 5% 60px;
+    text-align: center;
+    background: radial-gradient(circle at center, #1a2a4a 0%, #0a0a0a 100%);
+}
+
+.badge {
+    display: inline-block;
+    padding: 5px 15px;
+    background: rgba(114, 137, 218, 0.2);
+    color: #7289da;
+    border: 1px solid #7289da;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}
+
+.activity-hero h1 {
+    font-size: clamp(3rem, 10vw, 5rem);
+    font-weight: 900;
+    margin-bottom: 10px;
+    letter-spacing: -2px;
+}
+
+.hero-lead {
+    font-size: 1.2rem;
+    color: #aaa;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Stats */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2px;
+    background: #333; /* 境界線用 */
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #333;
+}
+
+.stat-item {
+    background: #0a0a0a;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.stat-num {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #fff;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: #7289da;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stat-item.highlight .stat-num {
+    color: #7289da;
+    text-shadow: 0 0 15px rgba(114, 137, 218, 0.5);
+}
+
+/* Features */
+.features-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 80px 5%;
+}
+
+.feature-card {
+    background: #111;
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid #222;
+    transition: 0.3s;
+}
+
+.feature-card:hover {
+    border-color: #7289da;
+    transform: translateY(-5px);
+}
+
+.feature-icon {
+    font-size: 2rem;
+    color: #7289da;
+    margin-bottom: 20px;
+}
+
+.feature-card h3 {
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+}
+
+.feature-card p {
+    color: #888;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+/* Join Section */
+.join-section {
+    padding: 100px 5%;
+    text-align: center;
+}
+
+.join-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: linear-gradient(145deg, #111, #0a0a0a);
+    padding: 60px 30px;
+    border-radius: 30px;
+    border: 1px solid #333;
+}
+
+.join-button {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 18px 40px;
+    background: #7289da;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: 0.3s;
+    box-shadow: 0 10px 20px rgba(114, 137, 218, 0.3);
+}
+
+.join-button:hover {
+    background: #5b73c7;
+    transform: scale(1.05);
+}
+
+.join-note {
+    margin-top: 15px;
+    font-size: 0.8rem;
+    color: #555;
+}
+
 /* ------------------------------------------------------------------ */
 /* 4. コンタクトページ専用スタイル         */
 /* ------------------------------------------------------------------ */
