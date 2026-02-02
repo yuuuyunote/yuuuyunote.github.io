@@ -36,15 +36,38 @@
     <section class="stats-grid">
         <div class="stat-item">
             <span class="stat-num">500+</span>
-            <span class="stat-label">Members</span>
+            <span class="stat-label">Expert Members</span>
         </div>
         <div class="stat-item">
             <span class="stat-num">No.1</span>
             <span class="stat-label">Asia Leak Speed</span>
         </div>
         <div class="stat-item highlight">
-            <span class="stat-num">World Exclusive</span>
-            <span class="stat-label">Global Alliance</span>
+            <span class="stat-num">Global</span>
+            <span class="stat-label">Information Alliance</span>
+        </div>
+    </section>
+
+    <section class="network-section">
+        <h2 class="section-title-center">Top-Tier Network</h2>
+        <p class="section-subtitle-center">世界水準の知見が集まる場所</p>
+        
+        <div class="network-grid">
+            <div class="network-card">
+                <i class="fas fa-crown"></i>
+                <h4>Top.gg CEO & Admins</h4>
+                <p>世界最大のBotリスト「Top.gg」のCEOをはじめ、プラットフォームの中枢を担う人物が在籍。運営の「裏側」を知る環境があります。</p>
+            </div>
+            <div class="network-card">
+                <i class="fas fa-code"></i>
+                <h4>Elite Developers</h4>
+                <p>数々の有名Bot開発者が集結。最新のAPI仕様から、公式を超える独自のBot構築まで、技術的な議論が日々交わされています。</p>
+            </div>
+            <div class="network-card">
+                <i class="fas fa-users-cog"></i>
+                <h4>Server Architects</h4>
+                <p>数万人規模のコミュニティを統括する現役オーナーが多数。理論だけではない「血の通った運営術」が蓄積されています。</p>
+            </div>
         </div>
     </section>
 
@@ -52,29 +75,22 @@
         <div class="feature-card">
             <div class="feature-icon"><i class="fas fa-bolt"></i></div>
             <h3>Asia's Fastest News</h3>
-            <p>独自のルートから得られる最新アップデート情報を、アジア最速で配信。Discordで「情弱」になる隙を与えません。</p>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon"><i class="fas fa-globe"></i></div>
-            <h3>Global Alliance</h3>
-            <p>Wumpus CentralやDiscord Previewsと<strong>世界で唯一の情報協定</strong>を締結。世界基準の情報をダイレクトに届けます。</p>
+            <p>Wumpus CentralやDiscord Previewsとの<strong>世界唯一の情報協定</strong>により、リーク情報をアジア最速で配信。情弱になる隙を与えません。</p>
         </div>
         <div class="feature-card">
             <div class="feature-icon"><i class="fas fa-magic"></i></div>
             <h3>Beyond the Manual</h3>
-            <p>公式ヘルプには載っていない、限界を突破する活用術を伝授。設定の「正解」をここで体験してください。</p>
+            <p>公式ヘルプには載っていない「限界突破の活用術」。権限の隙間を埋める設計、UXを最大化する導線構築の正解がここにあります。</p>
         </div>
     </section>
 
     <section class="join-section">
         <div class="join-container">
-            <h2>Join the Frontier</h2>
-            <p>Discord廃人たちが集う、国内有数の高密度コミュニティ。<br>
-            情報も交流も、すべてはここ「GBP」に集約される。</p>
+            <h2>Step into the Frontier</h2>
+            <p>「GBP」は、ただのサーバーではありません。Discordの未来を先取りする実験場です。</p>
             <a href="https://discord.gg/g78KdZSfrb" class="join-button" target="_blank">
-                <i class="fab fa-discord"></i> GBPに参加する
+                <i class="fab fa-discord"></i> GBPに参加して情報を掴む
             </a>
-            <p class="join-note">※招待リンクから最前線へ入場できます</p>
         </div>
     </section>
 </main>
@@ -88,8 +104,7 @@
                 mainNav.classList.toggle('nav-open');
                 const icon = menuToggle.querySelector('i');
                 if (icon) {
-                    icon.classList.toggle('fa-bars');
-                    icon.classList.toggle('fa-times');
+                    icon.classList.toggle('fa-bars'); icon.classList.toggle('fa-times');
                 }
             });
         }
