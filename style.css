@@ -10,7 +10,7 @@
 body {
     font-family: 'Helvetica Neue', Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
     line-height: 1.6;
-    background-color: #121212; /* 基本背景色 */
+    background-color: #080808;
     color: #f4f4f4;            /* 基本文字色 */
     margin-top: 0;
     overflow-x: hidden;
@@ -41,6 +41,13 @@ main:not(.hero-section):not(.activity-hero-wrapper) {
     padding: 40px 5%;
     max-width: 1200px;
     margin: 0 auto;
+}
+
+/* カード類を背景から浮かせる */
+.network-card, .achievement-item, .contact-card, .faq-item, .bot-card, .server-card {
+    background-color: #141414; /* 背景より少し明るく */
+    border: 1px solid #222;    /* 境界線を少しハッキリさせる */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* 影を強くして立体感を出す */
 }
 
 /* ==========================================================================
