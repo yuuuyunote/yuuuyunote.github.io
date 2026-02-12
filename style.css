@@ -133,10 +133,9 @@ nav ul li a.active::after {
    3. UI COMPONENTS (ボタン、タグ、共通パーツ)
    ========================================================================== */
 
-/* --- 共通ボタンデザイン (モダン・シャープ) --- */
-button,
-.button,
-.card-button,
+/* すべてのボタンの共通デザイン */
+button, 
+.card-button, 
 .join-button,
 .discord-button,
 .x-button,
@@ -147,62 +146,64 @@ button,
     justify-content: center;
     gap: 10px;
     padding: 12px 28px;
-    border-radius: 8px; /* シャープな角丸 */
+    
+    /* 1. 角の丸み：画像に合わせたシャープな設定 */
+    border-radius: 10px; 
+    
     font-size: 0.95rem;
     font-weight: 700;
     cursor: pointer;
     text-decoration: none;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    
+    /* 2. 境界線：背景に馴染む薄い白 */
     border: 1px solid rgba(255, 255, 255, 0.1);
     background: #1e1e1e;
     color: #fff;
+    
+    /* 3. 立体感：内側の光と外側の影 */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 
                 inset 0 1px 0 rgba(255, 255, 255, 0.05);
-    line-height: 1.2;
 }
 
-/* ホバー時の共通挙動 */
+/* ホバー（マウスを乗せた時）の動き */
 button:hover,
-.button:hover,
 .card-button:hover,
-.join-button:hover,
-.discord-button:hover,
-.x-button:hover,
-.note-button:hover,
-.bot-button:hover {
-    transform: translateY(-2px);
+.join-button:hover {
+    transform: translateY(-2px); /* 少し浮き上がる */
+    background: #252525;
     border-color: rgba(255, 255, 255, 0.3);
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
-    background: #2a2a2a;
 }
 
-/* サイズバリエーション */
-.button-small { padding: 8px 15px; font-size: 0.85em; }
-.button-lg    { padding: 15px 40px; font-size: 1.1em; }
-
-/* カラーバリエーション (個別クラス) */
-.button-discord-blue, .discord-button {
-    color: #7289da; border-color: rgba(114, 137, 218, 0.3);
+/* Discordボタンの個別設定 */
+.discord-button, .join-button {
+    color: #7289da;
+    border-color: rgba(114, 137, 218, 0.3);
 }
-.button-discord-blue:hover, .discord-button:hover {
-    background: #7289da; color: #fff; border-color: #7289da;
+.discord-button:hover, .join-button:hover {
+    background: #7289da;
+    color: #fff;
+    border-color: #7289da;
 }
 
+/* Noteボタンの個別設定 */
 .note-button {
-    color: #2cb696; border-color: rgba(44, 182, 150, 0.3);
+    color: #2cb696;
+    border-color: rgba(44, 182, 150, 0.3);
 }
 .note-button:hover {
-    background: #2cb696; color: #fff; border-color: #2cb696;
+    background: #2cb696;
+    color: #fff;
+    border-color: #2cb696;
 }
 
-.x-button { color: #fff; }
-.x-button:hover { background: #fff; color: #000; border-color: #fff; }
-
-.button-purple { background-color: rgba(114, 90, 247, 0.1); color: #8c5af7; border-color: #8c5af7; }
-.button-purple:hover { background-color: #8c5af7; color: #fff; }
-
-.button-green { background-color: rgba(74, 201, 112, 0.1); color: #4ac970; border-color: #4ac970; }
-.button-green:hover { background-color: #4ac970; color: #fff; }
+/* Xボタンの個別設定 */
+.x-button:hover {
+    background: #fff;
+    color: #000;
+    border-color: #fff;
+}
 
 /* --- News/Blog用 "More" ボタン (ピル型) --- */
 .more-btn {
