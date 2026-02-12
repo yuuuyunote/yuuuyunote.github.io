@@ -1469,6 +1469,66 @@ main:not(.hero-section) {
     opacity: 0.8;
 }
 
+/* --- 自己紹介ページ：追加実績 --- */
+.achievements-section {
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid #333;
+}
+
+.achievement-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.achievement-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    background: #111;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #222;
+    transition: 0.3s;
+}
+
+.achievement-item:hover {
+    border-color: #7289da;
+    transform: translateX(10px);
+}
+
+.ach-icon {
+    font-size: 1.8rem;
+    color: #7289da;
+    padding-top: 5px;
+}
+
+.ach-text h4 {
+    font-size: 1.1rem;
+    color: #fff;
+    margin-bottom: 8px;
+}
+
+.ach-text p {
+    font-size: 0.95rem;
+    color: #aaa;
+    line-height: 1.6;
+}
+
+.ach-text strong {
+    color: #7289da;
+    font-weight: bold;
+}
+
+/* スマホ対応 */
+@media (max-width: 768px) {
+    .achievement-item:hover {
+        transform: none; /* スマホでは横移動を無効化 */
+    }
+}
+
 /* ------------------------------------------------------------------ */
 /* --- 運営中のサーバー(discord.html) 専用スタイル --- */
 /* ------------------------------------------------------------------ */
