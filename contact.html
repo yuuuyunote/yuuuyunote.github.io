@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>コンタクト — ゆううゆ Portfolio</title>
+  <meta name="description" content="ゆううゆへのコンタクト。Discord DM・サーバー・X・noteからご連絡ください。" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="script.js" defer></script>
+
+  <style>
+    .contact-intro {
+      margin-bottom: 48px;
+    }
+
+    .contact-group-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-sub);
+      margin-bottom: 12px;
+      padding-left: 4px;
+    }
+
+    .contact-group { margin-bottom: 40px; }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="nav" role="navigation" aria-label="グローバルナビゲーション">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="ホームへ">
+        <div class="nav-logo-icon">yy</div>
+        <span class="nav-logo-text">ゆううゆ</span>
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="index.html">ホーム</a></li>
+        <li><a href="works.html">実績</a></li>
+        <li><a href="services.html">依頼できる内容</a></li>
+        <li><a href="contact.html">コンタクト</a></li>
+      </ul>
+      <div class="nav-right">
+        <label class="theme-toggle" aria-label="ダークモード切り替え">
+          <input type="checkbox" id="theme-checkbox" />
+          <div class="theme-toggle-track"></div>
+          <div class="theme-toggle-thumb">
+            <i class="fa-solid fa-moon" style="color:var(--accent);"></i>
+          </div>
+        </label>
+        <button class="hamburger" id="hamburger-btn" aria-label="メニューを開く" aria-expanded="false" aria-controls="mobile-menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobile-menu" role="menu">
+    <a href="index.html" role="menuitem">ホーム</a>
+    <a href="works.html" role="menuitem">実績</a>
+    <a href="services.html" role="menuitem">依頼できる内容</a>
+    <a href="contact.html" role="menuitem">コンタクト</a>
+  </div>
+
+  <!-- ===== MAIN ===== -->
+  <main class="page-wrap">
+
+    <div class="container">
+      <div class="page-hero">
+        <p class="section-label">Contact</p>
+        <h1 class="section-title">コンタクト</h1>
+        <p class="section-desc" style="margin-bottom:0;">
+          お気軽にご連絡ください。Discord DM が最もスムーズです。
+        </p>
+      </div>
+    </div>
+
+    <section class="section-sm">
+      <div class="container">
+
+        <!-- Discord group -->
+        <div class="contact-group">
+          <p class="contact-group-label">Discord</p>
+          <ul class="contact-grid" role="list">
+
+            <!-- DM -->
+            <li>
+              <a
+                href="https://discord.com/users/YOUR_USER_ID"
+                class="card contact-card dc-dm fade-up fade-up-1"
+                target="_blank"
+                rel="noopener"
+                aria-label="Discord DM でゆううゆに連絡する"
+              >
+                <div class="contact-icon" aria-hidden="true">
+                  <i class="fa-brands fa-discord"></i>
+                </div>
+                <div class="contact-info">
+                  <p class="contact-label">Direct Message</p>
+                  <p class="contact-name">Discord DM</p>
+                  <p class="contact-desc">個別のご相談はこちら</p>
+                </div>
+                <i class="fa-solid fa-arrow-right contact-arrow" aria-hidden="true"></i>
+              </a>
+            </li>
+
+            <!-- Server -->
+            <li>
+              <a
+                href="https://discord.gg/YOUR_INVITE_LINK"
+                class="card contact-card dc-srv fade-up fade-up-2"
+                target="_blank"
+                rel="noopener"
+                aria-label="Discord サーバー Guide Base + に参加する"
+              >
+                <div class="contact-icon" aria-hidden="true">
+                  <i class="fa-solid fa-server"></i>
+                </div>
+                <div class="contact-info">
+                  <p class="contact-label">Community Server</p>
+                  <p class="contact-name">Guide Base +</p>
+                  <p class="contact-desc">サーバーに参加して質問する</p>
+                </div>
+                <i class="fa-solid fa-arrow-right contact-arrow" aria-hidden="true"></i>
+              </a>
+            </li>
+
+          </ul>
+        </div>
+
+        <!-- SNS group -->
+        <div class="contact-group">
+          <p class="contact-group-label">SNS</p>
+          <ul class="contact-grid" role="list">
+
+            <!-- X -->
+            <li>
+              <a
+                href="https://x.com/yuuuyu0000"
+                class="card contact-card tw fade-up fade-up-3"
+                target="_blank"
+                rel="noopener"
+                aria-label="X (旧Twitter) @yuuuyu0000 に連絡する"
+              >
+                <div class="contact-icon" aria-hidden="true">
+                  <i class="fa-brands fa-x-twitter"></i>
+                </div>
+                <div class="contact-info">
+                  <p class="contact-label">X / Twitter</p>
+                  <p class="contact-name">@yuuuyu0000</p>
+                  <p class="contact-desc">DM または返信でお気軽に</p>
+                </div>
+                <i class="fa-solid fa-arrow-right contact-arrow" aria-hidden="true"></i>
+              </a>
+            </li>
+
+            <!-- note -->
+            <li>
+              <a
+                href="https://note.com/yuuuyugbp"
+                class="card contact-card nt fade-up fade-up-4"
+                target="_blank"
+                rel="noopener"
+                aria-label="note yuuuyugbp のページを見る"
+              >
+                <div class="contact-icon" aria-hidden="true">
+                  <i class="fa-solid fa-pen-nib"></i>
+                </div>
+                <div class="contact-info">
+                  <p class="contact-label">note</p>
+                  <p class="contact-name">yuuuyugbp</p>
+                  <p class="contact-desc">記事のコメントからでもOK</p>
+                </div>
+                <i class="fa-solid fa-arrow-right contact-arrow" aria-hidden="true"></i>
+              </a>
+            </li>
+
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <p class="footer-copy">© 2024 ゆううゆ. All rights reserved.</p>
+      <nav class="footer-links" aria-label="フッターナビゲーション">
+        <a href="index.html">ホーム</a>
+        <a href="works.html">実績</a>
+        <a href="services.html">依頼できる内容</a>
+        <a href="contact.html">コンタクト</a>
+      </nav>
+    </div>
+  </footer>
+
+</body>
+</html>
