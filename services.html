@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>依頼できる内容 — ゆううゆ Portfolio</title>
+  <meta name="description" content="ゆううゆへの依頼内容。コミュニティ運営サポート・サーバー構築補助・note記事作成を無償で受け付けています。" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="script.js" defer></script>
+
+  <style>
+    /* services page specific */
+    .service-footer-note {
+      margin-top: 40px;
+      padding: 24px 28px;
+      border-radius: var(--radius);
+      background: var(--accent-light);
+      border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .service-footer-note i {
+      color: var(--accent);
+      font-size: 18px;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .service-footer-note p {
+      font-size: 14px;
+      color: var(--text-sub);
+      line-height: 1.75;
+    }
+
+    .service-footer-note strong {
+      color: var(--text);
+    }
+
+    .service-card {
+      transition: box-shadow var(--transition), transform var(--transition),
+                  background var(--transition), border-color var(--transition);
+    }
+
+    .service-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      margin: 24px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="nav" role="navigation" aria-label="グローバルナビゲーション">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="ホームへ">
+        <div class="nav-logo-icon">yy</div>
+        <span class="nav-logo-text">ゆううゆ</span>
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="index.html">ホーム</a></li>
+        <li><a href="works.html">実績</a></li>
+        <li><a href="services.html">依頼できる内容</a></li>
+        <li><a href="contact.html">コンタクト</a></li>
+      </ul>
+      <div class="nav-right">
+        <label class="theme-toggle" aria-label="ダークモード切り替え">
+          <input type="checkbox" id="theme-checkbox" />
+          <div class="theme-toggle-track"></div>
+          <div class="theme-toggle-thumb">
+            <i class="fa-solid fa-moon" style="color:var(--accent);"></i>
+          </div>
+        </label>
+        <button class="hamburger" id="hamburger-btn" aria-label="メニューを開く" aria-expanded="false" aria-controls="mobile-menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobile-menu" role="menu">
+    <a href="index.html" role="menuitem">ホーム</a>
+    <a href="works.html" role="menuitem">実績</a>
+    <a href="services.html" role="menuitem">依頼できる内容</a>
+    <a href="contact.html" role="menuitem">コンタクト</a>
+  </div>
+
+  <!-- ===== MAIN ===== -->
+  <main class="page-wrap">
+
+    <div class="container">
+      <div class="page-hero">
+        <p class="section-label">Services</p>
+        <h1 class="section-title">依頼できる内容</h1>
+        <p class="section-desc" style="margin-bottom:0;">
+          すべて無償で提供しています。規約違反がなければ基本的にお受けします。
+        </p>
+      </div>
+    </div>
+
+    <section class="section-sm">
+      <div class="container">
+
+        <ul class="services-grid" role="list">
+
+          <!-- Plan 1 -->
+          <li class="card service-card fade-up fade-up-1" aria-labelledby="plan1-title">
+            <article style="padding: 36px 28px;">
+              <div class="service-num" aria-hidden="true">01</div>
+              <div class="service-icon" aria-hidden="true">
+                <i class="fa-solid fa-people-group"></i>
+              </div>
+              <h2 class="service-title" id="plan1-title">コミュニティ運営サポート</h2>
+              <p class="service-desc">
+                Discordサーバーの運営に関する相談・アドバイスを行います。モデレーション設計の見直し、Bot選定、ルール整備、メンバーエンゲージメントの向上策など、運営全般をサポートします。
+              </p>
+              <div class="service-divider"></div>
+              <div class="service-price" aria-label="価格">
+                <span class="service-price-num">¥0</span>
+                <span class="service-price-unit">/ 無償</span>
+              </div>
+              <p class="service-condition">条件: 規約違反がなければOK</p>
+              <div style="margin-top: 24px;">
+                <a href="contact.html" class="btn btn-primary">
+                  <i class="fa-solid fa-paper-plane"></i> 相談する
+                </a>
+              </div>
+            </article>
+          </li>
+
+          <!-- Plan 2 -->
+          <li class="card service-card fade-up fade-up-2" aria-labelledby="plan2-title">
+            <article style="padding: 36px 28px;">
+              <div class="service-num" aria-hidden="true">02</div>
+              <div class="service-icon" aria-hidden="true">
+                <i class="fa-brands fa-discord"></i>
+              </div>
+              <h2 class="service-title" id="plan2-title">サーバー構築補助</h2>
+              <p class="service-desc">
+                新規・既存サーバーの構築を補助します。チャンネル設計・権限設定・Botの導入と設定（Wick / Sapphire / Double Counter等）・セキュリティ強化まで、幅広くサポートします。
+              </p>
+              <div class="service-divider"></div>
+              <div class="service-price" aria-label="価格">
+                <span class="service-price-num">¥0</span>
+                <span class="service-price-unit">/ 無償</span>
+              </div>
+              <p class="service-condition">条件: 規約違反がなければOK</p>
+              <div style="margin-top: 24px;">
+                <a href="contact.html" class="btn btn-primary">
+                  <i class="fa-solid fa-paper-plane"></i> 相談する
+                </a>
+              </div>
+            </article>
+          </li>
+
+          <!-- Plan 3 -->
+          <li class="card service-card fade-up fade-up-3" aria-labelledby="plan3-title">
+            <article style="padding: 36px 28px;">
+              <div class="service-num" aria-hidden="true">03</div>
+              <div class="service-icon" aria-hidden="true">
+                <i class="fa-solid fa-pen-nib"></i>
+              </div>
+              <h2 class="service-title" id="plan3-title">noteでの記事作成</h2>
+              <p class="service-desc">
+                Discordに関するガイド・解説記事をnoteで作成します。Bot設定手順・セキュリティ設計・機能紹介など、読者に伝わりやすい形で一次情報を整理・執筆します。
+              </p>
+              <div class="service-divider"></div>
+              <div class="service-price" aria-label="価格">
+                <span class="service-price-num">¥0</span>
+                <span class="service-price-unit">/ 無償</span>
+              </div>
+              <p class="service-condition">条件: 規約違反がなければOK</p>
+              <div style="margin-top: 24px;">
+                <a href="contact.html" class="btn btn-primary">
+                  <i class="fa-solid fa-paper-plane"></i> 相談する
+                </a>
+              </div>
+            </article>
+          </li>
+
+        </ul>
+
+        <!-- Note -->
+        <div class="service-footer-note" role="note">
+          <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+          <p>
+            <strong>共通の注意事項：</strong>
+            すべてのプランは無償でのサポートです。Discordの利用規約・コミュニティガイドラインに反する内容のご依頼はお受けできません。
+            まずはコンタクトページからお気軽にご連絡ください。
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <p class="footer-copy">© 2024 ゆううゆ. All rights reserved.</p>
+      <nav class="footer-links" aria-label="フッターナビゲーション">
+        <a href="index.html">ホーム</a>
+        <a href="works.html">実績</a>
+        <a href="services.html">依頼できる内容</a>
+        <a href="contact.html">コンタクト</a>
+      </nav>
+    </div>
+  </footer>
+
+</body>
+</html>
