@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ゆううゆ — Portfolio</title>
+  <meta name="description" content="ゆううゆのポートフォリオサイト。Discordコミュニティ運営・Bot設定・note記事作成を行っています。" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="nav" role="navigation" aria-label="グローバルナビゲーション">
+    <div class="nav-inner">
+      <!-- Logo -->
+      <a href="index.html" class="nav-logo" aria-label="ホームへ">
+        <div class="nav-logo-icon">yy</div>
+        <span class="nav-logo-text">ゆううゆ</span>
+      </a>
+
+      <!-- Desktop links -->
+      <ul class="nav-links" role="list">
+        <li><a href="index.html">ホーム</a></li>
+        <li><a href="works.html">実績</a></li>
+        <li><a href="services.html">依頼できる内容</a></li>
+        <li><a href="contact.html">コンタクト</a></li>
+      </ul>
+
+      <!-- Right: theme toggle + hamburger -->
+      <div class="nav-right">
+        <label class="theme-toggle" aria-label="ダークモード切り替え">
+          <input type="checkbox" id="theme-checkbox" />
+          <div class="theme-toggle-track"></div>
+          <div class="theme-toggle-thumb">
+            <i class="fa-solid fa-moon" style="color:var(--accent);"></i>
+          </div>
+        </label>
+        <button class="hamburger" id="hamburger-btn" aria-label="メニューを開く" aria-expanded="false" aria-controls="mobile-menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobile-menu" role="menu">
+    <a href="index.html" role="menuitem">ホーム</a>
+    <a href="works.html" role="menuitem">実績</a>
+    <a href="services.html" role="menuitem">依頼できる内容</a>
+    <a href="contact.html" role="menuitem">コンタクト</a>
+  </div>
+
+  <!-- ===== MAIN ===== -->
+  <main class="page-wrap">
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-eyebrow">Available for collab</div>
+        <h1 class="hero-title fade-up fade-up-1">
+          <!-- ↓ ここにキャッチコピーが入ります。自由に書き換えてください。 -->
+          【ここにキャッチコピーが入ります】
+        </h1>
+        <p class="hero-sub fade-up fade-up-2">
+          Discordコミュニティ運営 · サーバー構築 · note記事作成。<br>
+          情報発信を通じて、コミュニティをより良くすることを目指しています。
+        </p>
+        <div class="hero-actions fade-up fade-up-3">
+          <a href="works.html" class="btn btn-primary">
+            <i class="fa-solid fa-arrow-right"></i> 実績を見る
+          </a>
+          <a href="contact.html" class="btn btn-outline">
+            コンタクト
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Profile -->
+    <section class="section-sm">
+      <div class="container">
+        <p class="section-label">About</p>
+        <h2 class="section-title">自己紹介</h2>
+        <div class="divider"></div>
+        <div class="card profile-card fade-up fade-up-1">
+          <div class="profile-avatar" aria-hidden="true">🌿</div>
+          <div>
+            <p class="profile-name">ゆううゆ</p>
+            <p class="profile-role">Discord Community Operator / Writer</p>
+            <p class="profile-bio">
+              大学生。Discordの日本語情報サーバー「Guide Base +」を有志で運営しています。<br>
+              Bot設定（Wick / Sapphire / Double Counter 等）、正規表現を活用した高度なセキュリティ設計、SNS成長戦略が専門領域。海外Discordコミュニティや Bot 開発チームとも繋がりを持ちながら、情報発信を続けています。
+            </p>
+            <ul class="profile-tags" aria-label="スキルタグ">
+              <li class="tag">Discord運営</li>
+              <li class="tag">Bot設定</li>
+              <li class="tag">セキュリティ設計</li>
+              <li class="tag">Regex</li>
+              <li class="tag">note執筆</li>
+              <li class="tag">SNS戦略</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SNS -->
+    <section class="section-sm">
+      <div class="container">
+        <p class="section-label">Find me on</p>
+        <h2 class="section-title">SNS</h2>
+        <div class="divider"></div>
+        <ul class="sns-grid" role="list">
+          <li>
+            <a href="https://x.com/yuuuyu0000" class="card sns-card" target="_blank" rel="noopener" aria-label="X (旧Twitter) @yuuuyu0000">
+              <div class="sns-icon x" aria-hidden="true"><i class="fa-brands fa-x-twitter"></i></div>
+              <p class="sns-label">X (旧Twitter)</p>
+              <p class="sns-handle">@yuuuyu0000</p>
+            </a>
+          </li>
+          <li>
+            <a href="https://note.com/yuuuyugbp" class="card sns-card" target="_blank" rel="noopener" aria-label="note yuuuyugbp">
+              <div class="sns-icon note" aria-hidden="true"><i class="fa-solid fa-pen-nib"></i></div>
+              <p class="sns-label">note</p>
+              <p class="sns-handle">yuuuyugbp</p>
+            </a>
+          </li>
+          <li>
+            <a href="https://discord.gg/YOUR_INVITE_LINK" class="card sns-card" target="_blank" rel="noopener" aria-label="Discord サーバー Guide Base +">
+              <div class="sns-icon dc" aria-hidden="true"><i class="fa-brands fa-discord"></i></div>
+              <p class="sns-label">Discord</p>
+              <p class="sns-handle">Guide Base +</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <p class="footer-copy">© 2024 ゆううゆ. All rights reserved.</p>
+      <nav class="footer-links" aria-label="フッターナビゲーション">
+        <a href="index.html">ホーム</a>
+        <a href="works.html">実績</a>
+        <a href="services.html">依頼できる内容</a>
+        <a href="contact.html">コンタクト</a>
+      </nav>
+    </div>
+  </footer>
+
+</body>
+</html>
