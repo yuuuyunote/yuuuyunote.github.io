@@ -163,10 +163,172 @@
       justify-content: center;
     }
 
+    /* Stats section */
+    .home-stats {
+      padding: 64px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .home-stats-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .stat-item {
+      background: var(--bg-card);
+      padding: 32px 20px;
+      text-align: center;
+      transition: background var(--transition);
+    }
+
+    .stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 38px;
+      line-height: 1;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .stat-num span {
+      font-size: 22px;
+      color: var(--accent);
+    }
+
+    .stat-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-sub);
+    }
+
+    /* Note list section */
+    .home-notes {
+      padding: 64px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .home-notes-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .notes-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .notes-header-left {}
+
+    .notes-more {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: opacity var(--transition);
+      white-space: nowrap;
+    }
+
+    .notes-more:hover { opacity: 0.7; }
+
+    .note-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .note-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 20px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      transition: all var(--transition);
+      color: var(--text);
+    }
+
+    .note-item:hover {
+      border-color: var(--accent);
+      background: var(--accent-light);
+      transform: translateX(4px);
+    }
+
+    .note-item-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: var(--accent-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-size: 14px;
+      flex-shrink: 0;
+      transition: background var(--transition);
+    }
+
+    .note-item:hover .note-item-icon {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .note-item-body { flex: 1; min-width: 0; }
+
+    .note-item-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 2px;
+    }
+
+    .note-item-meta {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--text-sub);
+    }
+
+    .note-item-arrow {
+      color: var(--text-sub);
+      font-size: 12px;
+      flex-shrink: 0;
+      transition: color var(--transition), transform var(--transition);
+    }
+
+    .note-item:hover .note-item-arrow {
+      color: var(--accent);
+      transform: translateX(3px);
+    }
+
+    @media (max-width: 600px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
     @media (max-width: 480px) {
       .home-sns { gap: 10px; }
       .home-sns-link { padding: 10px 16px; font-size: 13px; }
       .home-sublinks { gap: 16px; }
+      .stat-num { font-size: 30px; }
     }
   </style>
 </head>
@@ -285,6 +447,50 @@
       </div>
     </section>
 
+    <!-- Stats -->
+    <section class="home-stats">
+      <div class="home-stats-inner">
+        <p class="section-label" style="text-align:center; margin-bottom:20px;">Numbers</p>
+        <div class="stats-grid" role="list">
+          <div class="stat-item" role="listitem">
+            <p class="stat-num">10<span>+</span></p>
+            <p class="stat-label">note記事</p>
+          </div>
+          <div class="stat-item" role="listitem">
+            <p class="stat-num">1<span>年+</span></p>
+            <p class="stat-label">サーバー運営</p>
+          </div>
+          <div class="stat-item" role="listitem">
+            <p class="stat-num">5<span>+</span></p>
+            <p class="stat-label">導入Bot</p>
+          </div>
+          <div class="stat-item" role="listitem">
+            <p class="stat-num">0<span>円</span></p>
+            <p class="stat-label">すべて無償</p>
+          </div>
+        </div>
+        <!-- ↑ 数字は実態に合わせて書き換えてください -->
+      </div>
+    </section>
+
+    <!-- Latest note articles (RSS via rss2json.com) -->
+    <section class="home-notes">
+      <div class="home-notes-inner">
+        <div class="notes-header">
+          <div class="notes-header-left">
+            <p class="section-label" style="margin-bottom:4px;">Latest</p>
+            <p style="font-family:'DM Serif Display',serif; font-size:22px; color:var(--text);">最新のnote記事</p>
+          </div>
+          <a href="https://note.com/yuuuyugbp" class="notes-more" target="_blank" rel="noopener">
+            すべて見る <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+        <div id="note-list" class="note-list">
+          <p class="note-loading"><i class="fa-solid fa-circle-notch fa-spin"></i> 読み込み中...</p>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <!-- ===== FOOTER ===== -->
@@ -299,6 +505,45 @@
       </nav>
     </div>
   </footer>
+
+  <!-- note RSS fetch -->
+  <script>
+    (function () {
+      const RSS_URL   = 'https://note.com/yuuuyugbp/rss';
+      const API_URL   = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(RSS_URL) + '&count=3';
+      const container = document.getElementById('note-list');
+      if (!container) return;
+
+      function formatDate(dateStr) {
+        const d = new Date(dateStr);
+        if (isNaN(d)) return '';
+        return d.getFullYear() + '.' +
+               String(d.getMonth() + 1).padStart(2, '0') + '.' +
+               String(d.getDate()).padStart(2, '0');
+      }
+
+      fetch(API_URL)
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+          if (!data.items || data.items.length === 0) throw new Error('no items');
+          container.innerHTML = data.items.map(function (item) {
+            return [
+              '<a href="' + item.link + '" class="note-item" target="_blank" rel="noopener">',
+              '  <div class="note-item-icon" aria-hidden="true"><i class="fa-solid fa-pen-nib"></i></div>',
+              '  <div class="note-item-body">',
+              '    <p class="note-item-title">' + item.title.replace(/</g, '&lt;') + '</p>',
+              '    <p class="note-item-meta">' + formatDate(item.pubDate) + '</p>',
+              '  </div>',
+              '  <i class="fa-solid fa-arrow-right note-item-arrow" aria-hidden="true"></i>',
+              '</a>'
+            ].join('');
+          }).join('');
+        })
+        .catch(function () {
+          container.innerHTML = '<p class="note-loading">記事の取得に失敗しました。<a href="https://note.com/yuuuyugbp" target="_blank" rel="noopener" style="color:var(--accent);">noteで直接確認する</a></p>';
+        });
+    })();
+  </script>
 
 </body>
 </html>
