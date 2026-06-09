@@ -1,0 +1,40 @@
+name: Fetch note RSS
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # 毎日UTC0時（日本時間9時）に実行
+  workflow_dispatch:       # 手動実行も可能
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch RSS and save as JSON
+        run: |
+          curl -s "https://note.com/yuuuyugbp/rss" \
+            -H "User-Agent: Mozilla/5.0" \
+            | python3 -c "
+          import sys, json, xml.etree.ElementTree as ET
+          tree = ET.parse(sys.stdin)
+          root = tree.getroot()
+          channel = root.find('channel')
+          items = []
+          for item in channel.findall('item')[:3]:
+              items.append({
+                  'title': item.findtext('title', ''),
+                  'link':  item.findtext('link', ''),
+                  'date':  item.findtext('pubDate', '')
+              })
+          with open('note-articles.json', 'w', encoding='utf-8') as f:
+              json.dump(items, f, ensure_ascii=False, indent=2)
+          "
+
+      - name: Commit if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add note-articles.json
+          git diff --staged --quiet || git commit -m "chore: update note articles"
+          git push
