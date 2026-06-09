@@ -185,43 +185,41 @@
   </footer>
 
   <!-- note RSS fetch -->
-  <script>
-    (function () {
-      const RSS_URL   = 'https://note.com/yuuuyugbp/rss';
-      const API_URL   = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(RSS_URL) + '&count=3';
-      const container = document.getElementById('note-list');
-      if (!container) return;
+<script>
+  (function () {
+    const container = document.getElementById('note-list');
+    if (!container) return;
 
-      function formatDate(dateStr) {
-        const d = new Date(dateStr);
-        if (isNaN(d)) return '';
-        return d.getFullYear() + '.' +
-               String(d.getMonth() + 1).padStart(2, '0') + '.' +
-               String(d.getDate()).padStart(2, '0');
-      }
+    function formatDate(dateStr) {
+      const d = new Date(dateStr);
+      if (isNaN(d)) return '';
+      return d.getFullYear() + '.' +
+             String(d.getMonth() + 1).padStart(2, '0') + '.' +
+             String(d.getDate()).padStart(2, '0');
+    }
 
-      fetch(API_URL)
-        .then(function (res) { return res.json(); })
-        .then(function (data) {
-          if (!data.items || data.items.length === 0) throw new Error('no items');
-          container.innerHTML = data.items.map(function (item) {
-            return [
-              '<a href="' + item.link + '" class="note-item" target="_blank" rel="noopener">',
-              '  <div class="note-item-icon" aria-hidden="true"><i class="fa-solid fa-pen-nib"></i></div>',
-              '  <div class="note-item-body">',
-              '    <p class="note-item-title">' + item.title.replace(/</g, '&lt;') + '</p>',
-              '    <p class="note-item-meta">' + formatDate(item.pubDate) + '</p>',
-              '  </div>',
-              '  <i class="fa-solid fa-arrow-right note-item-arrow" aria-hidden="true"></i>',
-              '</a>'
-            ].join('');
-          }).join('');
-        })
-        .catch(function () {
-          container.innerHTML = '<p class="note-loading">記事の取得に失敗しました。<a href="https://note.com/yuuuyugbp" target="_blank" rel="noopener" style="color:var(--accent);">noteで直接確認する</a></p>';
-        });
-    })();
-  </script>
+    fetch('note-articles.json')
+      .then(function (res) { return res.json(); })
+      .then(function (items) {
+        if (!items || items.length === 0) throw new Error('empty');
+        container.innerHTML = items.map(function (item) {
+          return [
+            '<a href="' + item.link + '" class="note-item" target="_blank" rel="noopener">',
+            '  <div class="note-item-icon"><i class="fa-solid fa-pen-nib"></i></div>',
+            '  <div class="note-item-body">',
+            '    <p class="note-item-title">' + item.title.replace(/</g, '&lt;') + '</p>',
+            '    <p class="note-item-meta">' + formatDate(item.date) + '</p>',
+            '  </div>',
+            '  <i class="fa-solid fa-arrow-right note-item-arrow"></i>',
+            '</a>'
+          ].join('');
+        }).join('');
+      })
+      .catch(function () {
+        container.innerHTML = '<p style="font-size:13px;color:var(--text-sub);">記事を取得できませんでした。<a href="https://note.com/yuuuyugbp" target="_blank" rel="noopener" style="color:var(--accent);">noteで確認する</a></p>';
+      });
+  })();
+</script>
 
 </body>
 </html>
