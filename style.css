@@ -1152,6 +1152,11 @@ ul { list-style: none; }
       transform: translateX(3px);
     }
 
+.sns-icon.note {
+  background: #fff;
+  color: #fff;
+}
+
     @media (max-width: 600px) {
       .stats-grid { grid-template-columns: repeat(2, 1fr); }
     }
