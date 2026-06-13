@@ -203,7 +203,9 @@
         container.innerHTML = items.map(function (item) {
           return [
             '<a href="' + item.link + '" class="note-item" target="_blank" rel="noopener">',
-            '  <div class="note-item-icon"><i class="fa-solid fa-pen-nib"></i></div>',
+            '  <div class="sns-icon note" aria-hidden="true">
+            <img src="images/note-logo.svg" alt="" style="width:60%; height:60%;" />
+            </div>',
             '  <div class="note-item-body">',
             '    <p class="note-item-title">' + item.title.replace(/</g, '&lt;') + '</p>',
             '    <p class="note-item-meta">' + formatDate(item.date) + '</p>',
