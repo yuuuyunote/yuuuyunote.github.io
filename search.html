@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>note記事検索 — ゆううゆ Portfolio</title>
+  <meta name="description" content="ゆううゆのnote記事(全件)をキーワードで検索できる特設ページです。" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="script.js" defer></script>
+
+  <style>
+    /* ─────────────── search.html 専用スタイル ─────────────── */
+    .search-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 20px;
+      margin-bottom: 20px;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+
+    .search-box:focus-within {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    .search-box i.fa-magnifying-glass {
+      color: var(--text-sub);
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+
+    .search-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 15px;
+      color: var(--text);
+    }
+
+    .search-input::placeholder { color: var(--text-sub); }
+
+    .search-clear {
+      border: none;
+      background: none;
+      color: var(--text-sub);
+      cursor: pointer;
+      font-size: 13px;
+      padding: 4px;
+      display: none;
+      transition: color var(--transition);
+    }
+
+    .search-clear:hover { color: var(--accent); }
+    .search-clear.visible { display: inline-flex; }
+
+    .search-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding: 0 4px;
+    }
+
+    .search-count {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: var(--text-sub);
+      letter-spacing: 0.02em;
+    }
+
+    .search-count strong {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .search-empty {
+      text-align: center;
+      padding: 64px 20px;
+      color: var(--text-sub);
+      font-size: 14px;
+    }
+
+    .search-empty i {
+      display: block;
+      font-size: 28px;
+      margin-bottom: 16px;
+      color: var(--border);
+    }
+
+    .note-loading {
+      text-align: center;
+      padding: 48px 0;
+      color: var(--text-sub);
+      font-size: 14px;
+    }
+
+    @media (max-width: 480px) {
+      .search-box { padding: 12px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="nav" role="navigation" aria-label="グローバルナビゲーション">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="ホームへ">
+        <div class="nav-logo-icon">
+          <img src="images/profileicon" alt="ゆううゆアイコン" />
+        </div>
+        <span class="nav-logo-text">ゆううゆ</span>
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="index.html">ホーム</a></li>
+        <li><a href="works.html">実績</a></li>
+        <li><a href="services.html">依頼できる内容</a></li>
+        <li><a href="contact.html">コンタクト</a></li>
+      </ul>
+      <div class="nav-right">
+        <label class="theme-toggle" aria-label="ダークモード切り替え">
+          <input type="checkbox" id="theme-checkbox" />
+          <div class="theme-toggle-track"></div>
+          <div class="theme-toggle-thumb">
+            <i class="fa-solid fa-moon" style="color:var(--accent);"></i>
+          </div>
+        </label>
+        <button class="hamburger" id="hamburger-btn" aria-label="メニューを開く" aria-expanded="false" aria-controls="mobile-menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobile-menu" role="menu">
+    <a href="index.html" role="menuitem">ホーム</a>
+    <a href="works.html" role="menuitem">実績</a>
+    <a href="services.html" role="menuitem">依頼できる内容</a>
+    <a href="contact.html" role="menuitem">コンタクト</a>
+  </div>
+
+  <!-- ===== MAIN ===== -->
+  <main class="page-wrap">
+
+    <!-- Page hero -->
+    <div class="container">
+      <div class="page-hero">
+        <p class="section-label">Archive</p>
+        <h1 class="section-title">note記事検索</h1>
+        <p class="section-desc" style="margin-bottom:0;">
+          これまで投稿したnote記事をタイトルで検索できます。表記の揺れにはある程度対応していますが、入力ミスには厳しめです。
+        </p>
+      </div>
+    </div>
+
+    <!-- Search -->
+    <section class="section-sm">
+      <div class="container search-wrap">
+
+        <div class="search-box card">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input
+            type="text"
+            id="search-input"
+            class="search-input"
+            placeholder="記事タイトルで検索（例：Bot設定 / セキュリティ）"
+            autocomplete="off"
+          />
+          <button id="search-clear" class="search-clear" aria-label="検索をクリア">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="search-meta">
+          <p id="search-count" class="search-count"></p>
+        </div>
+
+        <div id="search-results" class="note-list">
+          <p class="note-loading"><i class="fa-solid fa-circle-notch fa-spin"></i> 記事を読み込み中...</p>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <p class="footer-copy">© 2026 ゆううゆ. All rights reserved.</p>
+      <nav class="footer-links" aria-label="フッターナビゲーション">
+        <a href="index.html">ホーム</a>
+        <a href="works.html">実績</a>
+        <a href="services.html">依頼できる内容</a>
+        <a href="contact.html">コンタクト</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Fuse.js (CDN) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/7.0.0/fuse.min.js"></script>
+
+  <!-- search logic -->
+  <script>
+    (function () {
+      const input      = document.getElementById('search-input');
+      const clearBtn   = document.getElementById('search-clear');
+      const resultsEl  = document.getElementById('search-results');
+      const countEl    = document.getElementById('search-count');
+
+      let articles = [];
+      let fuse = null;
+
+      // ─────────────────────────────────────────────────────────
+      // 表記揺れ対応の同義語グループ。
+      // Fuse.js のあいまい検索（しきい値）だけでは「ディスコード」と
+      // 「Discord」のような完全に異なる文字列の表記揺れは拾えないため、
+      // 検索語に含まれる単語をグループ内の別表記に置き換えた
+      // バリエーションも合わせて検索する。
+      // 必要に応じて自由に追加・編集してください。
+      // ─────────────────────────────────────────────────────────
+      const SYNONYM_GROUPS = [
+        ['discord', 'ディスコード'],
+        ['bot', 'ボット'],
+        ['スマホ', 'スマートフォン'],
+        ['サーバー', '鯖'],
+        ['なりすまし', '偽アカウント'],
+        ['絵文字', 'emoji', 'スタンプ'],
+        ['荒らし', 'レイド'],
+      ];
+
+      function expandQuery(query) {
+        const lower = query.toLowerCase();
+        const variants = new Set([query]);
+        SYNONYM_GROUPS.forEach(function (group) {
+          group.forEach(function (term) {
+            if (lower.indexOf(term.toLowerCase()) !== -1) {
+              group.forEach(function (alt) {
+                if (alt !== term) {
+                  const re = new RegExp(term, 'ig');
+                  variants.add(query.replace(re, alt));
+                }
+              });
+            }
+          });
+        });
+        return Array.from(variants);
+      }
+
+      function escapeHtml(str) {
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;');
+      }
+
+      function formatDate(dateStr) {
+        const d = new Date(dateStr);
+        if (isNaN(d)) return '';
+        return d.getFullYear() + '.' +
+               String(d.getMonth() + 1).padStart(2, '0') + '.' +
+               String(d.getDate()).padStart(2, '0');
+      }
+
+      function renderResults(items) {
+        if (!items.length) {
+          resultsEl.innerHTML =
+            '<div class="search-empty">' +
+              '<i class="fa-regular fa-face-frown"></i>' +
+              '一致する記事が見つかりませんでした。' +
+            '</div>';
+          return;
+        }
+
+        resultsEl.innerHTML = items.map(function (item) {
+          return [
+            '<a href="' + item.url + '" class="note-item" target="_blank" rel="noopener">',
+            '<div class="note-item-icon"><i class="fa-solid fa-pen-nib"></i></div>',
+            '<div class="note-item-body">',
+            '<p class="note-item-title">' + escapeHtml(item.title) + '</p>',
+            '<p class="note-item-meta">' + formatDate(item.pubDate) + '</p>',
+            '</div>',
+            '<i class="fa-solid fa-arrow-right note-item-arrow"></i>',
+            '</a>'
+          ].join('');
+        }).join('');
+      }
+
+      function runSearch(rawQuery) {
+        const query = rawQuery.trim();
+        clearBtn.classList.toggle('visible', query.length > 0);
+
+        let items;
+        if (!query) {
+          items = articles;
+          countEl.innerHTML = '<strong>' + articles.length + '</strong>件の記事';
+        } else {
+          const variants = expandQuery(query);
+          const merged = new Map();
+          variants.forEach(function (v) {
+            fuse.search(v).forEach(function (r) {
+              const existing = merged.get(r.item.url);
+              if (!existing || r.score < existing.score) merged.set(r.item.url, r);
+            });
+          });
+          items = Array.from(merged.values())
+            .sort(function (a, b) { return a.score - b.score; })
+            .map(function (r) { return r.item; });
+          countEl.innerHTML = '<strong>' + items.length + '</strong>件 見つかりました';
+        }
+        renderResults(items);
+      }
+
+      fetch('articles.json')
+        .then(function (res) {
+          if (!res.ok) throw new Error('fetch failed');
+          return res.json();
+        })
+        .then(function (data) {
+          articles = Array.isArray(data) ? data : [];
+
+          fuse = new Fuse(articles, {
+            keys: ['title'],
+            threshold: 0.1,       // タイポの許容度は厳格寄り（表記揺れは上の同義語展開で対応）
+            distance: 60,
+            ignoreLocation: true, // タイトル内のどこに一致しても良い
+            minMatchCharLength: 2,
+            includeScore: true,
+          });
+
+          runSearch('');
+
+          input.addEventListener('input', function () {
+            runSearch(input.value);
+          });
+
+          clearBtn.addEventListener('click', function () {
+            input.value = '';
+            input.focus();
+            runSearch('');
+          });
+        })
+        .catch(function () {
+          resultsEl.innerHTML =
+            '<div class="search-empty">' +
+              '<i class="fa-solid fa-triangle-exclamation"></i>' +
+              '記事データを取得できませんでした。<br>時間をおいて再度お試しください。' +
+            '</div>';
+          countEl.textContent = '';
+        });
+    })();
+  </script>
+
+</body>
+</html>

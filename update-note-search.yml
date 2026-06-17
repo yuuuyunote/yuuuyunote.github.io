@@ -1,0 +1,46 @@
+name: Update note Search Index
+
+# 既存の「最新3記事をポートフォリオに表示する Action」とは独立したワークフロー。
+# このワークフローは articles.json のみを更新・コミットする。
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'   # 6時間ごとに実行（必要に応じて調整してください）
+  workflow_dispatch: {}     # 手動実行も可能
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-note-search-index
+  cancel-in-progress: true
+
+jobs:
+  update-articles:
+    runs-on: ubuntu-latest
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4
+
+      - name: Node.js をセットアップ
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 依存パッケージをインストール
+        run: npm install fast-xml-parser
+
+      - name: note RSS から articles.json を更新
+        run: node scripts/update-articles.js
+
+      - name: 変更があれば articles.json のみをコミット&プッシュ
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add articles.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore: update articles.json with new note posts"
+            git push
+          fi
