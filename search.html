@@ -106,6 +106,110 @@
     @media (max-width: 480px) {
       .search-box { padding: 12px 16px; }
     }
+
+    /* ─────────────── 有料記事の区別用トークン ─────────────── */
+    :root {
+      --premium:       #a3791f;
+      --premium-light: #fbf1d8;
+      --premium-glow:  rgba(163, 121, 31, 0.18);
+    }
+    [data-theme="dark"] {
+      --premium:       #e0b753;
+      --premium-light: #2e2410;
+      --premium-glow:  rgba(224, 183, 83, 0.18);
+    }
+
+    /* フィルターチップ */
+    .filter-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .filter-chip {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      padding: 6px 14px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-sub);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .filter-chip:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .filter-chip.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .filter-chip[data-filter="premium"].active {
+      background: var(--premium);
+      border-color: var(--premium);
+      color: #fff;
+    }
+
+    /* 有料記事カード */
+    .note-item--premium {
+      border-color: var(--premium);
+      background: linear-gradient(0deg, var(--premium-light) 0%, var(--bg-card) 140%);
+    }
+
+    .note-item--premium .note-item-icon {
+      background: var(--premium-light);
+      color: var(--premium);
+    }
+
+    .note-item--premium:hover {
+      border-color: var(--premium);
+      background: var(--premium-light);
+      box-shadow: 0 0 0 3px var(--premium-glow);
+    }
+
+    .note-item--premium:hover .note-item-icon {
+      background: var(--premium);
+      color: #fff;
+    }
+
+    .note-item--premium:hover .note-item-arrow {
+      color: var(--premium);
+    }
+
+    .note-item-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      margin-left: 8px;
+      padding: 1px 8px;
+      border-radius: 100px;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.02em;
+      background: var(--premium-light);
+      color: var(--premium);
+      border: 1px solid var(--premium);
+      vertical-align: middle;
+      flex-shrink: 0;
+    }
+
+    .note-item-title-row {
+      display: flex;
+      align-items: center;
+      min-width: 0;
+    }
+
+    .note-item-title-row .note-item-title {
+      margin-bottom: 0;
+      flex: 1;
+      min-width: 0;
+    }
   </style>
 </head>
 <body>
@@ -124,7 +228,6 @@
         <li><a href="works.html">実績</a></li>
         <li><a href="services.html">依頼できる内容</a></li>
         <li><a href="contact.html">コンタクト</a></li>
-        <li><a href="search.html">note検索</a></li>
       </ul>
       <div class="nav-right">
         <label class="theme-toggle" aria-label="ダークモード切り替え">
@@ -146,7 +249,6 @@
     <a href="works.html" role="menuitem">実績</a>
     <a href="services.html" role="menuitem">依頼できる内容</a>
     <a href="contact.html" role="menuitem">コンタクト</a>
-    <a href="search.html" role="menuitem">note検索</a>
   </div>
 
   <!-- ===== MAIN ===== -->
@@ -178,6 +280,14 @@
           />
           <button id="search-clear" class="search-clear" aria-label="検索をクリア">
             <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="filter-row">
+          <button class="filter-chip active" data-filter="all">すべて</button>
+          <button class="filter-chip" data-filter="free">無料記事</button>
+          <button class="filter-chip" data-filter="premium">
+            <i class="fa-solid fa-crown" style="margin-right:4px;"></i>有料記事
           </button>
         </div>
 
@@ -213,13 +323,15 @@
   <!-- search logic -->
   <script>
     (function () {
-      const input      = document.getElementById('search-input');
-      const clearBtn   = document.getElementById('search-clear');
-      const resultsEl  = document.getElementById('search-results');
-      const countEl    = document.getElementById('search-count');
+      const input        = document.getElementById('search-input');
+      const clearBtn     = document.getElementById('search-clear');
+      const resultsEl    = document.getElementById('search-results');
+      const countEl      = document.getElementById('search-count');
+      const filterChips  = document.querySelectorAll('.filter-chip');
 
       let articles = [];
       let fuse = null;
+      let currentFilter = 'all'; // 'all' | 'free' | 'premium'
 
       // ─────────────────────────────────────────────────────────
       // 表記揺れ対応の同義語グループ。
@@ -283,11 +395,19 @@
         }
 
         resultsEl.innerHTML = items.map(function (item) {
+          const isPremium = !!item.premium;
+          const cardClass = 'note-item' + (isPremium ? ' note-item--premium' : '');
+          const badge = isPremium
+            ? '<span class="note-item-badge"><i class="fa-solid fa-crown"></i>有料</span>'
+            : '';
           return [
-            '<a href="' + item.url + '" class="note-item" target="_blank" rel="noopener">',
-            '<div class="note-item-icon"><i class="fa-solid fa-pen-nib"></i></div>',
+            '<a href="' + item.url + '" class="' + cardClass + '" target="_blank" rel="noopener">',
+            '<div class="note-item-icon"><i class="fa-solid ' + (isPremium ? 'fa-crown' : 'fa-pen-nib') + '"></i></div>',
             '<div class="note-item-body">',
+            '<div class="note-item-title-row">',
             '<p class="note-item-title">' + escapeHtml(item.title) + '</p>',
+            badge,
+            '</div>',
             '<p class="note-item-meta">' + formatDate(item.pubDate) + '</p>',
             '</div>',
             '<i class="fa-solid fa-arrow-right note-item-arrow"></i>',
@@ -296,14 +416,20 @@
         }).join('');
       }
 
+      function applyFilter(list) {
+        if (currentFilter === 'premium') return list.filter(function (a) { return !!a.premium; });
+        if (currentFilter === 'free') return list.filter(function (a) { return !a.premium; });
+        return list;
+      }
+
       function runSearch(rawQuery) {
         const query = rawQuery.trim();
         clearBtn.classList.toggle('visible', query.length > 0);
 
         let items;
         if (!query) {
-          items = articles;
-          countEl.innerHTML = '<strong>' + articles.length + '</strong>件の記事';
+          items = applyFilter(articles);
+          countEl.innerHTML = '<strong>' + items.length + '</strong>件の記事';
         } else {
           const variants = expandQuery(query);
           const merged = new Map();
@@ -313,9 +439,10 @@
               if (!existing || r.score < existing.score) merged.set(r.item.url, r);
             });
           });
-          items = Array.from(merged.values())
+          let matched = Array.from(merged.values())
             .sort(function (a, b) { return a.score - b.score; })
             .map(function (r) { return r.item; });
+          items = applyFilter(matched);
           countEl.innerHTML = '<strong>' + items.length + '</strong>件 見つかりました';
         }
         renderResults(items);
@@ -348,6 +475,15 @@
             input.value = '';
             input.focus();
             runSearch('');
+          });
+
+          filterChips.forEach(function (chip) {
+            chip.addEventListener('click', function () {
+              filterChips.forEach(function (c) { c.classList.remove('active'); });
+              chip.classList.add('active');
+              currentFilter = chip.dataset.filter;
+              runSearch(input.value);
+            });
           });
         })
         .catch(function () {
