@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SnapEdit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --surface: #F8F9FA;
+    --toolbar-bg: #FFFFFF;
+    --border: #E5E7EB;
+    --border-subtle: #F3F4F6;
+    --text: #111827;
+    --text-muted: #6B7280;
+    --accent: #2563EB;
+    --accent-light: #EFF6FF;
+    --danger: #EF4444;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -1px rgba(0,0,0,0.04);
+    --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+    --radius: 8px;
+    --radius-sm: 6px;
+    --canvas-bg: #F3F4F6;
+  }
+  [data-theme="dark"] {
+    --bg: #111827;
+    --surface: #1F2937;
+    --toolbar-bg: #1F2937;
+    --border: #374151;
+    --border-subtle: #2D3748;
+    --text: #F9FAFB;
+    --text-muted: #9CA3AF;
+    --accent: #3B82F6;
+    --accent-light: #1E3A5F;
+    --shadow: 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.3), 0 2px 4px -1px rgba(0,0,0,0.2);
+    --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.4), 0 4px 6px -2px rgba(0,0,0,0.2);
+    --canvas-bg: #0F172A;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  /* ─── TOOLBAR ─── */
+  #toolbar {
+    height: 56px;
+    background: var(--toolbar-bg);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 4px;
+    flex-shrink: 0;
+    box-shadow: var(--shadow);
+    position: relative;
+    z-index: 100;
+  }
+
+  .toolbar-brand {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+    color: var(--text);
+    margin-right: 16px;
+    white-space: nowrap;
+  }
+
+  .toolbar-divider {
+    width: 1px;
+    height: 28px;
+    background: var(--border);
+    margin: 0 8px;
+    flex-shrink: 0;
+  }
+
+  .tool-btn {
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: transparent;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    transition: background 0.12s, color 0.12s;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .tool-btn:hover { background: var(--surface); color: var(--text); }
+  .tool-btn.active { background: var(--accent-light); color: var(--accent); }
+  .tool-btn svg { width: 18px; height: 18px; pointer-events: none; }
+
+  .toolbar-spacer { flex: 1; }
+
+  /* Upload / Export buttons */
+  .action-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 12px;
+    height: 32px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.12s, border-color 0.12s;
+    white-space: nowrap;
+  }
+  .action-btn:hover { background: var(--border-subtle); }
+  .action-btn.primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+  .action-btn.primary:hover { opacity: 0.9; }
+  .action-btn svg { width: 14px; height: 14px; }
+
+  /* Dark mode toggle */
+  .theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 8px;
+  }
+  .toggle-switch {
+    width: 36px;
+    height: 20px;
+    background: var(--border);
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+  .toggle-switch::after {
+    content: '';
+    position: absolute;
+    top: 2px; left: 2px;
+    width: 16px; height: 16px;
+    background: #fff;
+    border-radius: 50%;
+    transition: transform 0.2s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+  [data-theme="dark"] .toggle-switch { background: var(--accent); }
+  [data-theme="dark"] .toggle-switch::after { transform: translateX(16px); }
+
+  /* ─── OPTIONS PANEL ─── */
+  #options-panel {
+    position: absolute;
+    top: 56px;
+    left: 0;
+    right: 0;
+    background: var(--toolbar-bg);
+    border-bottom: 1px solid var(--border);
+    padding: 8px 16px;
+    display: none;
+    align-items: center;
+    gap: 16px;
+    z-index: 99;
+    box-shadow: var(--shadow);
+  }
+  #options-panel.visible { display: flex; }
+
+  .opt-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  .opt-color {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    cursor: pointer;
+    overflow: hidden;
+    padding: 0;
+    background: none;
+  }
+  .opt-color input[type="color"] {
+    width: 40px; height: 40px;
+    border: none; cursor: pointer;
+    margin: -6px 0 0 -6px;
+    background: transparent;
+  }
+
+  .opt-range {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .opt-range input[type="range"] {
+    width: 100px;
+    accent-color: var(--accent);
+  }
+  .opt-range span {
+    font-size: 12px;
+    color: var(--text-muted);
+    min-width: 28px;
+  }
+
+  .opt-select {
+    padding: 4px 8px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    color: var(--text);
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  /* Color swatches */
+  .color-swatches {
+    display: flex;
+    gap: 4px;
+  }
+  .swatch {
+    width: 20px; height: 20px;
+    border-radius: 4px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: border-color 0.1s, transform 0.1s;
+  }
+  .swatch:hover { transform: scale(1.15); }
+  .swatch.selected { border-color: var(--accent); }
+
+  /* ─── MAIN AREA ─── */
+  #main {
+    flex: 1;
+    background: var(--canvas-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Drop zone */
+  #drop-zone {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    z-index: 10;
+  }
+  #drop-zone.hidden { display: none; }
+
+  .drop-illustration {
+    width: 200px;
+    height: 140px;
+    background: var(--toolbar-bg);
+    border: 2px dashed var(--border);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s;
+  }
+  .drop-illustration svg { width: 40px; height: 40px; color: var(--text-muted); }
+  #drop-zone.drag-over .drop-illustration { border-color: var(--accent); background: var(--accent-light); }
+  #drop-zone.drag-over .drop-illustration svg { color: var(--accent); }
+
+  .drop-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .drop-sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  /* Canvas wrapper */
+  #canvas-wrapper {
+    position: relative;
+    box-shadow: var(--shadow-lg);
+    display: none;
+  }
+
+  #c { display: block; }
+
+  /* Crop overlay */
+  #crop-overlay {
+    position: absolute;
+    border: 2px solid var(--accent);
+    display: none;
+    pointer-events: none;
+    z-index: 20;
+  }
+  .crop-handle {
+    position: absolute;
+    width: 8px; height: 8px;
+    background: #fff;
+    border: 2px solid var(--accent);
+    border-radius: 2px;
+  }
+
+  /* ─── TOOLTIP ─── */
+  .tooltip {
+    position: fixed;
+    background: #111827;
+    color: #fff;
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    pointer-events: none;
+    z-index: 999;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.1s;
+  }
+
+  /* ─── TOAST ─── */
+  #toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(8px);
+    background: #111827;
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: var(--radius);
+    font-size: 13px;
+    font-weight: 500;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+    z-index: 9999;
+  }
+  #toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* Stamp counter badge */
+  #stamp-badge {
+    position: absolute;
+    top: -6px; right: -6px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 600;
+    min-width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    pointer-events: none;
+    display: none;
+  }
+
+  /* Cursor styles for tools */
+  .cursor-crosshair { cursor: crosshair; }
+  .cursor-text { cursor: text; }
+  .cursor-default { cursor: default; }
+</style>
+</head>
+<body>
+
+<!-- ─── TOOLBAR ─── -->
+<div id="toolbar">
+  <span class="toolbar-brand">SnapEdit</span>
+
+  <!-- Load image -->
+  <label class="action-btn" title="画像を開く" style="cursor:pointer">
+    <i data-lucide="folder-open"></i>
+    <span>開く</span>
+    <input type="file" id="file-input" accept="image/*" style="display:none">
+  </label>
+
+  <div class="toolbar-divider"></div>
+
+  <!-- Drawing tools -->
+  <button class="tool-btn" id="tool-select" data-tool="select" title="選択">
+    <i data-lucide="mouse-pointer-2"></i>
+  </button>
+  <button class="tool-btn" id="tool-crop" data-tool="crop" title="トリミング">
+    <i data-lucide="crop"></i>
+  </button>
+  <button class="tool-btn" id="tool-text" data-tool="text" title="テキスト">
+    <i data-lucide="type"></i>
+  </button>
+  <button class="tool-btn" id="tool-mosaic" data-tool="mosaic" title="モザイク">
+    <i data-lucide="grid-3x3"></i>
+  </button>
+  <button class="tool-btn" id="tool-stamp" data-tool="stamp" title="順序スタンプ" style="position:relative">
+    <i data-lucide="circle-1"></i>
+    <span id="stamp-badge">1</span>
+  </button>
+  <button class="tool-btn" id="tool-arrow" data-tool="arrow" title="矢印">
+    <i data-lucide="arrow-right"></i>
+  </button>
+  <button class="tool-btn" id="tool-taper-arrow" data-tool="taper-arrow" title="テーパー矢印">
+    <i data-lucide="move-right"></i>
+  </button>
+  <button class="tool-btn" id="tool-rect" data-tool="rect" title="四角形">
+    <i data-lucide="square"></i>
+  </button>
+
+  <div class="toolbar-divider"></div>
+
+  <!-- History -->
+  <button class="tool-btn" id="btn-undo" title="元に戻す (Ctrl+Z)">
+    <i data-lucide="undo-2"></i>
+  </button>
+  <button class="tool-btn" id="btn-redo" title="やり直し (Ctrl+Y)">
+    <i data-lucide="redo-2"></i>
+  </button>
+
+  <div class="toolbar-spacer"></div>
+
+  <!-- Export -->
+  <button class="action-btn" id="btn-copy-clipboard" title="クリップボードにコピー">
+    <i data-lucide="clipboard-copy"></i>
+    <span>コピー</span>
+  </button>
+  <button class="action-btn primary" id="btn-download" title="ダウンロード">
+    <i data-lucide="download"></i>
+    <span>保存</span>
+  </button>
+
+  <div class="toolbar-divider"></div>
+
+  <!-- Theme toggle -->
+  <div class="theme-toggle">
+    <i data-lucide="sun" style="width:14px;height:14px;color:var(--text-muted)"></i>
+    <button class="toggle-switch" id="theme-toggle" title="ダーク/ライト切替" aria-label="テーマ切替"></button>
+    <i data-lucide="moon" style="width:14px;height:14px;color:var(--text-muted)"></i>
+  </div>
+</div>
+
+<!-- ─── OPTIONS PANEL ─── -->
+<div id="options-panel">
+  <!-- Filled dynamically -->
+</div>
+
+<!-- ─── MAIN ─── -->
+<div id="main">
+  <!-- Drop zone -->
+  <div id="drop-zone">
+    <div class="drop-illustration">
+      <i data-lucide="image-plus"></i>
+    </div>
+    <div class="drop-title">画像をドラッグ＆ドロップ</div>
+    <div class="drop-sub">または「開く」ボタン / Ctrl+V でペースト</div>
+  </div>
+
+  <!-- Canvas wrapper -->
+  <div id="canvas-wrapper">
+    <canvas id="c"></canvas>
+    <div id="crop-overlay"></div>
+  </div>
+</div>
+
+<div id="toast"></div>
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+// ─── GLOBALS ───
+let canvas = null;
+let fabricCanvas = null;
+let currentTool = 'select';
+let stampCounter = 1;
+let isDrawing = false;
+let drawStartX, drawStartY;
+let activeShape = null;
+let history = [];
+let historyIndex = -1;
+let cropRect = null;
+let isCropping = false;
+let cropStart = null;
+
+const SWATCHES = ['#EF4444','#F97316','#EAB308','#22C55E','#3B82F6','#8B5CF6','#EC4899','#000000','#FFFFFF'];
+
+// Tool options state
+const toolOpts = {
+  color: '#EF4444',
+  strokeWidth: 3,
+  fontSize: 24,
+  fontFamily: 'Inter, sans-serif',
+  mosaicSize: 12,
+  rectFill: 'transparent',
+  rectStroke: '#EF4444',
+  rectStrokeWidth: 3,
+};
+
+// ─── INIT ───
+window.addEventListener('DOMContentLoaded', () => {
+  lucide.createIcons();
+
+  fabricCanvas = new fabric.Canvas('c', {
+    selection: true,
+    stopContextMenu: true,
+    fireRightClick: false,
+  });
+
+  setupToolbar();
+  setupDropZone();
+  setupPaste();
+  setupFileInput();
+  setupKeyboard();
+  setupTheme();
+  setupExport();
+  setupHistory();
+
+  // Fabric events
+  fabricCanvas.on('mouse:down', onMouseDown);
+  fabricCanvas.on('mouse:move', onMouseMove);
+  fabricCanvas.on('mouse:up', onMouseUp);
+  fabricCanvas.on('object:added', saveHistory);
+  fabricCanvas.on('object:modified', saveHistory);
+  fabricCanvas.on('object:removed', saveHistory);
+  fabricCanvas.on('selection:created', () => {});
+  fabricCanvas.on('selection:cleared', () => {});
+});
+
+// ─── TOOLBAR ───
+function setupToolbar() {
+  document.querySelectorAll('.tool-btn[data-tool]').forEach(btn => {
+    btn.addEventListener('click', () => selectTool(btn.dataset.tool));
+  });
+
+  document.getElementById('btn-undo').addEventListener('click', undo);
+  document.getElementById('btn-redo').addEventListener('click', redo);
+}
+
+function selectTool(tool) {
+  currentTool = tool;
+  document.querySelectorAll('.tool-btn[data-tool]').forEach(b => b.classList.remove('active'));
+  const btn = document.querySelector(`.tool-btn[data-tool="${tool}"]`);
+  if (btn) btn.classList.add('active');
+
+  // Stamp badge
+  const stampBadge = document.getElementById('stamp-badge');
+  stampBadge.style.display = tool === 'stamp' ? 'flex' : 'none';
+  if (tool === 'stamp') stampBadge.textContent = stampCounter;
+
+  // Canvas interaction mode
+  if (tool === 'select') {
+    fabricCanvas.isDrawingMode = false;
+    fabricCanvas.selection = true;
+    fabricCanvas.defaultCursor = 'default';
+    fabricCanvas.forEachObject(o => o.set({ selectable: true, evented: true }));
+  } else {
+    fabricCanvas.isDrawingMode = false;
+    fabricCanvas.selection = false;
+    fabricCanvas.discardActiveObject();
+    fabricCanvas.forEachObject(o => {
+      o.set({ selectable: false, evented: false });
+    });
+    fabricCanvas.renderAll();
+    fabricCanvas.defaultCursor = 'crosshair';
+  }
+
+  showOptions(tool);
+  updateCropOverlay(false);
+}
+
+// ─── OPTIONS PANEL ───
+function showOptions(tool) {
+  const panel = document.getElementById('options-panel');
+  panel.innerHTML = '';
+
+  if (tool === 'select') {
+    panel.classList.remove('visible');
+    return;
+  }
+  panel.classList.add('visible');
+
+  if (tool === 'crop') {
+    panel.innerHTML = `
+      <span class="opt-label">トリミング領域をドラッグで選択してください</span>
+      <button class="action-btn primary" id="apply-crop" style="margin-left:auto">適用</button>
+      <button class="action-btn" id="cancel-crop">キャンセル</button>
+    `;
+    document.getElementById('apply-crop').addEventListener('click', applyCrop);
+    document.getElementById('cancel-crop').addEventListener('click', () => {
+      updateCropOverlay(false);
+      selectTool('select');
+    });
+    return;
+  }
+
+  if (tool === 'mosaic') {
+    panel.innerHTML = buildLabel('モザイクサイズ') + buildRange('mosaicSize', 6, 30, toolOpts.mosaicSize);
+    setupRangeListener('mosaicSize');
+    return;
+  }
+
+  if (tool === 'text') {
+    panel.innerHTML = buildLabel('色') + buildSwatches() + buildColorPicker()
+      + buildLabel('サイズ') + buildRange('fontSize', 10, 72, toolOpts.fontSize)
+      + buildLabel('フォント') + `<select class="opt-select" id="opt-fontFamily">
+        <option value="Inter, sans-serif">Inter</option>
+        <option value="'Noto Sans JP', sans-serif">Noto Sans JP</option>
+        <option value="Georgia, serif">Serif</option>
+        <option value="'Courier New', monospace">Mono</option>
+      </select>`;
+    setupSwatchListeners('color');
+    setupColorPicker('color');
+    setupRangeListener('fontSize');
+    document.getElementById('opt-fontFamily').addEventListener('change', e => {
+      toolOpts.fontFamily = e.target.value;
+    });
+    return;
+  }
+
+  if (tool === 'stamp') {
+    panel.innerHTML = buildLabel('色') + buildSwatches() + buildColorPicker()
+      + `<button class="action-btn" id="reset-stamp" style="margin-left:auto">カウントリセット</button>`;
+    setupSwatchListeners('color');
+    setupColorPicker('color');
+    document.getElementById('reset-stamp').addEventListener('click', () => {
+      stampCounter = 1;
+      document.getElementById('stamp-badge').textContent = stampCounter;
+    });
+    return;
+  }
+
+  if (tool === 'rect') {
+    panel.innerHTML = buildLabel('枠色') + buildSwatches('rectStroke') + buildColorPickerFor('rectStroke')
+      + buildLabel('太さ') + buildRange('rectStrokeWidth', 1, 12, toolOpts.rectStrokeWidth)
+      + buildLabel('塗り') + `<select class="opt-select" id="opt-rectFill">
+        <option value="transparent">なし</option>
+        <option value="rgba(239,68,68,0.2)">赤（薄）</option>
+        <option value="rgba(59,130,246,0.2)">青（薄）</option>
+        <option value="rgba(34,197,94,0.2)">緑（薄）</option>
+        <option value="rgba(234,179,8,0.2)">黄（薄）</option>
+      </select>`;
+    setupSwatchListeners('rectStroke');
+    setupColorPickerFor('rectStroke');
+    setupRangeListener('rectStrokeWidth');
+    document.getElementById('opt-rectFill').addEventListener('change', e => {
+      toolOpts.rectFill = e.target.value;
+    });
+    return;
+  }
+
+  // Arrow / Taper Arrow
+  panel.innerHTML = buildLabel('色') + buildSwatches() + buildColorPicker()
+    + buildLabel('太さ') + buildRange('strokeWidth', 1, 12, toolOpts.strokeWidth);
+  setupSwatchListeners('color');
+  setupColorPicker('color');
+  setupRangeListener('strokeWidth');
+}
+
+function buildLabel(text) {
+  return `<span class="opt-label">${text}</span>`;
+}
+function buildSwatches(key = 'color') {
+  return `<div class="color-swatches" data-key="${key}">${SWATCHES.map((c, i) =>
+    `<div class="swatch${i===0?' selected':''}" style="background:${c}" data-color="${c}" data-key="${key}"></div>`
+  ).join('')}</div>`;
+}
+function buildColorPicker() {
+  return `<button class="opt-color" title="カラーピッカー"><input type="color" id="opt-color-picker" value="${toolOpts.color}"></button>`;
+}
+function buildColorPickerFor(key) {
+  return `<button class="opt-color" title="カラーピッカー"><input type="color" id="opt-color-picker-${key}" value="${toolOpts[key]}"></button>`;
+}
+function buildRange(key, min, max, val) {
+  return `<div class="opt-range"><input type="range" id="opt-${key}" min="${min}" max="${max}" value="${val}"><span id="opt-${key}-val">${val}</span></div>`;
+}
+function setupSwatchListeners(key = 'color') {
+  document.querySelectorAll(`.swatch[data-key="${key}"]`).forEach(s => {
+    s.addEventListener('click', () => {
+      document.querySelectorAll(`.swatch[data-key="${key}"]`).forEach(x => x.classList.remove('selected'));
+      s.classList.add('selected');
+      toolOpts[key] = s.dataset.color;
+      const picker = document.getElementById(`opt-color-picker${key === 'color' ? '' : '-'+key}`);
+      if (picker) picker.value = toHex(s.dataset.color);
+    });
+  });
+}
+function setupColorPicker(key = 'color') {
+  const el = document.getElementById(`opt-color-picker`);
+  if (!el) return;
+  el.addEventListener('input', e => {
+    toolOpts[key] = e.target.value;
+    document.querySelectorAll(`.swatch[data-key="${key}"]`).forEach(s => s.classList.remove('selected'));
+  });
+}
+function setupColorPickerFor(key) {
+  const el = document.getElementById(`opt-color-picker-${key}`);
+  if (!el) return;
+  el.addEventListener('input', e => {
+    toolOpts[key] = e.target.value;
+    document.querySelectorAll(`.swatch[data-key="${key}"]`).forEach(s => s.classList.remove('selected'));
+  });
+}
+function setupRangeListener(key) {
+  const el = document.getElementById(`opt-${key}`);
+  const val = document.getElementById(`opt-${key}-val`);
+  if (!el) return;
+  el.addEventListener('input', () => {
+    toolOpts[key] = parseInt(el.value);
+    if (val) val.textContent = el.value;
+  });
+}
+function toHex(c) {
+  if (c.startsWith('#')) return c;
+  return '#000000';
+}
+
+// ─── CANVAS MOUSE EVENTS ───
+function onMouseDown(opt) {
+  if (currentTool === 'select') return;
+  const pointer = fabricCanvas.getPointer(opt.e);
+
+  if (currentTool === 'crop') {
+    isCropping = true;
+    cropStart = { x: pointer.x, y: pointer.y };
+    updateCropOverlay(false);
+    return;
+  }
+
+  if (currentTool === 'stamp') {
+    addStamp(pointer.x, pointer.y);
+    return;
+  }
+
+  if (currentTool === 'text') {
+    addText(pointer.x, pointer.y);
+    return;
+  }
+
+  isDrawing = true;
+  drawStartX = pointer.x;
+  drawStartY = pointer.y;
+
+  if (currentTool === 'rect') {
+    activeShape = new fabric.Rect({
+      left: pointer.x, top: pointer.y,
+      width: 0, height: 0,
+      fill: toolOpts.rectFill,
+      stroke: toolOpts.rectStroke,
+      strokeWidth: toolOpts.rectStrokeWidth,
+      selectable: false, evented: false,
+    });
+    fabricCanvas.add(activeShape);
+  }
+
+  if (currentTool === 'arrow' || currentTool === 'taper-arrow') {
+    // Will draw on mouse up
+    activeShape = null;
+  }
+
+  if (currentTool === 'mosaic') {
+    activeShape = { rects: [], startX: pointer.x, startY: pointer.y };
+  }
+}
+
+function onMouseMove(opt) {
+  if (!isDrawing && !isCropping) return;
+  const pointer = fabricCanvas.getPointer(opt.e);
+
+  if (isCropping && currentTool === 'crop' && cropStart) {
+    const x = Math.min(cropStart.x, pointer.x);
+    const y = Math.min(cropStart.y, pointer.y);
+    const w = Math.abs(pointer.x - cropStart.x);
+    const h = Math.abs(pointer.y - cropStart.y);
+    showCropRect(x, y, w, h);
+    return;
+  }
+
+  if (currentTool === 'rect' && activeShape) {
+    const x = Math.min(drawStartX, pointer.x);
+    const y = Math.min(drawStartY, pointer.y);
+    const w = Math.abs(pointer.x - drawStartX);
+    const h = Math.abs(pointer.y - drawStartY);
+    activeShape.set({ left: x, top: y, width: w, height: h });
+    fabricCanvas.renderAll();
+    return;
+  }
+
+  if ((currentTool === 'arrow' || currentTool === 'taper-arrow')) {
+    if (activeShape) { fabricCanvas.remove(activeShape); activeShape = null; }
+    const shape = makeArrow(drawStartX, drawStartY, pointer.x, pointer.y, currentTool === 'taper-arrow');
+    if (shape) {
+      shape.set({ selectable: false, evented: false });
+      fabricCanvas.add(shape);
+      activeShape = shape;
+      fabricCanvas.renderAll();
+    }
+    return;
+  }
+
+  if (currentTool === 'mosaic') {
+    const x = Math.min(drawStartX, pointer.x);
+    const y = Math.min(drawStartY, pointer.y);
+    drawMosaicLive(x, y, Math.abs(pointer.x - drawStartX), Math.abs(pointer.y - drawStartY));
+    return;
+  }
+}
+
+function onMouseUp(opt) {
+  if (isCropping) {
+    isCropping = false;
+    return;
+  }
+  if (!isDrawing) return;
+  isDrawing = false;
+  const pointer = fabricCanvas.getPointer(opt.e);
+
+  if (currentTool === 'rect' && activeShape) {
+    activeShape.set({ selectable: true, evented: true });
+    activeShape = null;
+    fabricCanvas.renderAll();
+    return;
+  }
+
+  if ((currentTool === 'arrow' || currentTool === 'taper-arrow') && activeShape) {
+    activeShape.set({ selectable: true, evented: true });
+    activeShape = null;
+    fabricCanvas.renderAll();
+    return;
+  }
+
+  if (currentTool === 'mosaic') {
+    const x = Math.min(drawStartX, pointer.x);
+    const y = Math.min(drawStartY, pointer.y);
+    const w = Math.abs(pointer.x - drawStartX);
+    const h = Math.abs(pointer.y - drawStartY);
+    if (w > 4 && h > 4) applyMosaicRegion(x, y, w, h);
+    activeShape = null;
+    return;
+  }
+}
+
+// ─── ARROW ───
+function makeArrow(x1, y1, x2, y2, taper = false) {
+  const dx = x2 - x1, dy = y2 - y1;
+  const len = Math.sqrt(dx*dx + dy*dy);
+  if (len < 5) return null;
+
+  const color = toolOpts.color;
+  const sw = toolOpts.strokeWidth;
+
+  const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+  const headLen = Math.max(sw * 4, 14);
+  const headAngle = 25;
+
+  // Arrow body line
+  const body = new fabric.Line([0, 0, len - headLen * 0.6, 0], {
+    stroke: color,
+    strokeWidth: taper ? sw * 0.5 : sw,
+    strokeLineCap: 'round',
+    originX: 'left',
+    originY: 'center',
+  });
+
+  // Arrow head (triangle)
+  const hx = len, hy = 0;
+  const rad = headAngle * Math.PI / 180;
+  const p1 = { x: hx - headLen * Math.cos(-rad), y: hy - headLen * Math.sin(-rad) };
+  const p2 = { x: hx - headLen * Math.cos(rad), y: hy - headLen * Math.sin(rad) };
+
+  if (taper) {
+    // Tapered arrow: single filled polygon
+    const taperW = sw * 0.5;
+    const points = [
+      { x: 0, y: -taperW * 0.3 },
+      { x: len - headLen * 0.6, y: -(sw / 2) },
+      { x: p1.x, y: p1.y },
+      { x: hx, y: hy },
+      { x: p2.x, y: p2.y },
+      { x: len - headLen * 0.6, y: sw / 2 },
+      { x: 0, y: taperW * 0.3 },
+    ];
+    const poly = new fabric.Polygon(points, {
+      fill: color,
+      stroke: 'none',
+      originX: 'left',
+      originY: 'center',
+      left: x1, top: y1,
+      angle: angle,
+      selectable: true, evented: true,
+    });
+    return poly;
+  }
+
+  const headPoly = new fabric.Polygon([
+    { x: hx, y: hy },
+    { x: p1.x, y: p1.y },
+    { x: p2.x, y: p2.y },
+  ], {
+    fill: color,
+    stroke: 'none',
+    originX: 'left',
+    originY: 'center',
+  });
+
+  const group = new fabric.Group([body, headPoly], {
+    left: x1, top: y1,
+    angle: angle,
+    originX: 'left',
+    originY: 'center',
+    selectable: true, evented: true,
+  });
+  return group;
+}
+
+// ─── MOSAIC ───
+let mosaicPreviewRect = null;
+
+function drawMosaicLive(x, y, w, h) {
+  if (mosaicPreviewRect) fabricCanvas.remove(mosaicPreviewRect);
+  mosaicPreviewRect = new fabric.Rect({
+    left: x, top: y, width: w, height: h,
+    fill: 'rgba(99,102,241,0.15)',
+    stroke: '#6366F1',
+    strokeWidth: 1,
+    strokeDashArray: [4, 4],
+    selectable: false, evented: false,
+  });
+  fabricCanvas.add(mosaicPreviewRect);
+  fabricCanvas.renderAll();
+}
+
+function applyMosaicRegion(x, y, w, h) {
+  if (mosaicPreviewRect) { fabricCanvas.remove(mosaicPreviewRect); mosaicPreviewRect = null; }
+
+  const size = toolOpts.mosaicSize;
+
+  // Render the current canvas to a flat image
+  const fullDataURL = fabricCanvas.toDataURL({ format: 'png' });
+
+  const fullImg = new Image();
+  fullImg.onload = () => {
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = w;
+    tempCanvas.height = h;
+    const ctx = tempCanvas.getContext('2d');
+
+    // Copy region from flattened canvas
+    ctx.drawImage(fullImg, x, y, w, h, 0, 0, w, h);
+
+    // Pixelate
+    ctx.imageSmoothingEnabled = false;
+    const sw = Math.max(1, Math.round(w / size));
+    const sh = Math.max(1, Math.round(h / size));
+    const tmp2 = document.createElement('canvas');
+    tmp2.width = sw; tmp2.height = sh;
+    const ctx2 = tmp2.getContext('2d');
+    ctx2.imageSmoothingEnabled = false;
+    ctx2.drawImage(tempCanvas, 0, 0, sw, sh);
+    ctx.imageSmoothingEnabled = false;
+    ctx.drawImage(tmp2, 0, 0, sw, sh, 0, 0, w, h);
+
+    const dataURL = tempCanvas.toDataURL();
+    fabric.Image.fromURL(dataURL, img => {
+      img.set({ left: x, top: y, selectable: true, evented: true });
+      fabricCanvas.add(img);
+      fabricCanvas.renderAll();
+    });
+  };
+  fullImg.src = fullDataURL;
+}
+
+// ─── TEXT ───
+function addText(x, y) {
+  const text = new fabric.IText('テキスト入力', {
+    left: x, top: y,
+    fontFamily: toolOpts.fontFamily,
+    fontSize: toolOpts.fontSize,
+    fill: toolOpts.color,
+    selectable: true, evented: true,
+    editable: true,
+  });
+  fabricCanvas.add(text);
+  fabricCanvas.setActiveObject(text);
+  text.enterEditing();
+  text.selectAll();
+  fabricCanvas.renderAll();
+  // After adding text, go back to select
+  currentTool = 'select';
+  document.querySelectorAll('.tool-btn[data-tool]').forEach(b => b.classList.remove('active'));
+  document.querySelector('.tool-btn[data-tool="select"]').classList.add('active');
+  fabricCanvas.selection = true;
+  fabricCanvas.forEachObject(o => o.set({ selectable: true, evented: true }));
+  showOptions('select');
+}
+
+// ─── STAMP ───
+function addStamp(x, y) {
+  const circled = ['①','②','③','④','⑤','⑥','⑦','⑧','⑨','⑩',
+    '⑪','⑫','⑬','⑭','⑮','⑯','⑰','⑱','⑲','⑳'];
+  const label = stampCounter <= 20 ? circled[stampCounter - 1] : `(${stampCounter})`;
+
+  const stamp = new fabric.Text(label, {
+    left: x, top: y,
+    originX: 'center', originY: 'center',
+    fontSize: 28,
+    fill: toolOpts.color,
+    fontWeight: '700',
+    selectable: true, evented: true,
+  });
+  fabricCanvas.add(stamp);
+  fabricCanvas.renderAll();
+
+  stampCounter++;
+  document.getElementById('stamp-badge').textContent = stampCounter;
+}
+
+// ─── CROP ───
+let cropX, cropY, cropW, cropH;
+function showCropRect(x, y, w, h) {
+  cropX = x; cropY = y; cropW = w; cropH = h;
+  const wrapper = document.getElementById('canvas-wrapper');
+  const overlay = document.getElementById('crop-overlay');
+  overlay.style.display = 'block';
+  overlay.style.left = x + 'px';
+  overlay.style.top = y + 'px';
+  overlay.style.width = w + 'px';
+  overlay.style.height = h + 'px';
+}
+function updateCropOverlay(show) {
+  document.getElementById('crop-overlay').style.display = show ? 'block' : 'none';
+}
+
+function applyCrop() {
+  if (!cropW || !cropH || cropW < 4 || cropH < 4) {
+    showToast('トリミング領域を選択してください');
+    return;
+  }
+  const dataURL = fabricCanvas.toDataURL({
+    format: 'png',
+    left: cropX, top: cropY,
+    width: cropW, height: cropH,
+  });
+  fabric.Image.fromURL(dataURL, img => {
+    fabricCanvas.setWidth(cropW);
+    fabricCanvas.setHeight(cropH);
+    fabricCanvas.clear();
+    fabricCanvas.add(img);
+    img.set({ left: 0, top: 0, selectable: false, evented: false });
+    fabricCanvas.renderAll();
+    updateCropOverlay(false);
+    selectTool('select');
+    showToast('トリミングを適用しました');
+  });
+}
+
+// ─── IMAGE LOAD ───
+function loadImageFromFile(file) {
+  if (!file || !file.type.startsWith('image/')) return;
+  const url = URL.createObjectURL(file);
+  loadImageFromURL(url);
+}
+
+function loadImageFromURL(url) {
+  const img = new Image();
+  img.onload = () => {
+    const maxW = window.innerWidth - 80;
+    const maxH = window.innerHeight - 120;
+    let w = img.width, h = img.height;
+    if (w > maxW || h > maxH) {
+      const ratio = Math.min(maxW / w, maxH / h);
+      w = Math.round(w * ratio);
+      h = Math.round(h * ratio);
+    }
+
+    fabricCanvas.setWidth(w);
+    fabricCanvas.setHeight(h);
+    fabricCanvas.clear();
+
+    fabric.Image.fromURL(url, fimg => {
+      fimg.scaleToWidth(w);
+      fimg.set({ left: 0, top: 0, selectable: false, evented: false });
+      fabricCanvas.add(fimg);
+      fabricCanvas.sendToBack(fimg);
+      fabricCanvas.renderAll();
+
+      document.getElementById('drop-zone').classList.add('hidden');
+      document.getElementById('canvas-wrapper').style.display = 'block';
+
+      history = []; historyIndex = -1;
+      saveHistory();
+    });
+  };
+  img.src = url;
+}
+
+function setupFileInput() {
+  document.getElementById('file-input').addEventListener('change', e => {
+    loadImageFromFile(e.target.files[0]);
+  });
+}
+
+function setupDropZone() {
+  const main = document.getElementById('main');
+  const dz = document.getElementById('drop-zone');
+
+  main.addEventListener('dragover', e => {
+    e.preventDefault();
+    dz.classList.add('drag-over');
+  });
+  main.addEventListener('dragleave', () => dz.classList.remove('drag-over'));
+  main.addEventListener('drop', e => {
+    e.preventDefault();
+    dz.classList.remove('drag-over');
+    const file = e.dataTransfer.files[0];
+    if (file) loadImageFromFile(file);
+  });
+}
+
+function setupPaste() {
+  document.addEventListener('paste', e => {
+    const items = e.clipboardData.items;
+    for (const item of items) {
+      if (item.type.startsWith('image/')) {
+        const blob = item.getAsFile();
+        if (blob) loadImageFromFile(blob);
+        return;
+      }
+    }
+  });
+}
+
+// ─── KEYBOARD ───
+function setupKeyboard() {
+  document.addEventListener('keydown', e => {
+    const active = fabricCanvas.getActiveObject();
+    // Delete
+    if ((e.key === 'Delete' || e.key === 'Backspace') && active) {
+      if (active.isEditing) return;
+      e.preventDefault();
+      const sel = fabricCanvas.getActiveObjects();
+      sel.forEach(o => fabricCanvas.remove(o));
+      fabricCanvas.discardActiveObject();
+      fabricCanvas.renderAll();
+      return;
+    }
+    // Undo
+    if ((e.ctrlKey || e.metaKey) && e.key === 'z' && !e.shiftKey) {
+      e.preventDefault(); undo(); return;
+    }
+    // Redo
+    if ((e.ctrlKey || e.metaKey) && (e.key === 'y' || (e.key === 'z' && e.shiftKey))) {
+      e.preventDefault(); redo(); return;
+    }
+  });
+}
+
+// ─── HISTORY ───
+let savingHistory = false;
+function saveHistory() {
+  if (savingHistory) return;
+  const json = JSON.stringify(fabricCanvas.toJSON());
+  if (historyIndex >= 0 && history[historyIndex] === json) return;
+  history = history.slice(0, historyIndex + 1);
+  history.push(json);
+  historyIndex = history.length - 1;
+}
+function setupHistory() {
+  // No additional setup needed
+}
+function undo() {
+  if (historyIndex <= 0) return;
+  historyIndex--;
+  restoreHistory();
+}
+function redo() {
+  if (historyIndex >= history.length - 1) return;
+  historyIndex++;
+  restoreHistory();
+}
+function restoreHistory() {
+  savingHistory = true;
+  fabricCanvas.loadFromJSON(history[historyIndex], () => {
+    fabricCanvas.renderAll();
+    savingHistory = false;
+  });
+}
+
+// ─── EXPORT ───
+function setupExport() {
+  document.getElementById('btn-download').addEventListener('click', () => {
+    if (!fabricCanvas) return;
+    const prev = fabricCanvas.getActiveObject();
+    fabricCanvas.discardActiveObject();
+    fabricCanvas.renderAll();
+    const url = fabricCanvas.toDataURL({ format: 'png', multiplier: 1 });
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `snapedit_${Date.now()}.png`;
+    a.click();
+    if (prev) { fabricCanvas.setActiveObject(prev); fabricCanvas.renderAll(); }
+    showToast('画像を保存しました');
+  });
+
+  document.getElementById('btn-copy-clipboard').addEventListener('click', async () => {
+    if (!fabricCanvas) return;
+    const prev = fabricCanvas.getActiveObject();
+    fabricCanvas.discardActiveObject();
+    fabricCanvas.renderAll();
+    const url = fabricCanvas.toDataURL({ format: 'png', multiplier: 1 });
+    try {
+      const res = await fetch(url);
+      const blob = await res.blob();
+      await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+      showToast('クリップボードにコピーしました');
+    } catch(e) {
+      showToast('コピーに失敗しました');
+    }
+    if (prev) { fabricCanvas.setActiveObject(prev); fabricCanvas.renderAll(); }
+  });
+}
+
+// ─── THEME ───
+function setupTheme() {
+  document.getElementById('theme-toggle').addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    document.documentElement.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+  });
+}
+
+// ─── TOAST ───
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+}
+</script>
+</body>
+</html>
