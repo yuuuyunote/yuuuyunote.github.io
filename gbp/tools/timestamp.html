@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>タイムスタンプタグ生成｜Guide Base + Tools</title>
+<link rel="stylesheet" href="/gbp/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="/gbp/index.html" class="brand">
+      <span class="brand-mark">G+</span>
+      <span>Guide Base + Tools<small>Discord技術情報コミュニティ</small></span>
+    </a>
+    <button class="theme-toggle" data-theme-toggle aria-label="ダークモード切り替え">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="shell">
+  <a href="/gbp/index.html" class="back-link back-link-top">← ツール一覧に戻る</a>
+
+  <div class="tool-header">
+    <span class="card-tag">テキスト装飾</span>
+    <h1>タイムスタンプタグ生成</h1>
+    <p>日時を選ぶと、閲覧者のタイムゾーンに合わせて自動表示される <code>&lt;t:unix:形式&gt;</code> タグを生成します。</p>
+  </div>
+
+  <div class="panel">
+    <h2><span class="step">01</span>日時を選択</h2>
+    <div class="row">
+      <div class="field">
+        <label for="dt-input">日時</label>
+        <input type="datetime-local" id="dt-input">
+      </div>
+      <div class="field field-sm">
+        <label>&nbsp;</label>
+        <button class="btn btn-block" id="btn-now">現在時刻をセット</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2><span class="step">02</span>形式を選んでコピー</h2>
+    <div class="tbl-wrap">
+      <table class="ref-table" id="ts-table"></table>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">Guide Base + — Discord技術情報コミュニティ</footer>
+
+<script src="/gbp/js/theme.js"></script>
+<script src="/gbp/js/copy.js"></script>
+<script>
+var dt = document.getElementById('dt-input');
+var table = document.getElementById('ts-table');
+
+var FORMATS = [
+  {code:'t', label:'短い時刻', sample:'16:20'},
+  {code:'T', label:'長い時刻', sample:'16:20:30'},
+  {code:'d', label:'短い日付', sample:'2026/07/09'},
+  {code:'D', label:'長い日付', sample:'2026年7月9日'},
+  {code:'f', label:'日付＋時刻（既定）', sample:'2026年7月9日 16:20'},
+  {code:'F', label:'曜日付き日付＋時刻', sample:'2026年7月9日木曜日 16:20'},
+  {code:'R', label:'相対表示', sample:'3分後 / 2時間前'}
+];
+
+function pad(n){ return n<10 ? '0'+n : ''+n; }
+function setNow(){
+  var d = new Date();
+  var v = d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+'T'+pad(d.getHours())+':'+pad(d.getMinutes());
+  dt.value = v;
+  render();
+}
+document.getElementById('btn-now').addEventListener('click', setNow);
+
+function render(){
+  table.innerHTML = '';
+  if(!dt.value) return;
+  var unix = Math.floor(new Date(dt.value).getTime()/1000);
+
+  var thead = document.createElement('thead');
+  thead.innerHTML = '<tr><th>形式</th><th>タグ</th><th></th></tr>';
+  var tbody = document.createElement('tbody');
+
+  FORMATS.forEach(function(f, i){
+    var tag = '<t:' + unix + ':' + f.code + '>';
+    var tr = document.createElement('tr');
+
+    var tdLabel = document.createElement('td');
+    tdLabel.textContent = f.label;
+    var sample = document.createElement('div');
+    sample.className = 'sample-note';
+    sample.textContent = '例：' + f.sample;
+    tdLabel.appendChild(sample);
+
+    var tdTag = document.createElement('td');
+    var code = document.createElement('code');
+    code.id = 'ts-' + i;
+    code.textContent = tag; // textContent なので <t:...> がタグとして解釈されない
+    tdTag.appendChild(code);
+
+    var tdBtn = document.createElement('td');
+    var btn = document.createElement('button');
+    btn.className = 'btn btn-sm';
+    btn.textContent = 'コピー';
+    btn.setAttribute('data-copy-target', '#' + code.id);
+    tdBtn.appendChild(btn);
+
+    tr.appendChild(tdLabel); tr.appendChild(tdTag); tr.appendChild(tdBtn);
+    tbody.appendChild(tr);
+  });
+
+  table.appendChild(thead);
+  table.appendChild(tbody);
+}
+
+dt.addEventListener('input', render);
+setNow();
+</script>
+</body>
+</html>
