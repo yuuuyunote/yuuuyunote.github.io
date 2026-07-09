@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>各種ID形式コピー｜Guide Base + Tools</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="../index.html" class="brand">
+      <span class="brand-mark">G+</span>
+      <span>Guide Base + Tools<small>Discord技術情報コミュニティ</small></span>
+    </a>
+    <button class="theme-toggle" data-theme-toggle aria-label="ダークモード切り替え">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="shell">
+  <a href="../index.html" class="back-link back-link-top">← ツール一覧に戻る</a>
+
+  <div class="tool-header">
+    <span class="card-tag">ID・特殊リンク</span>
+    <h1>各種ID形式コピー</h1>
+    <p>18〜19桁のDiscord IDを入力すると、メンション形式やタグ形式に自動変換します。種類を選んでコピーしてください。</p>
+  </div>
+
+  <div class="panel">
+    <div class="field">
+      <label for="raw-id">IDを入力</label>
+      <input type="text" id="raw-id" placeholder="例：123456789012345678" inputmode="numeric">
+    </div>
+    <div class="note" id="id-warning" class="hidden">18〜19桁の数字を入力してください。</div>
+  </div>
+
+  <div class="panel" id="results-panel" class="hidden">
+    <h2>変換結果</h2>
+    <div class="tbl-wrap">
+      <table class="ref-table" id="results-table"></table>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">Guide Base + — Discord技術情報コミュニティ</footer>
+
+<script src="../js/theme.js"></script>
+<script src="../js/copy.js"></script>
+<script>
+var input = document.getElementById('raw-id');
+var panel = document.getElementById('results-panel');
+var table = document.getElementById('results-table');
+var warning = document.getElementById('id-warning');
+
+var FORMATS = [
+  {label:'ユーザーメンション', build:function(id){ return '<@'+id+'>'; }},
+  {label:'ロールメンション',   build:function(id){ return '<@&'+id+'>'; }},
+  {label:'チャンネルリンク',   build:function(id){ return '<#'+id+'>'; }},
+  {label:'IDのみ',            build:function(id){ return id; }},
+  {label:'ユーザープロフィールURL', build:function(id){ return 'https://discord.com/users/'+id; }}
+];
+
+function isValidId(v){ return /^[0-9]{15,20}$/.test(v); }
+
+function render(){
+  var v = input.value.trim();
+  if(!v){ panel.style.display='none'; warning.style.display='none'; return; }
+  if(!isValidId(v)){ panel.style.display='none'; warning.style.display='block'; return; }
+  warning.style.display='none';
+  panel.style.display='block';
+
+  var rows = FORMATS.map(function(f, i){
+    var val = f.build(v);
+    var cellId = 'fmt-'+i;
+    return '<tr><td>'+f.label+'</td><td><code id="'+cellId+'">'+val+'</code></td>' +
+      '<td><button class="btn btn-sm" data-copy-target="#'+cellId+'">コピー</button></td></tr>';
+  }).join('');
+
+  table.innerHTML = '<thead><tr><th>形式</th><th>値</th><th></th></tr></thead><tbody>'+rows+'</tbody>';
+}
+
+input.addEventListener('input', render);
+</script>
+</body>
+</html>

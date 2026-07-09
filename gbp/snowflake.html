@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Snowflake ID変換｜Guide Base + Tools</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="../index.html" class="brand">
+      <span class="brand-mark">G+</span>
+      <span>Guide Base + Tools<small>Discord技術情報コミュニティ</small></span>
+    </a>
+    <button class="theme-toggle" data-theme-toggle aria-label="ダークモード切り替え">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="shell">
+  <a href="../index.html" class="back-link back-link-top">← ツール一覧に戻る</a>
+
+  <div class="tool-header">
+    <span class="card-tag">ID・特殊リンク</span>
+    <h1>Snowflake ID変換</h1>
+    <p>DiscordのID（Snowflake）から作成日時を算出、または日時から概算IDを逆算します。</p>
+  </div>
+
+  <div class="panel">
+    <h2><span class="step">01</span>ID → 作成日時</h2>
+    <div class="field">
+      <label for="sf-id">Discord ID</label>
+      <input type="text" id="sf-id" placeholder="例：123456789012345678" inputmode="numeric">
+    </div>
+    <div class="output-box" id="sf-result"></div>
+  </div>
+
+  <div class="panel">
+    <h2><span class="step">02</span>日時 → 概算ID</h2>
+    <p class="subtext">その日時以降に作成された最初のIDの概算値です（同一ミリ秒内の複数IDは区別できません）。</p>
+    <div class="field">
+      <label for="sf-date">日時</label>
+      <input type="datetime-local" id="sf-date">
+    </div>
+    <div class="copy-row">
+      <div class="output-box" id="sf-id-result"></div>
+      <button class="btn btn-primary" data-copy-target="#sf-id-result">コピー</button>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">Guide Base + — Discord技術情報コミュニティ</footer>
+
+<script src="../js/theme.js"></script>
+<script src="../js/copy.js"></script>
+<script>
+var EPOCH = 1420070400000n;
+
+var sfId = document.getElementById('sf-id');
+var sfResult = document.getElementById('sf-result');
+
+function fmtDate(ms){
+  var d = new Date(Number(ms));
+  var days = ['日','月','火','水','木','金','土'];
+  function p(n){ return n<10?'0'+n:''+n; }
+  return d.getFullYear()+'年'+(d.getMonth()+1)+'月'+d.getDate()+'日('+days[d.getDay()]+') '+p(d.getHours())+':'+p(d.getMinutes())+':'+p(d.getSeconds())+' (ローカル時刻)';
+}
+
+sfId.addEventListener('input', function(){
+  var v = sfId.value.trim();
+  if(!/^[0-9]{15,20}$/.test(v)){ sfResult.textContent = v ? 'IDの形式が正しくありません（15〜20桁の数字）' : ''; return; }
+  try{
+    var id = BigInt(v);
+    var ms = (id >> 22n) + EPOCH;
+    sfResult.textContent = fmtDate(ms);
+  }catch(e){
+    sfResult.textContent = '変換できませんでした';
+  }
+});
+
+var sfDate = document.getElementById('sf-date');
+var sfIdResult = document.getElementById('sf-id-result');
+
+sfDate.addEventListener('input', function(){
+  if(!sfDate.value){ sfIdResult.textContent=''; return; }
+  var ms = BigInt(Math.floor(new Date(sfDate.value).getTime()));
+  var id = (ms - EPOCH) << 22n;
+  if(id < 0n){ sfIdResult.textContent = 'Discordのサービス開始日（2015年1月1日）より前の日時です'; return; }
+  sfIdResult.textContent = id.toString();
+});
+</script>
+</body>
+</html>

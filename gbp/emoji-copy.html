@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>絵文字コピー用テキスト生成｜Guide Base + Tools</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="../index.html" class="brand">
+      <span class="brand-mark">G+</span>
+      <span>Guide Base + Tools<small>Discord技術情報コミュニティ</small></span>
+    </a>
+    <button class="theme-toggle" data-theme-toggle aria-label="ダークモード切り替え">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="shell">
+  <a href="../index.html" class="back-link back-link-top">← ツール一覧に戻る</a>
+
+  <div class="tool-header">
+    <span class="card-tag">テキスト装飾</span>
+    <h1>絵文字コピー用テキスト生成</h1>
+    <p>カスタム絵文字の名前とIDから、メッセージやBotコードで使えるコピー用テキストを生成します。</p>
+  </div>
+
+  <div class="panel">
+    <div class="row">
+      <div class="field">
+        <label for="emoji-name">絵文字名</label>
+        <input type="text" id="emoji-name" placeholder="例：pepe_wave">
+      </div>
+      <div class="field">
+        <label for="emoji-id">絵文字ID</label>
+        <input type="text" id="emoji-id" placeholder="例：123456789012345678" inputmode="numeric">
+      </div>
+      <div class="field field-xs">
+        <label for="emoji-animated">種類</label>
+        <select id="emoji-animated">
+          <option value="0">静止画</option>
+          <option value="1">アニメーション</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>結果</h2>
+    <div class="tbl-wrap">
+      <table class="ref-table" id="emoji-table"></table>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">Guide Base + — Discord技術情報コミュニティ</footer>
+
+<script src="../js/theme.js"></script>
+<script src="../js/copy.js"></script>
+<script>
+var name = document.getElementById('emoji-name');
+var id = document.getElementById('emoji-id');
+var animated = document.getElementById('emoji-animated');
+var table = document.getElementById('emoji-table');
+
+function render(){
+  var n = (name.value.trim() || 'emoji_name').replace(/[^a-zA-Z0-9_]/g,'');
+  var i = id.value.trim() || '0000000000000000';
+  var isAnim = animated.value === '1';
+  var prefix = isAnim ? 'a' : '';
+
+  var items = [
+    {label:'メッセージ用コピーテキスト', val: '<'+prefix+':'+n+':'+i+'>'},
+    {label:'CDN画像URL', val: 'https://cdn.discordapp.com/emojis/'+i+'.'+(isAnim?'gif':'png')},
+    {label:'discord.py 用文字列', val: "'<"+prefix+":"+n+":"+i+">'"}
+  ];
+
+  var rows = items.map(function(it, idx){
+    var cellId = 'em-'+idx;
+    return '<tr><td>'+it.label+'</td><td><code id="'+cellId+'">'+it.val+'</code></td>' +
+      '<td><button class="btn btn-sm" data-copy-target="#'+cellId+'">コピー</button></td></tr>';
+  }).join('');
+  table.innerHTML = '<thead><tr><th>用途</th><th>値</th><th></th></tr></thead><tbody>'+rows+'</tbody>';
+}
+
+[name, id, animated].forEach(function(el){ el.addEventListener('input', render); el.addEventListener('change', render); });
+render();
+</script>
+</body>
+</html>
