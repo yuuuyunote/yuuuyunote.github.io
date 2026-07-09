@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ロール権限マトリクス表｜Guide Base + Tools</title>
+<link rel="stylesheet" href="/gbp/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="/gbp/index.html" class="brand">
+      <span class="brand-mark">G+</span>
+      <span>Guide Base + Tools<small>Discord技術情報コミュニティ</small></span>
+    </a>
+    <button class="theme-toggle" data-theme-toggle aria-label="ダークモード切り替え">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="shell">
+  <a href="/gbp/index.html" class="back-link back-link-top">← ツール一覧に戻る</a>
+
+  <div class="tool-header">
+    <span class="card-tag">サーバー運営</span>
+    <h1>ロール権限マトリクス表</h1>
+    <p>よくある5段階のロール構成をベースにした、権限設定のおすすめテンプレートです。サーバーの規模や方針に合わせて調整してください。</p>
+  </div>
+
+  <div class="panel">
+    <div class="tbl-wrap">
+      <table class="ref-table" id="matrix-table"></table>
+    </div>
+    <div class="note">◎＝許可／△＝限定的に許可（要検討）／−＝不許可。管理者(Administrator)権限は原則オーナー・副管理者のみに付与し、モデレーター以下には個別権限を組み合わせて付与することを推奨します。</div>
+  </div>
+
+  <div class="panel">
+    <h2>ロールの役割メモ</h2>
+    <div class="tbl-wrap"><table class="ref-table" id="roles-table"></table></div>
+  </div>
+</main>
+
+<footer class="site-footer">Guide Base + — Discord技術情報コミュニティ</footer>
+
+<script src="/gbp/js/theme.js"></script>
+<script>
+var ROLES = ['オーナー/副管理者', 'モデレーター', '信頼済みメンバー', '一般メンバー', 'ミュート中'];
+
+var PERMS = [
+  { name: 'サーバー管理',        vals: ['◎','−','−','−','−'] },
+  { name: 'ロールの管理',        vals: ['◎','△','−','−','−'] },
+  { name: 'チャンネルの管理',    vals: ['◎','△','−','−','−'] },
+  { name: 'メンバーのキック',    vals: ['◎','◎','−','−','−'] },
+  { name: 'メンバーのBAN',       vals: ['◎','◎','−','−','−'] },
+  { name: 'メッセージの管理',    vals: ['◎','◎','−','−','−'] },
+  { name: 'メンバーのタイムアウト', vals: ['◎','◎','−','−','−'] },
+  { name: '監査ログの閲覧',      vals: ['◎','◎','−','−','−'] },
+  { name: '招待リンクの作成',    vals: ['◎','◎','◎','◎','−'] },
+  { name: '外部絵文字の使用',    vals: ['◎','◎','◎','◎','−'] },
+  { name: 'メンション権限（@everyone等）', vals: ['◎','◎','△','−','−'] },
+  { name: 'メッセージの送信',    vals: ['◎','◎','◎','◎','−'] },
+  { name: '音声チャンネル参加',  vals: ['◎','◎','◎','◎','−'] },
+  { name: '画像/リンクの添付',   vals: ['◎','◎','◎','△','−'] }
+];
+
+var ROLE_NOTES = [
+  { role: 'オーナー/副管理者', note: 'サーバー運営の最終責任者。ごく少人数に限定するのが基本。' },
+  { role: 'モデレーター', note: '日常のモデレーション業務全般を担当。管理者権限そのものは持たせず、必要な個別権限を付与する。' },
+  { role: '信頼済みメンバー', note: '在籍期間や認証などの条件を満たしたメンバー。一部の追加権限（外部絵文字等）を解放する運用が一般的。' },
+  { role: '一般メンバー', note: '参加直後のデフォルトロール。基本的な閲覧・発言権限のみ。' },
+  { role: 'ミュート中', note: '処罰用のロール。メッセージ送信・リアクション・音声参加などを個別に無効化する設定にする。' }
+];
+
+function buildTable(id, headerFirst, rows, extraHeaders){
+  var table = document.getElementById(id);
+  var headers = [headerFirst].concat(extraHeaders);
+  var thead = document.createElement('thead');
+  var trh = document.createElement('tr');
+  headers.forEach(function(h){ var th=document.createElement('th'); th.textContent=h; trh.appendChild(th); });
+  thead.appendChild(trh);
+
+  var tbody = document.createElement('tbody');
+  rows.forEach(function(r){
+    var tr = document.createElement('tr');
+    var tdName = document.createElement('td'); tdName.textContent = r.name || r.role; tr.appendChild(tdName);
+    (r.vals || [r.note]).forEach(function(v){
+      var td = document.createElement('td'); td.textContent = v; tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+
+  table.innerHTML = '';
+  table.appendChild(thead);
+  table.appendChild(tbody);
+}
+
+buildTable('matrix-table', '権限', PERMS, ROLES);
+buildTable('roles-table', 'ロール', ROLE_NOTES, ['役割']);
+</script>
+</body>
+</html>

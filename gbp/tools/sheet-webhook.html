@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>スプレッドシート→Discord通知コード生成｜Guide Base + Tools</title>
+<link rel="stylesheet" href="/gbp/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="/gbp/index.html" class="brand">
+      <span class="brand-mark">G+</span>
+      <span>Guide Base + Tools<small>Discord技術情報コミュニティ</small></span>
+    </a>
+    <button class="theme-toggle" data-theme-toggle aria-label="ダークモード切り替え">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="shell">
+  <a href="/gbp/index.html" class="back-link back-link-top">← ツール一覧に戻る</a>
+
+  <div class="tool-header">
+    <span class="card-tag">Webhook連携</span>
+    <h1>スプレッドシート→Discord通知コード生成</h1>
+    <p>スプレッドシートに新しい行が追加されたときに、Discordチャンネルへ自動通知するGoogle Apps Scriptコードを生成します。</p>
+  </div>
+
+  <div class="panel">
+    <h2><span class="step">01</span>基本情報を入力</h2>
+    <div class="field">
+      <label for="sw-url">DiscordのWebhook URL</label>
+      <input type="url" id="sw-url" placeholder="https://discord.com/api/webhooks/xxxx/xxxx">
+    </div>
+    <div class="row">
+      <div class="field">
+        <label for="sw-sheet">シート名</label>
+        <input type="text" id="sw-sheet" value="シート1">
+      </div>
+      <div class="field">
+        <label for="sw-title">Embedのタイトル</label>
+        <input type="text" id="sw-title" value="スプレッドシートが更新されました">
+      </div>
+    </div>
+    <div class="field">
+      <label for="sw-color">Embedの色（16進数カラーコード）</label>
+      <input type="text" id="sw-color" value="C8720A">
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2><span class="step">02</span>通知に含める列を入力（1行に「列文字:見出し」）</h2>
+    <div class="field">
+      <textarea id="sw-fields" class="textarea-sm">A:日付
+B:担当者
+C:内容</textarea>
+    </div>
+    <div class="note">例：<code>A:日付</code> と書くと、A列の値が「日付」という項目名で通知に含まれます。</div>
+  </div>
+
+  <div class="panel">
+    <h2><span class="step">03</span>生成されたコードをコピー</h2>
+    <div class="copy-row">
+      <div class="output-box output-scroll" id="sw-output"></div>
+      <button class="btn btn-primary" data-copy-target="#sw-output">コピー</button>
+    </div>
+    <div class="note">
+      設置手順：①対象のスプレッドシートを開く →「拡張機能」→「Apps Script」→ このコードを貼り付けて保存 →「トリガー」で関数 <code>checkNewRows</code> を選び、イベントの種類を「時間主導型」→「分ベースのタイマー」（例：5分おき）に設定。初回のみGoogleの権限承認が必要です。<br>
+      仕組み：処理済みの最終行番号を記録しておき、新しく増えた行だけを通知します（同じ行が重複して通知されることはありません）。
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">Guide Base + — Discord技術情報コミュニティ</footer>
+
+<script src="/gbp/js/theme.js"></script>
+<script src="/gbp/js/copy.js"></script>
+<script>
+var swUrl = document.getElementById('sw-url');
+var swSheet = document.getElementById('sw-sheet');
+var swTitle = document.getElementById('sw-title');
+var swColor = document.getElementById('sw-color');
+var swFields = document.getElementById('sw-fields');
+var swOutput = document.getElementById('sw-output');
+
+function hexToDecimal(hex){
+  var h = (hex || 'C8720A').replace('#','').trim();
+  if(!/^[0-9a-fA-F]{6}$/.test(h)) h = 'C8720A';
+  return parseInt(h, 16);
+}
+
+function colLetterToIndex(letter){
+  letter = letter.toUpperCase().trim();
+  var idx = 0;
+  for(var i=0;i<letter.length;i++){
+    idx = idx*26 + (letter.charCodeAt(i) - 64);
+  }
+  return idx; // 1-based
+}
+
+function generate(){
+  var url = swUrl.value.trim() || 'ここにWebhook URLを貼り付け';
+  var sheetName = (swSheet.value.trim() || 'シート1').replace(/"/g,'\\"');
+  var title = (swTitle.value.trim() || 'スプレッドシートが更新されました').replace(/"/g,'\\"');
+  var colorDec = hexToDecimal(swColor.value);
+
+  var lines = swFields.value.split('\n').map(function(s){return s.trim();}).filter(Boolean);
+  var pairs = lines.map(function(line){
+    var parts = line.split(':');
+    var col = (parts[0] || 'A').trim();
+    var label = (parts.slice(1).join(':') || col).trim().replace(/"/g,'\\"');
+    return { col: col, idx: colLetterToIndex(col), label: label };
+  });
+
+  var fieldsCode = pairs.map(function(p){
+    return '    { name: "' + p.label + '", value: String(row[' + (p.idx-1) + '] || "（空欄）"), inline: false }';
+  }).join(',\n');
+
+  var code =
+'// Guide Base + Tools で生成 — スプレッドシート → Discord Webhook 通知コード\n' +
+'// 設置方法：スプレッドシートを開く → 拡張機能 → Apps Script → このコードを貼り付け\n' +
+'// → トリガー → checkNewRows を「時間主導型・分ベースのタイマー」で設定\n\n' +
+'var WEBHOOK_URL = "' + url + '";\n' +
+'var SHEET_NAME = "' + sheetName + '";\n' +
+'var PROP_KEY = "GBP_LAST_ROW_" + SHEET_NAME;\n\n' +
+'function checkNewRows() {\n' +
+'  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);\n' +
+'  if (!sheet) return;\n\n' +
+'  var props = PropertiesService.getScriptProperties();\n' +
+'  var lastRow = Number(props.getProperty(PROP_KEY) || 1); // 1行目はヘッダー想定\n' +
+'  var currentLastRow = sheet.getLastRow();\n' +
+'  if (currentLastRow <= lastRow) return; // 新しい行がなければ何もしない\n\n' +
+'  var newRows = sheet.getRange(lastRow + 1, 1, currentLastRow - lastRow, sheet.getLastColumn()).getValues();\n\n' +
+'  newRows.forEach(function (row) {\n' +
+'    var fields = [\n' + fieldsCode + '\n    ];\n\n' +
+'    var payload = {\n' +
+'      embeds: [{\n' +
+'        title: "' + title + '",\n' +
+'        color: ' + colorDec + ',\n' +
+'        fields: fields,\n' +
+'        timestamp: new Date().toISOString()\n' +
+'      }]\n' +
+'    };\n\n' +
+'    UrlFetchApp.fetch(WEBHOOK_URL, {\n' +
+'      method: "post",\n' +
+'      contentType: "application/json",\n' +
+'      payload: JSON.stringify(payload),\n' +
+'      muteHttpExceptions: true\n' +
+'    });\n' +
+'  });\n\n' +
+'  props.setProperty(PROP_KEY, String(currentLastRow));\n' +
+'}\n';
+
+  swOutput.textContent = code;
+}
+
+[swUrl, swSheet, swTitle, swColor, swFields].forEach(function(el){ el.addEventListener('input', generate); });
+generate();
+</script>
+</body>
+</html>

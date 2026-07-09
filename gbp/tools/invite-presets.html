@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>招待リンク設定早見表｜Guide Base + Tools</title>
+<link rel="stylesheet" href="/gbp/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="/gbp/index.html" class="brand">
+      <span class="brand-mark">G+</span>
+      <span>Guide Base + Tools<small>Discord技術情報コミュニティ</small></span>
+    </a>
+    <button class="theme-toggle" data-theme-toggle aria-label="ダークモード切り替え">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="shell">
+  <a href="/gbp/index.html" class="back-link back-link-top">← ツール一覧に戻る</a>
+
+  <div class="tool-header">
+    <span class="card-tag">サーバー運営</span>
+    <h1>招待リンク設定早見表</h1>
+    <p>用途別に、招待リンクの有効期限・使用回数のおすすめ組み合わせをまとめました。</p>
+  </div>
+
+  <div class="panel">
+    <div class="tbl-wrap"><table class="ref-table" id="invite-table"></table></div>
+    <div class="note">常設招待リンクは、拡散されると想定外の人数が流入しやすくなります。宣伝サイトに載せる用途などを除き、基本的には期限・回数を区切ったリンクを使い分けるのがおすすめです。</div>
+  </div>
+</main>
+
+<footer class="site-footer">Guide Base + — Discord技術情報コミュニティ</footer>
+
+<script src="/gbp/js/theme.js"></script>
+<script>
+var ROWS = [
+  ['サーバー常設のメイン招待リンク', '無期限', '無制限', 'サーバー概要欄・公式サイトなど、恒久的に貼っておく用途。荒らし対策としてメンバー認証レベルを上げておく。'],
+  ['SNS投稿・告知ツイート用', '24時間', '無制限', '拡散されても影響範囲を1日に限定できる。'],
+  ['イベント・コラボ配信用', 'イベント終了まで（例：6時間）', '想定参加人数＋α', '短時間で人数が集中しても対応しやすいよう、期限を絞る。'],
+  ['個別の知人・友人招待用', '1時間〜1日', '1回', '特定の1人だけを招待したい場合、使用回数を1回にしておくと転送されても増殖しない。'],
+  ['サーバー掲載サイト・宣伝用', '7日', '無制限〜100回程度', '掲載先の集客力に応じて調整。荒れやすい場合は使用回数に上限を設ける。'],
+  ['コラボサーバー間の交換リンク', '30日', '無制限', '相手サーバーとの合意のもと、双方に一定期間貼っておく用途。']
+];
+
+var table = document.getElementById('invite-table');
+var thead = document.createElement('thead');
+thead.innerHTML = '<tr><th>用途</th><th>有効期限の目安</th><th>使用回数の目安</th><th>補足</th></tr>';
+var tbody = document.createElement('tbody');
+ROWS.forEach(function(r){
+  var tr = document.createElement('tr');
+  r.forEach(function(c){ var td = document.createElement('td'); td.textContent = c; tr.appendChild(td); });
+  tbody.appendChild(tr);
+});
+table.appendChild(thead);
+table.appendChild(tbody);
+</script>
+</body>
+</html>

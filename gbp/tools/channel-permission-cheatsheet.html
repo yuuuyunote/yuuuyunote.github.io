@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>チャンネル権限設定チートシート｜Guide Base + Tools</title>
+<link rel="stylesheet" href="/gbp/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="/gbp/index.html" class="brand">
+      <span class="brand-mark">G+</span>
+      <span>Guide Base + Tools<small>Discord技術情報コミュニティ</small></span>
+    </a>
+    <button class="theme-toggle" data-theme-toggle aria-label="ダークモード切り替え">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="shell">
+  <a href="/gbp/index.html" class="back-link back-link-top">← ツール一覧に戻る</a>
+
+  <div class="tool-header">
+    <span class="card-tag">サーバー運営</span>
+    <h1>チャンネル権限設定チートシート</h1>
+    <p>目的別によく使うチャンネル権限の上書き（オーバーライド）設定をまとめました。基本はサーバー全体の権限をベースに、チャンネルごとに差分だけ設定するのが管理しやすい方法です。</p>
+  </div>
+
+  <div class="panel" id="presets-wrap"></div>
+</main>
+
+<footer class="site-footer">Guide Base + — Discord技術情報コミュニティ</footer>
+
+<script src="/gbp/js/theme.js"></script>
+<script>
+var PRESETS = [
+  {
+    title: 'お知らせ専用チャンネル',
+    desc: '運営からの告知のみを流すチャンネル。',
+    rules: [
+      '@everyone：メッセージの送信 → 不許可',
+      '@everyone：リアクションの追加 → 任意（許可すると反応しやすくなる）',
+      'モデレーター以上：メッセージの送信 → 許可',
+      'フォーラム型ではなく通常テキストチャンネル推奨（スレッド機能で質問だけ受け付ける形も可）'
+    ]
+  },
+  {
+    title: 'モデレーター専用チャンネル',
+    desc: '運営陣のみが閲覧・発言できる内部連絡用チャンネル。',
+    rules: [
+      '@everyone：チャンネルの閲覧 → 不許可',
+      'モデレーターロール：チャンネルの閲覧・メッセージの送信 → 許可',
+      'カテゴリごと非公開設定にし、モデレーター専用カテゴリの配下にまとめると管理しやすい'
+    ]
+  },
+  {
+    title: '認証/ロール取得チャンネル',
+    desc: '新規参加者がルール確認やロール取得を行うチャンネル。',
+    rules: [
+      '@everyone：チャンネルの閲覧 → 許可、メッセージの送信 → 不許可',
+      'メッセージ送信を禁止し、ボタンやリアクションのみで操作させる設計が安全',
+      'ロール取得後はこのチャンネルが見えなくなるよう、取得後ロールに「閲覧不可」の上書きを設定する運用も可能'
+    ]
+  },
+  {
+    title: '雑談・自由チャンネル',
+    desc: '一般メンバーが自由に発言できるメインの交流チャンネル。',
+    rules: [
+      '@everyone：メッセージの送信・埋め込みリンク・ファイル添付 → 許可',
+      'ミュートロール：メッセージの送信・リアクションの追加 → 不許可（処罰時に効くように上書き）',
+      '荒らし対策としてAutoModのスパムフィルタ適用を推奨'
+    ]
+  },
+  {
+    title: '質問・サポートチャンネル',
+    desc: '技術的な質問やサポート依頼を受け付けるチャンネル。',
+    rules: [
+      'フォーラムチャンネル形式にすると、投稿ごとにスレッドが独立して見やすい',
+      'サポート担当ロール：スレッドの管理・メッセージのピン留め → 許可',
+      '@everyone：新規投稿の作成 → 許可、既存スレッドへの返信 → 許可'
+    ]
+  },
+  {
+    title: 'ボット専用コマンドチャンネル',
+    desc: 'Botへのコマンド実行を集約するチャンネル。',
+    rules: [
+      '@everyone：メッセージの送信 → 許可（ただしスラッシュコマンド中心の運用ならメッセージ内容の可読性を割り切る）',
+      '他の一般チャンネルではBotコマンドの使用を控えてもらう旨をトピック欄などに明記',
+      'ログが流れやすいので、必要に応じて自動削除（スラッシュコマンドの一時応答）を活用'
+    ]
+  }
+];
+
+var wrap = document.getElementById('presets-wrap');
+PRESETS.forEach(function(p, i){
+  var section = document.createElement('div');
+  if(i > 0){
+    var hr = document.createElement('div');
+    hr.className = 'preset-divider';
+    wrap.appendChild(hr);
+  }
+  var h3 = document.createElement('h3'); h3.textContent = p.title;
+  var desc = document.createElement('p'); desc.className = 'subtext preset-desc'; desc.textContent = p.desc;
+  var ul = document.createElement('ul'); ul.className = 'preset-list';
+  p.rules.forEach(function(r){
+    var li = document.createElement('li'); li.textContent = r;
+    ul.appendChild(li);
+  });
+  section.appendChild(h3); section.appendChild(desc); section.appendChild(ul);
+  wrap.appendChild(section);
+});
+</script>
+</body>
+</html>

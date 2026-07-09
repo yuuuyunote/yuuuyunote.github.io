@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Googleフォーム→Discord連携コード生成｜Guide Base + Tools</title>
+<link rel="stylesheet" href="/gbp/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="/gbp/index.html" class="brand">
+      <span class="brand-mark">G+</span>
+      <span>Guide Base + Tools<small>Discord技術情報コミュニティ</small></span>
+    </a>
+    <button class="theme-toggle" data-theme-toggle aria-label="ダークモード切り替え">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="shell">
+  <a href="/gbp/index.html" class="back-link back-link-top">← ツール一覧に戻る</a>
+
+  <div class="tool-header">
+    <span class="card-tag">Webhook連携</span>
+    <h1>Googleフォーム→Discord連携コード生成</h1>
+    <p>Googleフォームの回答をDiscordチャンネルへ自動送信する、Google Apps Script（GAS）のコードを生成します。</p>
+  </div>
+
+  <div class="panel">
+    <h2><span class="step">01</span>Webhook URLとタイトルを入力</h2>
+    <div class="field">
+      <label for="wh-url">DiscordのWebhook URL</label>
+      <input type="url" id="wh-url" placeholder="https://discord.com/api/webhooks/xxxx/xxxx">
+    </div>
+    <div class="field">
+      <label for="wh-title">Embedのタイトル</label>
+      <input type="text" id="wh-title" placeholder="例：新しいフォーム回答が届きました" value="新しいフォーム回答が届きました">
+    </div>
+    <div class="field">
+      <label for="wh-color">Embedの色（16進数カラーコード）</label>
+      <input type="text" id="wh-color" placeholder="例：C8720A" value="C8720A">
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2><span class="step">02</span>フォームの質問項目を入力（1行に1項目）</h2>
+    <div class="field">
+      <textarea id="wh-fields" class="textarea-sm">お名前
+ご希望の連絡方法
+お問い合わせ内容</textarea>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2><span class="step">03</span>生成されたコードをコピー</h2>
+    <div class="copy-row">
+      <div class="output-box output-scroll" id="wh-output"></div>
+      <button class="btn btn-primary" data-copy-target="#wh-output">コピー</button>
+    </div>
+    <div class="note">
+      設置手順：①Googleフォームの回答スプレッドシート（または フォーム自体）を開く →「拡張機能」→「Apps Script」→ 生成したコードを貼り付け →「トリガー」で「フォーム送信時」を設定して保存。初回のみGoogleの権限承認が必要です。
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">Guide Base + — Discord技術情報コミュニティ</footer>
+
+<script src="/gbp/js/theme.js"></script>
+<script src="/gbp/js/copy.js"></script>
+<script>
+var whUrl = document.getElementById('wh-url');
+var whTitle = document.getElementById('wh-title');
+var whColor = document.getElementById('wh-color');
+var whFields = document.getElementById('wh-fields');
+var whOutput = document.getElementById('wh-output');
+
+function hexToDecimal(hex){
+  var h = (hex || 'C8720A').replace('#','').trim();
+  if(!/^[0-9a-fA-F]{6}$/.test(h)) h = 'C8720A';
+  return parseInt(h, 16);
+}
+
+function generate(){
+  var url = whUrl.value.trim() || 'ここにWebhook URLを貼り付け';
+  var title = (whTitle.value.trim() || '新しいフォーム回答が届きました').replace(/"/g, '\\"');
+  var colorDec = hexToDecimal(whColor.value);
+  var fields = whFields.value.split('\n').map(function(s){ return s.trim(); }).filter(Boolean);
+
+  var fieldsCode = fields.map(function(label){
+    var esc = label.replace(/"/g, '\\"');
+    return '    { name: "' + esc + '", value: String(namedValues["' + esc + '"] || "（未回答）"), inline: false }';
+  }).join(',\n');
+
+  var code =
+'// Guide Base + Tools で生成 — Googleフォーム → Discord Webhook 連携コード\n' +
+'// 設置方法：フォームの回答スプレッドシートを開く → 拡張機能 → Apps Script → このコードを貼り付け\n' +
+'// → 時計アイコン（トリガー）→ 「フォーム送信時」のトリガーを追加して保存\n\n' +
+'var WEBHOOK_URL = "' + url + '";\n\n' +
+'function onFormSubmit(e) {\n' +
+'  var namedValues = e.namedValues;\n' +
+'  var fields = [\n' + fieldsCode + '\n  ];\n\n' +
+'  var payload = {\n' +
+'    embeds: [{\n' +
+'      title: "' + title + '",\n' +
+'      color: ' + colorDec + ',\n' +
+'      fields: fields,\n' +
+'      timestamp: new Date().toISOString()\n' +
+'    }]\n' +
+'  };\n\n' +
+'  var options = {\n' +
+'    method: "post",\n' +
+'    contentType: "application/json",\n' +
+'    payload: JSON.stringify(payload),\n' +
+'    muteHttpExceptions: true\n' +
+'  };\n\n' +
+'  UrlFetchApp.fetch(WEBHOOK_URL, options);\n' +
+'}\n';
+
+  whOutput.textContent = code;
+}
+
+[whUrl, whTitle, whColor, whFields].forEach(function(el){ el.addEventListener('input', generate); });
+generate();
+</script>
+</body>
+</html>
