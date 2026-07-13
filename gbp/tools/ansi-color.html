@@ -112,7 +112,8 @@ function getSelectionRange(){
 }
 
 function wrapSelection(props){
-  var range = getSelectionRange();
+  var range = savedRange || getSelectionRange();
+  savedRange = null;
   if(!range){ gbpToast('先に文字を選択してください'); return; }
   var span = document.createElement('span');
   if(props.fg) span.setAttribute('data-fg', props.fg);
@@ -138,6 +139,27 @@ function wrapSelection(props){
   generate();
 }
 
+// スマホでスウォッチ/ボタンをタップすると、クリック(click)イベントが発火する前に
+// contenteditable内の選択範囲が失われてしまう端末があるため、
+// 選択が消える前の touchstart/mousedown の時点で範囲を保存しておき、
+// 実際にクリックが発火した時点ではその保存済みの範囲を使う
+var savedRange = null;
+function captureRangeEarly(){
+  var r = getSelectionRange();
+  if(r) savedRange = r.cloneRange();
+}
+function bindEarlyCapture(el){
+  el.addEventListener('mousedown', captureRangeEarly);
+  el.addEventListener('touchstart', captureRangeEarly, { passive: true });
+}
+[
+  document.getElementById('fg-swatches'),
+  document.getElementById('bg-swatches'),
+  document.getElementById('btn-bold'),
+  document.getElementById('btn-underline'),
+  document.getElementById('btn-clear')
+].forEach(bindEarlyCapture);
+
 document.getElementById('fg-swatches').addEventListener('click', function(e){
   var el = e.target.closest('.swatch'); if(!el) return;
   wrapSelection({fg: el.getAttribute('data-code')});
@@ -149,7 +171,8 @@ document.getElementById('bg-swatches').addEventListener('click', function(e){
 document.getElementById('btn-bold').addEventListener('click', function(){ wrapSelection({bold:true}); });
 document.getElementById('btn-underline').addEventListener('click', function(){ wrapSelection({underline:true}); });
 document.getElementById('btn-clear').addEventListener('click', function(){
-  var range = getSelectionRange();
+  var range = savedRange || getSelectionRange();
+  savedRange = null;
   if(!range){ gbpToast('先に文字を選択してください'); return; }
   var text = range.toString();
   range.deleteContents();
