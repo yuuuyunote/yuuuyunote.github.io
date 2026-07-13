@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>用語集＆ショートカットキー｜Guide Base + Tools</title>
+<link rel="stylesheet" href="/gbp/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="/gbp/index.html" class="brand">
+      <span class="brand-mark">G+</span>
+      <span>Guide Base + Tools<small>Discord技術情報コミュニティ</small></span>
+    </a>
+    <button class="theme-toggle" data-theme-toggle aria-label="ダークモード切り替え">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="shell">
+  <a href="/gbp/index.html" class="back-link back-link-top">← ツール一覧に戻る</a>
+
+  <div class="tool-header">
+    <span class="card-tag">リファレンス</span>
+    <h1>用語集＆ショートカットキー</h1>
+    <p>Discord運営でよく使われる用語と、覚えておくと作業が速くなるショートカットキーをまとめました。</p>
+  </div>
+
+  <div class="panel">
+    <h2>用語集</h2>
+    <div class="tbl-wrap"><table class="ref-table" id="glossary-table"></table></div>
+  </div>
+
+  <div class="panel">
+    <h2>ショートカットキー（PC版）</h2>
+    <div class="tbl-wrap"><table class="ref-table" id="shortcut-table"></table></div>
+  </div>
+</main>
+
+<footer class="site-footer">Guide Base + — Discord技術情報コミュニティ</footer>
+
+<script src="/gbp/js/theme.js"></script>
+<script>
+function buildTable(id, headers, rows){
+  var table = document.getElementById(id);
+  var thead = '<thead><tr>'+headers.map(function(h){return '<th>'+h+'</th>';}).join('')+'</tr></thead>';
+  var tbody = '<tbody>'+rows.map(function(r){
+    return '<tr>'+r.map(function(c){return '<td>'+c+'</td>';}).join('')+'</tr>';
+  }).join('')+'</tbody>';
+  table.innerHTML = thead + tbody;
+}
+
+buildTable('glossary-table', ['用語', '意味'], [
+  ['ロール', 'メンバーに付与する権限・表示色・分類のまとまり。'],
+  ['権限（Permission）', 'ロールやチャンネルごとに設定できる操作の許可/不許可。'],
+  ['Webhook', '外部サービスからチャンネルへメッセージを送信できる仕組み。Botアカウント不要。'],
+  ['Embed', 'メッセージに枠線・タイトル・画像などを付けてリッチに表示する形式。'],
+  ['Intents', 'Botがどの種類のイベント情報を受け取るかを指定する設定。'],
+  ['スラッシュコマンド', '<code>/</code>から始まる、Botに用意されたコマンド形式。'],
+  ['AutoMod', 'Discord標準の自動モデレーション機能。NGワードやスパムを自動検知。'],
+  ['監査ログ', 'サーバー内で行われた設定変更や処罰などの操作履歴。'],
+  ['Snowflake', 'Discordで使われる、作成日時を含む一意のID形式。'],
+  ['スレッド', 'チャンネル内に作成できる、話題ごとの派生スレッド機能。'],
+  ['フォーラムチャンネル', '投稿ごとにスレッドが自動作成される、掲示板形式のチャンネル。'],
+  ['オンボーディング', '新規参加者に自己紹介やルール確認などを促す導線設計。']
+]);
+
+buildTable('shortcut-table', ['操作', 'キー'], [
+  ['チャンネル/サーバー切り替え検索', '<code>Ctrl</code> + <code>K</code>'],
+  ['未読を全て既読にする', '<code>Shift</code> + <code>Esc</code>'],
+  ['絵文字ピッカーを開く', '<code>Ctrl</code> + <code>E</code>（Windows）'],
+  ['直前のメッセージを編集', '<code>↑</code>キー（入力欄が空の状態で）'],
+  ['メンバーリストの表示切り替え', '<code>Ctrl</code> + <code>U</code>'],
+  ['サーバー一覧を上下に移動', '<code>Alt</code> + <code>↑</code> / <code>↓</code>'],
+  ['未読チャンネルへジャンプ', '<code>Alt</code> + <code>Shift</code> + <code>↑</code> / <code>↓</code>'],
+  ['改行（送信せず）', '<code>Shift</code> + <code>Enter</code>'],
+  ['マークダウンの太字/斜体', '<code>Ctrl</code> + <code>B</code> / <code>Ctrl</code> + <code>I</code>']
+]);
+</script>
+</body>
+</html>

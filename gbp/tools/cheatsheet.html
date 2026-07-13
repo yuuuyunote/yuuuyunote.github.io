@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>装飾記法＆メンションチートシート｜Guide Base + Tools</title>
+<link rel="stylesheet" href="/gbp/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="/gbp/index.html" class="brand">
+      <span class="brand-mark">G+</span>
+      <span>Guide Base + Tools<small>Discord技術情報コミュニティ</small></span>
+    </a>
+    <button class="theme-toggle" data-theme-toggle aria-label="ダークモード切り替え">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="shell">
+  <a href="/gbp/index.html" class="back-link back-link-top">← ツール一覧に戻る</a>
+
+  <div class="tool-header">
+    <span class="card-tag">テキスト装飾</span>
+    <h1>装飾記法＆メンションチートシート</h1>
+    <p>よく使う記法をまとめた早見表です。値をクリックするとそのままコピーできます。</p>
+  </div>
+
+  <div class="panel">
+    <h2>装飾記法</h2>
+    <div class="tbl-wrap"><table class="ref-table" id="deco-table"></table></div>
+  </div>
+
+  <div class="panel">
+    <h2>メンション形式</h2>
+    <div class="tbl-wrap"><table class="ref-table" id="mention-table"></table></div>
+  </div>
+
+  <div class="panel">
+    <h2>コードブロック言語指定</h2>
+    <p class="subtext"><code>```言語名</code> の形でコードブロックの先頭に付けると、シンタックスハイライトされます。</p>
+    <div class="tbl-wrap"><table class="ref-table" id="lang-table"></table></div>
+  </div>
+</main>
+
+<footer class="site-footer">Guide Base + — Discord技術情報コミュニティ</footer>
+
+<script src="/gbp/js/theme.js"></script>
+<script src="/gbp/js/copy.js"></script>
+<script>
+function buildTable(tableId, rows){
+  var body = rows.map(function(r, i){
+    var cellId = tableId+'-'+i;
+    return '<tr><td>'+r[0]+'</td><td><code id="'+cellId+'">'+r[1].replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</code></td>' +
+      '<td><button class="btn btn-sm" data-copy-target="#'+cellId+'">コピー</button></td></tr>';
+  }).join('');
+  document.getElementById(tableId).innerHTML = '<thead><tr><th>用途</th><th>記法</th><th></th></tr></thead><tbody>'+body+'</tbody>';
+}
+// data-copy-target reads textContent — set via JS to avoid HTML-escaping issues
+function buildTableRaw(tableId, rows){
+  var tbody = document.createElement('tbody');
+  rows.forEach(function(r, i){
+    var tr = document.createElement('tr');
+    var td1 = document.createElement('td'); td1.textContent = r[0];
+    var td2 = document.createElement('td');
+    var code = document.createElement('code'); code.id = tableId+'-'+i; code.textContent = r[1];
+    td2.appendChild(code);
+    var td3 = document.createElement('td');
+    var btn = document.createElement('button'); btn.className='btn btn-sm'; btn.textContent='コピー';
+    btn.setAttribute('data-copy-target', '#'+tableId+'-'+i);
+    td3.appendChild(btn);
+    tr.appendChild(td1); tr.appendChild(td2); tr.appendChild(td3);
+    tbody.appendChild(tr);
+  });
+  var table = document.getElementById(tableId);
+  table.innerHTML = '<thead><tr><th>用途</th><th>記法</th><th></th></tr></thead>';
+  table.appendChild(tbody);
+}
+
+buildTableRaw('deco-table', [
+  ['太字', '**テキスト**'],
+  ['斜体', '*テキスト*'],
+  ['下線', '__テキスト__'],
+  ['取り消し線', '~~テキスト~~'],
+  ['スポイラー（ネタバレ）', '||テキスト||'],
+  ['引用（1行）', '> テキスト'],
+  ['引用（複数行）', '>>> テキスト'],
+  ['インラインコード', '`テキスト`'],
+  ['見出し(大/中/小)', '# / ## / ###'],
+  ['箇条書き', '- 項目'],
+  ['番号付きリスト', '1. 項目'],
+  ['マスクリンク', '[表示名](https://example.com)']
+]);
+
+buildTableRaw('mention-table', [
+  ['全員に通知', '@everyone'],
+  ['オンラインメンバーに通知', '@here'],
+  ['ユーザーメンション', '<@ユーザーID>'],
+  ['ロールメンション', '<@&ロールID>'],
+  ['チャンネルリンク', '<#チャンネルID>'],
+  ['スラッシュコマンドリンク', '</コマンド名:コマンドID>']
+]);
+
+buildTableRaw('lang-table', [
+  ['プレーンテキスト', '```text'],
+  ['JavaScript', '```js'],
+  ['Python', '```python'],
+  ['JSON', '```json'],
+  ['YAML', '```yaml'],
+  ['ANSIカラー', '```ansi'],
+  ['diff（差分表示）', '```diff'],
+  ['HTML', '```html'],
+  ['CSS', '```css'],
+  ['SQL', '```sql']
+]);
+</script>
+</body>
+</html>

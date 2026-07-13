@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>サーバー構成テンプレート集｜Guide Base + Tools</title>
+<link rel="stylesheet" href="/gbp/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="/gbp/index.html" class="brand">
+      <span class="brand-mark">G+</span>
+      <span>Guide Base + Tools<small>Discord技術情報コミュニティ</small></span>
+    </a>
+    <button class="theme-toggle" data-theme-toggle aria-label="ダークモード切り替え">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="shell">
+  <a href="/gbp/index.html" class="back-link back-link-top">← ツール一覧に戻る</a>
+
+  <div class="tool-header">
+    <span class="card-tag">サーバー運営</span>
+    <h1>サーバー構成テンプレート集</h1>
+    <p>目的別のチャンネル構成テンプレートです。「コピー」でテキスト形式の構成案としてコピーできるので、メモやマニュアルにそのまま貼り付けられます。</p>
+  </div>
+
+  <div id="templates-wrap"></div>
+</main>
+
+<footer class="site-footer">Guide Base + — Discord技術情報コミュニティ</footer>
+
+<script src="/gbp/js/theme.js"></script>
+<script src="/gbp/js/copy.js"></script>
+<script>
+var TEMPLATES = [
+  {
+    id: 'community',
+    title: 'コミュニティ・交流サーバー',
+    tree: [
+      '📌 案内', ['ルール', 'お知らせ', '自己紹介'],
+      '💬 交流', ['雑談', '趣味の話', '画像・動画共有', 'ボットコマンド'],
+      '🔊 音声', ['雑談VC①', '雑談VC②', '作業用VC'],
+      '🛠 運営', ['モデレーター連絡', '通報・報告']
+    ]
+  },
+  {
+    id: 'study',
+    title: '学習・勉強系サーバー',
+    tree: [
+      '📌 案内', ['ルール', 'お知らせ', '進捗共有'],
+      '📚 学習', ['質問部屋（フォーラム）', '教材・資料共有', '雑談'],
+      '🔊 音声', ['作業通話（もくもく会）', '質疑応答VC'],
+      '🛠 運営', ['モデレーター連絡']
+    ]
+  },
+  {
+    id: 'gaming',
+    title: 'ゲーム系サーバー',
+    tree: [
+      '📌 案内', ['ルール', 'お知らせ', 'メンバー募集'],
+      '🎮 ゲーム', ['雑談', '攻略・情報共有', '大会・イベント告知', 'クリップ・実績共有'],
+      '🔊 音声', ['ゲーム部屋①', 'ゲーム部屋②', '観戦・待機VC'],
+      '🛠 運営', ['モデレーター連絡', '通報・報告']
+    ]
+  },
+  {
+    id: 'devtool',
+    title: '開発者・ツール系サーバー',
+    tree: [
+      '📌 案内', ['ルール', 'お知らせ', 'FAQ'],
+      '🧩 サポート', ['質問部屋（フォーラム）', '不具合報告', '要望・提案'],
+      '💻 開発', ['開発雑談', 'リリース情報', '貢献者向けチャンネル'],
+      '🛠 運営', ['モデレーター連絡']
+    ]
+  }
+];
+
+function templateToText(t){
+  var lines = [t.title];
+  for(var i=0;i<t.tree.length;i+=2){
+    lines.push('');
+    lines.push('■ ' + t.tree[i]);
+    t.tree[i+1].forEach(function(ch){ lines.push('　- #' + ch); });
+  }
+  return lines.join('\n');
+}
+
+var wrap = document.getElementById('templates-wrap');
+
+TEMPLATES.forEach(function(t){
+  var panel = document.createElement('div');
+  panel.className = 'panel';
+
+  var h2 = document.createElement('h2'); h2.textContent = t.title;
+  panel.appendChild(h2);
+
+  var ul = document.createElement('ul'); ul.className = 'preset-list';
+  for(var i=0;i<t.tree.length;i+=2){
+    var catLi = document.createElement('li');
+    catLi.innerHTML = '<strong>' + t.tree[i] + '</strong>';
+    var innerUl = document.createElement('ul'); innerUl.className = 'preset-list';
+    t.tree[i+1].forEach(function(ch){
+      var chLi = document.createElement('li'); chLi.textContent = '#' + ch;
+      innerUl.appendChild(chLi);
+    });
+    catLi.appendChild(innerUl);
+    ul.appendChild(catLi);
+  }
+  panel.appendChild(ul);
+
+  var pre = document.createElement('div');
+  pre.className = 'output-box output-pre hidden';
+  pre.id = 'tpl-text-' + t.id;
+  pre.textContent = templateToText(t);
+  panel.appendChild(pre);
+
+  var btnGroup = document.createElement('div'); btnGroup.className = 'btn-group';
+  var btn = document.createElement('button');
+  btn.className = 'btn btn-primary btn-sm';
+  btn.textContent = 'テキストとしてコピー';
+  btn.setAttribute('data-copy-target', '#tpl-text-' + t.id);
+  btnGroup.appendChild(btn);
+  panel.appendChild(btnGroup);
+
+  wrap.appendChild(panel);
+});
+</script>
+</body>
+</html>
