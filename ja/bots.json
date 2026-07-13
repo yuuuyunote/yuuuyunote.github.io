@@ -1,0 +1,74 @@
+[
+  {
+    "id": "guardian-core",
+    "name": "GuardianCore",
+    "category": "サーバー管理",
+    "shortDesc": "AIによる不正検知と多段階認証で、荒らしとスパムを未然に防ぐ統合セキュリティBot。",
+    "fullDesc": "GuardianCoreは、日本製Discord Botの中でも特にセキュリティに特化した統合管理Botです。AIベースの不審行動検知エンジンが、なりすましアカウントや大量招待リンクの拡散、スパム投稿をリアルタイムで自動検知し、通報から対応までの流れを完全自動化します。認証システムはメール認証・画像認証・電話番号認証の3段階から選択可能で、サーバーの規模やリスクレベルに応じて柔軟に運用できます。管理者向けにはWeb管理画面から詳細なログとモデレーション履歴を閲覧できるため、複数人での運用体制にもスムーズに対応します。",
+    "tags": ["#完全無料", "#Web管理画面", "#スラッシュコマンド", "#ログ機能"],
+    "icon": "shield-check",
+    "iconBg": "bg-indigo-500",
+    "inviteUrl": "https://discord.com/oauth2/authorize?client_id=000000000000000001",
+    "supportUrl": "https://discord.gg/guardiancore-support"
+  },
+  {
+    "id": "modshield-lite",
+    "name": "ModShield Lite",
+    "category": "サーバー管理",
+    "shortDesc": "軽量設計で導入1分。荒らし対策と自動役職付与に特化したシンプル管理Bot。",
+    "fullDesc": "ModShield Liteは「とにかく簡単に、すぐに使える」をコンセプトにした軽量サーバー管理Botです。複雑な設定は一切不要で、コマンド一つで招待リンク制限・NGワードフィルター・自動キック機能を有効化できます。新規参加者への役職自動付与やウェルカムメッセージのカスタマイズにも対応しており、小規模〜中規模のコミュニティ運営者から高い支持を得ています。すべての機能はスラッシュコマンドで完結するため、Web画面を開かずスマホからでも設定変更が可能です。",
+    "tags": ["#完全無料", "#スラッシュコマンド", "#軽量設計"],
+    "icon": "shield",
+    "iconBg": "bg-sky-500",
+    "inviteUrl": "https://discord.com/oauth2/authorize?client_id=000000000000000002",
+    "supportUrl": "https://discord.gg/modshield-support"
+  },
+  {
+    "id": "partyquest-rpg",
+    "name": "PartyQuest RPG",
+    "category": "エンタメ・ゲーム",
+    "shortDesc": "サーバー内で仲間と冒険するテキストRPG。装備収集とレイドバトルで盛り上がる。",
+    "fullDesc": "PartyQuest RPGは、Discordサーバー内で完結するテキストベースの協力型RPGです。メンバー同士でパーティを組み、フィールド探索・モンスター討伐・レイドボスへの挑戦を通じてレベルを上げ、レアな装備やアイテムを集めていきます。デイリークエストやランキング機能も搭載しており、サーバー内の交流を自然に活性化させる設計です。導入後すぐにチュートリアルクエストが開始されるため、初めて触るメンバーでも迷わず遊び始められます。",
+    "tags": ["#完全無料", "#スラッシュコマンド", "#ランキング機能"],
+    "icon": "swords",
+    "iconBg": "bg-rose-500",
+    "inviteUrl": "https://discord.com/oauth2/authorize?client_id=000000000000000003",
+    "supportUrl": "https://discord.gg/partyquest-support"
+  },
+  {
+    "id": "gachaworld",
+    "name": "GachaWorld",
+    "category": "エンタメ・ゲーム",
+    "shortDesc": "コレクション性の高いガチャ・カードゲームBot。交換掲示板や図鑑機能も充実。",
+    "fullDesc": "GachaWorldは、オリジナルイラストのカードを集めて楽しむコレクション型ガチャBotです。毎日引けるデイリーガチャに加え、期間限定の特別排出イベントも定期開催されており、コレクター魂をくすぐるラインナップが揃っています。メンバー同士でカードを交換できる掲示板機能や、集めたカードを一覧できる図鑑コマンドも搭載。運営側は排出率やイベント内容をWeb管理画面から自由にカスタマイズできるため、サーバーの雰囲気に合わせた運用が可能です。",
+    "tags": ["#Web管理画面", "#スラッシュコマンド", "#カスタマイズ可能"],
+    "icon": "dice-5",
+    "iconBg": "bg-amber-500",
+    "inviteUrl": "https://discord.com/oauth2/authorize?client_id=000000000000000004",
+    "supportUrl": "https://discord.gg/gachaworld-support"
+  },
+  {
+    "id": "voicemuse",
+    "name": "VoiceMuse",
+    "category": "音楽・読み上げ",
+    "shortDesc": "高音質な音楽再生と自然な日本語読み上げを両立するボイスチャンネル特化Bot。",
+    "fullDesc": "VoiceMuseは、音楽再生機能と読み上げ機能を一つにまとめたボイスチャンネル特化Botです。YouTubeやSpotifyのプレイリストをそのまま再生でき、キュー管理やイコライザー調整も直感的に操作可能です。加えて、テキストチャットの内容を自然な抑揚の日本語音声でボイスチャンネルに読み上げる機能を搭載しており、複数の音声エンジンから声質を選択できます。配信や作業通話、雑談サーバーまで幅広いシーンで活用されています。",
+    "tags": ["#完全無料", "#スラッシュコマンド", "#多言語対応"],
+    "icon": "music",
+    "iconBg": "bg-violet-500",
+    "inviteUrl": "https://discord.com/oauth2/authorize?client_id=000000000000000005",
+    "supportUrl": "https://discord.gg/voicemuse-support"
+  },
+  {
+    "id": "utilitykit-pro",
+    "name": "UtilityKit Pro",
+    "category": "ユーティリティ",
+    "shortDesc": "リマインダー・投票・チケット管理をまとめて自動化する万能サポートBot。",
+    "fullDesc": "UtilityKit Proは、サーバー運営に必要な便利機能を一つに集約した万能ユーティリティBotです。リマインダー設定、複数選択肢の投票機能、問い合わせ対応のためのチケットシステムを標準搭載しており、運営者はWeb管理画面からすべての機能を一括管理できます。さらに、外部カレンダーとの連携やメンバーへの一括アナウンス配信にも対応しているため、規模の大きなコミュニティの運営負担を大きく軽減します。",
+    "tags": ["#Web管理画面", "#カスタマイズ可能", "#ログ機能"],
+    "icon": "wrench",
+    "iconBg": "bg-emerald-500",
+    "inviteUrl": "https://discord.com/oauth2/authorize?client_id=000000000000000006",
+    "supportUrl": "https://discord.gg/utilitykit-support"
+  }
+]
