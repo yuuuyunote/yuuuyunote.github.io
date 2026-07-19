@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>運営・参加 | Bot Base Hub</title>
+<meta name="description" content="Bot Base Hubの運営体制と、Discordサーバーへの参加方法について。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="light">
+
+<header class="site-header">
+  <a href="index.html" class="brand" style="display:flex;align-items:center;gap:10px;">
+    <span class="dot"></span>
+    <div>
+      Bot Base Hub
+      <div class="brand-sub">discord bot developer network</div>
+    </div>
+  </a>
+
+  <nav class="main-nav" id="mainNav">
+    <a href="index.html" class="nav-btn">ホーム</a>
+    <a href="system.html" class="nav-btn">システム</a>
+    <a href="developers.html" class="nav-btn">開発者向け</a>
+    <a href="users.html" class="nav-btn">ユーザー向け</a>
+    <a href="join.html" class="nav-btn active">運営・参加</a>
+    <a href="contact.html" class="nav-btn">お問い合わせ</a>
+  </nav>
+
+  <div class="header-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="ダークモード切替">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </button>
+    <button class="hamburger" id="hamburgerBtn" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+  <section class="page" id="page-join">
+    <div class="eyebrow">OPERATIONS & JOIN</div>
+    <h1 class="page-title">運営・参加情報</h1>
+    <p class="lead">サーバー主を含む4〜5名のボランティアが、対等な立場で運営にあたっています。</p>
+
+    <div class="section-block" style="margin-top:0;">
+      <h2>運営体制</h2>
+      <div class="desc">特定の意見や利害に偏らないよう、フラットな体制と中立なモデレーションを徹底しています。</div>
+      <div class="member-grid">
+        <div class="member-card">
+          <div class="member-avatar"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg></div>
+          <div class="role">サーバー主</div>
+          <div class="desc">全体設計・システム管理</div>
+        </div>
+        <div class="member-card">
+          <div class="member-avatar"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg></div>
+          <div class="role">モデレーター</div>
+          <div class="desc">中立な運用・サポート対応</div>
+        </div>
+        <div class="member-card">
+          <div class="member-avatar"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg></div>
+          <div class="role">モデレーター</div>
+          <div class="desc">中立な運用・サポート対応</div>
+        </div>
+        <div class="member-card">
+          <div class="member-avatar"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg></div>
+          <div class="role">モデレーター</div>
+          <div class="desc">中立な運用・サポート対応</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="final-cta">
+      <div>
+        <h3>Bot Base Hubに参加する</h3>
+        <p>開発者としても、ユーザーとしても。国内Bot界隈の新しいハブへ、今すぐ参加できます。</p>
+      </div>
+      <a href="join.html" class="cta-btn">
+        Discordサーバーに参加する
+        <svg class="cta-arrow" viewBox="0 0 26 20">
+        <path class="arc" d="M9 3 A8 7 0 0 1 9 17" fill="none" stroke-width="2"/>
+        <path class="arrow" d="M6 10 H20 M14 4 L20 10 L14 16" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer>bot base hub — a neutral network for japanese discord bot developers</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
