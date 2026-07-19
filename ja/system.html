@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>サーバー仕様 | Bot Base Hub</title>
+<meta name="description" content="Bot Base Hubの基幹システム・オンボーディング・スパム対策・チャンネル設計について。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="light">
+
+<header class="site-header">
+  <a href="index.html" class="brand" style="display:flex;align-items:center;gap:10px;">
+    <span class="dot"></span>
+    <div>
+      Bot Base Hub
+      <div class="brand-sub">discord bot developer network</div>
+    </div>
+  </a>
+
+  <nav class="main-nav" id="mainNav">
+    <a href="index.html" class="nav-btn">ホーム</a>
+    <a href="system.html" class="nav-btn active">システム</a>
+    <a href="developers.html" class="nav-btn">開発者向け</a>
+    <a href="users.html" class="nav-btn">ユーザー向け</a>
+    <a href="join.html" class="nav-btn">運営・参加</a>
+    <a href="contact.html" class="nav-btn">コンタクト</a>
+  </nav>
+
+  <div class="header-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="ダークモード切替">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </button>
+    <button class="hamburger" id="hamburgerBtn" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+  <section class="page" id="page-system">
+    <div class="eyebrow">SYSTEM</div>
+    <h1 class="page-title">サーバー仕様</h1>
+    <p class="lead">基幹システムから運用の細部まで、再現性と保守性を重視した設計にしています。</p>
+
+    <div class="grid cols-2">
+      <div class="card">
+        <span class="tag">NEUTRALITY</span>
+        <h3>中立性の徹底</h3>
+        <p>基幹システムには特定の国産Botを使用せず、Ticket Toolをはじめとする世界標準の定番Botや、Discordの公式機能を採用。特定の開発者やコミュニティに依存しない設計です。</p>
+      </div>
+      <div class="card">
+        <span class="tag">ONBOARDING</span>
+        <h3>スマートなオンボーディング</h3>
+        <p>公式機能を活用し、入室時のアンケート回答に応じて属性ロールの付与とチャンネル表示の最適化を自動で実行。必要な情報にすぐアクセスできます。</p>
+      </div>
+      <div class="card">
+        <span class="tag">ANTI-SPAM</span>
+        <h3>スパム対策</h3>
+        <p>自作Botによる即時制限解除システムを導入。発言前はメディア投稿を制限し、1回発言した時点で即座に制限を解除する、負荷の少ない設計です。</p>
+      </div>
+      <div class="card">
+        <span class="tag">STRUCTURE</span>
+        <h3>フォーラムの徹底活用</h3>
+        <p>チャンネルの肥大化を防ぐため、話題ごとにフォーラム形式を積極採用。サーバー内のUIを常に整理された状態に保ちます。</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>bot base hub — a neutral network for japanese discord bot developers</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

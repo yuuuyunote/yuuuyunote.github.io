@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bot Base Hub | 日本のDiscord Bot開発を支えるハブサーバー</title>
+<meta name="description" content="国内の優れたDiscord Botを発掘・育成する中立的なハブサーバー、Bot Base Hub。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="light">
+
+<header class="site-header">
+  <a href="index.html" class="brand" style="display:flex;align-items:center;gap:10px;">
+    <span class="dot"></span>
+    <div>
+      Bot Base Hub
+      <div class="brand-sub">discord bot developer network</div>
+    </div>
+  </a>
+
+  <nav class="main-nav" id="mainNav">
+    <a href="index.html" class="nav-btn active">ホーム</a>
+    <a href="system.html" class="nav-btn">システム</a>
+    <a href="developers.html" class="nav-btn">開発者向け</a>
+    <a href="users.html" class="nav-btn">ユーザー向け</a>
+    <a href="join.html" class="nav-btn">運営・参加</a>
+    <a href="contact.html" class="nav-btn">コンタクト</a>
+  </nav>
+
+  <div class="header-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="ダークモード切替">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </button>
+    <button class="hamburger" id="hamburgerBtn" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+  <section class="page" id="page-home">
+    <div class="eyebrow">HOME</div>
+    <h1 class="page-title">国内のDiscord Botのための、<br>中立的なハブサーバーです。</h1>
+    <p class="lead">
+      Bot Base Hubは、国産Discord Botの開発者とユーザーをつなぐコミュニティです。
+      特定のBotやコミュニティに偏らないフラットな運営体制のもと、開発者には実利を、ユーザーには安心して使えるBotとの出会いを提供します。
+    </p>
+    <a href="join.html" class="cta-btn">
+        Discordサーバーに参加する
+        <svg class="cta-arrow" viewBox="0 0 34 22">
+        <path class="arc" d="M18.5 3.4 A8.4 8.4 0 1 1 18.5 20.6" fill="none" stroke-width="2"/>
+        <path class="arrow" d="M2 11.5 H27 M19.5 5 L27 11.5 L19.5 18" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      </a>
+
+    <div class="section-block">
+      <div class="stat-row">
+        <div class="stat"><div class="num">4-5</div><div class="label">運営メンバー</div></div>
+        <div class="stat"><div class="num">中立</div><div class="label">特定Bot非依存の基幹設計</div></div>
+        <div class="stat"><div class="num">審査後対応</div><div class="label">スピーディーな導入フロー</div></div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="eyebrow">WHY</div>
+      <h2>なぜBot Base Hubなのか</h2>
+      <div class="desc">3つの軸で、開発者とユーザーの双方に価値を提供します。</div>
+      <div class="grid cols-3">
+        <div class="card">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg></div>
+          <h3>徹底した中立性</h3>
+          <p>基幹システムに特定の国産Botを採用せず、世界標準の定番ツールと公式機能で構成しています。</p>
+        </div>
+        <div class="card">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M13 2 L4 14h6l-1 8 9-12h-6z"/></svg></div>
+          <h3>実利にフォーカス</h3>
+          <p>サポート窓口の集約、PR枠、デバッグ協力など、開発者が本当に必要とするメリットを提供します。</p>
+        </div>
+        <div class="card">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 3l2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z"/></svg></div>
+          <h3>フラットな運営</h3>
+          <p>サーバー主を含む4〜5名の対等な体制で運営。特定の立場に偏らないモデレーションを徹底します。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>bot base hub — a neutral network for japanese discord bot developers</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
