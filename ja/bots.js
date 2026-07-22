@@ -13,7 +13,7 @@
       return '<span class="tag">' + escapeHtml(t) + '</span>';
     }).join(' ');
     var link = bot.url
-      ? '<a href="' + escapeAttr(bot.url) + '" class="cta-btn ghost" target="_blank" rel="noopener">詳細を見る<svg class="cta-arrow" viewBox="0 0 26 16"><path class="arrow" d="M1 8 H23 M15 1 L23 8 L15 15" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>'
+      ? '<a href="' + escapeAttr(bot.url) + '" class="cta-btn ghost" target="_blank" rel="noopener"><span class="cta-label">詳細を見る</span><span class="cta-badge"><svg class="cta-arrow" viewBox="0 0 16 16"><path d="M4 8 H12 M8 4 L12 8 L8 12" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>'
       : '';
     return (
       '<div class="card bot-card">' +
