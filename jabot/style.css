@@ -939,6 +939,32 @@ button {
   border: 1px solid var(--border);
 }
 
+/* Botカード内の詳細リンク。強調しすぎない、控えめなテキストリンク */
+.bot-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 16px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  transition: color 0.2s ease, gap 0.2s ease;
+}
+
+.bot-link svg {
+  width: 13px;
+  height: 13px;
+  transition: transform 0.2s ease;
+}
+
+.bot-link:hover {
+  color: var(--accent);
+  gap: 6px;
+}
+
+.bot-link:hover svg {
+  transform: translateX(2px);
+}
+
 .bots-state {
   display: none;
   text-align: center;
