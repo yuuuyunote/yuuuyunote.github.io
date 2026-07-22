@@ -1,0 +1,26 @@
+[
+  {
+    "name": "TicketFlow",
+    "description": "チケット管理に特化した問い合わせ対応Bot。タグ分類と自動アサインに対応。",
+    "tags": ["サポート", "チケット管理"],
+    "url": "https://note.com/yuuuyugbp"
+  },
+  {
+    "name": "RoleSync",
+    "description": "入室時アンケートに応じて属性ロールとチャンネル表示を自動最適化するオンボーディングBot。",
+    "tags": ["オンボーディング", "ロール管理"],
+    "url": "https://note.com/yuuuyugbp"
+  },
+  {
+    "name": "GuardLine",
+    "description": "発言前はメディア投稿を制限し、初回発言で自動解除するスパム対策Bot。",
+    "tags": ["モデレーション", "スパム対策"],
+    "url": "https://note.com/yuuuyugbp"
+  },
+  {
+    "name": "ForumKeeper",
+    "description": "話題ごとにフォーラムチャンネルを自動整理し、チャンネルの肥大化を防ぐBot。",
+    "tags": ["フォーラム", "整理"],
+    "url": "https://note.com/yuuuyugbp"
+  }
+]

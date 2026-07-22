@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>参加Bot一覧 | Bot Base Hub</title>
+<meta name="description" content="Bot Base Hubに参加している国産Discord Botを検索できる一覧。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=3">
+</head>
+<body data-theme="light">
+
+<header class="site-header">
+  <a href="index.html" class="brand" style="display:flex;align-items:center;gap:10px;">
+    <span class="dot"></span>
+    <div>
+      Bot Base Hub
+      <div class="brand-sub">discord bot developer network</div>
+    </div>
+  </a>
+
+  <nav class="main-nav" id="mainNav">
+    <a href="index.html" class="nav-btn">ホーム</a>
+    <a href="bots.html" class="nav-btn active">参加Bot一覧</a>
+    <a href="developers.html" class="nav-btn">開発者向け</a>
+    <a href="users.html" class="nav-btn">ユーザー向け</a>
+    <a href="join.html" class="nav-btn">運営・参加</a>
+    <a href="contact.html" class="nav-btn">コンタクト</a>
+  </nav>
+
+  <div class="header-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="ダークモード切替">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </button>
+    <button class="hamburger" id="hamburgerBtn" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+  <section class="page" id="page-bots">
+    <div class="eyebrow">BOT DIRECTORY</div>
+    <h1 class="page-title">参加Bot一覧</h1>
+    <p class="lead">Bot Base Hubに参加している国産Discord Botの一覧です。名前や機能で検索できます。</p>
+
+    <div class="bot-search">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input type="text" id="botSearch" placeholder="Bot名・タグ・機能で検索" autocomplete="off">
+    </div>
+
+    <div id="botCount" class="bot-count"></div>
+    <div id="botGrid" class="grid cols-2 bot-grid"></div>
+    <p id="botEmpty" class="bot-empty" hidden>該当するBotが見つかりませんでした。</p>
+    <p id="botError" class="bot-empty" hidden>Bot一覧の読み込みに失敗しました。bots.jsonと同じ階層でサーバー経由（GitHub Pagesなど）で開いているかご確認ください。</p>
+  </section>
+</main>
+
+<footer>bot base hub — a neutral network for japanese discord bot developers</footer>
+
+<script src="script.js?v=3"></script>
+<script src="bots.js?v=1"></script>
+</body>
+</html>
