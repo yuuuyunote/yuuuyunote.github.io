@@ -10,6 +10,8 @@
   --shadow:0 1px 2px rgba(10,10,12,0.04);
   --shadow-hover:0 12px 24px rgba(10,10,12,0.08);
   --header-bg:rgba(255,255,255,0.88);
+  --accent-shadow:rgba(36,86,245,0.35);
+  --accent-shadow-strong:rgba(36,86,245,0.45);
   --radius:14px;
 }
 [data-theme="dark"]{
@@ -24,11 +26,14 @@
   --shadow:0 1px 2px rgba(0,0,0,0.3);
   --shadow-hover:0 16px 32px rgba(0,0,0,0.45);
   --header-bg:rgba(10,11,14,0.88);
+  --accent-shadow:rgba(91,130,255,0.3);
+  --accent-shadow-strong:rgba(91,130,255,0.4);
 }
 *{box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{
   margin:0;
+  overflow-x:hidden;
   font-family:"Noto Sans JP",sans-serif;
   background:var(--bg);
   color:var(--text);
@@ -93,27 +98,50 @@ nav.main-nav{display:flex;gap:4px;}
 }
 .hamburger span{width:20px;height:2px;background:var(--text);border-radius:2px;}
 
-/* ===== CTA Button (arrow + half-circle) ===== */
+/* ===== CTA Button (pill + circular arrow badge) ===== */
 .cta-btn{
-  display:inline-flex;align-items:center;gap:12px;
+  display:inline-flex;align-items:center;gap:14px;
   background:var(--accent);color:#fff;
-  padding:14px 22px;border-radius:999px;border:none;
+  padding:6px 8px 6px 24px;border-radius:999px;border:none;
   font-size:14.5px;font-weight:700;letter-spacing:.01em;
-  box-shadow:var(--shadow);
-  transition:transform .18s ease, box-shadow .18s ease, opacity .18s ease;
+  box-shadow:0 8px 20px -6px var(--accent-shadow);
+  transition:transform .2s cubic-bezier(.2,.8,.2,1), box-shadow .2s ease, background .2s ease;
 }
-.cta-btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover);}
+.cta-label{white-space:nowrap;}
+.cta-badge{
+  width:38px;height:38px;border-radius:50%;flex:none;
+  background:#fff;color:var(--accent);
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .25s cubic-bezier(.2,.8,.2,1);
+}
+.cta-arrow{width:16px;height:16px;stroke:currentColor;}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 14px 28px -6px var(--accent-shadow-strong);}
+.cta-btn:hover .cta-badge{transform:translateX(3px);}
 .cta-btn.ghost{
-  background:none;color:var(--text);border:1.4px solid var(--border);box-shadow:none;
+  background:none;color:var(--text);border:1.4px solid var(--border);
+  box-shadow:none;padding:6px 8px 6px 24px;
 }
-.cta-btn.ghost:hover{border-color:var(--accent);color:var(--accent);}
-.cta-arrow{width:22px;height:14px;flex:none;overflow:visible;}
-.cta-arrow path.arrow{stroke:currentColor;}
+.cta-btn.ghost .cta-badge{background:var(--accent);color:#fff;}
+.cta-btn.ghost:hover{border-color:var(--accent);color:var(--accent);box-shadow:none;}
 
 /* ===== Layout ===== */
 main{max-width:1080px;margin:0 auto;padding:0 32px;}
-.page{padding:64px 0 100px;animation:fadeIn .4s ease;}
+.page{padding:64px 0 100px;animation:fadeIn .4s ease;position:relative;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+.hero-decor{
+  position:absolute;top:-120px;right:-140px;width:520px;height:520px;
+  background:radial-gradient(circle at 35% 35%, var(--accent) 0%, transparent 70%);
+  opacity:.12;filter:blur(40px);pointer-events:none;z-index:-1;
+}
+.highlight{color:var(--accent);}
+
+.card.numbered{position:relative;overflow:hidden;}
+.card-num{
+  position:absolute;top:10px;right:16px;
+  font-family:"IBM Plex Mono",monospace;font-size:34px;font-weight:600;
+  color:var(--border);opacity:.9;line-height:1;
+}
 
 .eyebrow{
   font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--accent);
