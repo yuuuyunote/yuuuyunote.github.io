@@ -74,6 +74,14 @@
       })
       .join("");
 
+    var link = bot.url
+      ? '<a class="bot-link" href="' +
+        escapeHtml(bot.url) +
+        '" target="_blank" rel="noopener">詳細をみる' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>' +
+        "</a>"
+      : "";
+
     return (
       '<article class="bot-card">' +
       '<div class="bot-card-head">' +
@@ -90,6 +98,7 @@
       '<div class="bot-tags">' +
       tags +
       "</div>" +
+      link +
       "</article>"
     );
   }
