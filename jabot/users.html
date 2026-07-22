@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ユーザー向け | 架け橋</title>
+<meta name="description" content="架け橋を利用する一般ユーザー・サーバー管理者向けのご案内です。">
+<script>
+  (function () {
+    try {
+      var saved = localStorage.getItem("kakehashi-theme");
+      document.documentElement.setAttribute("data-theme", saved || "light");
+    } catch (e) {}
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header" data-site-header>
+  <div class="container">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">◠</span>架け橋<span class="brand-sub">Kakehashi</span>
+    </a>
+    <nav class="main-nav" data-main-nav>
+      <a href="index.html">ホーム</a>
+      <a href="bots.html">参加Bot一覧</a>
+      <a href="developers.html">開発者向け</a>
+      <a href="users.html" aria-current="page">ユーザー向け</a>
+      <a href="join.html">運営・参加</a>
+      <a href="contact.html">コンタクト</a>
+    </nav>
+    <div class="header-actions">
+      <button class="theme-toggle" data-theme-toggle aria-label="ダークモードを切り替える" type="button">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.6 4.6l1.7 1.7M17.7 17.7l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.6 19.4l1.7-1.7M17.7 6.3l1.7-1.7"/></svg>
+      </button>
+      <button class="nav-toggle" data-nav-toggle aria-label="メニューを開く" aria-expanded="false" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="section-eyebrow">FOR USERS</span>
+      <h1>ユーザー向け</h1>
+      <p>Botを探している方、サーバー運営で困りごとがある方向けのページです。架け橋では、安心してBotを選び、必要なサポートにたどり着けることを大切にしています。</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 32px;">
+    <div class="container">
+      <div class="split-block">
+        <div class="info-card">
+          <h3>
+            <span class="feature-icon" style="margin-bottom:0;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg>
+            </span>
+            安心
+          </h3>
+          <p>公認Botショーケースから、実際に運用されている優れたBotを探せます。掲載されているBotは基本的な審査基準を満たしたものだけなので、初めてBotを導入する場合でも安心して比較・検討できます。</p>
+        </div>
+        <div class="info-card">
+          <h3>
+            <span class="feature-icon" style="margin-bottom:0;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H8l-4 4V4z"/><path d="M8 9h8M8 12.5h5"/></svg>
+            </span>
+            便利さ
+          </h3>
+          <p>タグで整理されたサポート窓口から、困りごとに応じた相談先をすぐに見つけられます。どのBotの担当窓口に相談すればよいか迷う手間がありません。</p>
+        </div>
+      </div>
+
+      <div class="callout" style="margin-top: 40px;">
+        <strong>使い方のヒント。</strong> まずは「参加Bot一覧」からタグで絞り込み、気になるBotを見つけてください。導入や設定の相談は、それぞれのBotのサポート窓口から行えます。
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="cta-panel">
+        <h2>気になるBotを探してみましょう。</h2>
+        <p>参加Bot一覧から、タグや名前で検索できます。</p>
+        <a class="btn btn-primary" href="bots.html">参加Bot一覧を見る</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <a href="index.html" class="brand"><span class="brand-mark">◠</span>架け橋</a>
+    <div class="footer-links">
+      <a href="bots.html">参加Bot一覧</a>
+      <a href="developers.html">開発者向け</a>
+      <a href="users.html">ユーザー向け</a>
+      <a href="join.html">運営・参加</a>
+      <a href="contact.html">コンタクト</a>
+    </div>
+    <p class="footer-copy">© 2026 架け橋（Kakehashi） — 日本語Discord Bot ハブコミュニティ</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

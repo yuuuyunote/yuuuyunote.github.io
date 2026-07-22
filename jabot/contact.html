@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>コンタクト | 架け橋</title>
+<meta name="description" content="架け橋への連絡先です。Discordサーバーとnoteの技術記事はこちらから。">
+<script>
+  (function () {
+    try {
+      var saved = localStorage.getItem("kakehashi-theme");
+      document.documentElement.setAttribute("data-theme", saved || "light");
+    } catch (e) {}
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header" data-site-header>
+  <div class="container">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">◠</span>架け橋<span class="brand-sub">Kakehashi</span>
+    </a>
+    <nav class="main-nav" data-main-nav>
+      <a href="index.html">ホーム</a>
+      <a href="bots.html">参加Bot一覧</a>
+      <a href="developers.html">開発者向け</a>
+      <a href="users.html">ユーザー向け</a>
+      <a href="join.html">運営・参加</a>
+      <a href="contact.html" aria-current="page">コンタクト</a>
+    </nav>
+    <div class="header-actions">
+      <button class="theme-toggle" data-theme-toggle aria-label="ダークモードを切り替える" type="button">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.6 4.6l1.7 1.7M17.7 17.7l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.6 19.4l1.7-1.7M17.7 6.3l1.7-1.7"/></svg>
+      </button>
+      <button class="nav-toggle" data-nav-toggle aria-label="メニューを開く" aria-expanded="false" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="section-eyebrow">CONTACT</span>
+      <h1>コンタクト</h1>
+      <p>お問い合わせフォームは設置していません。以下のいずれかから運営にご連絡ください。</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 32px;">
+    <div class="container">
+      <div class="link-cards">
+        <a class="link-card" href="#" target="_blank" rel="noopener">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15c0-4 1-8 4-9.5 1.4.5 2.6 1.1 3.5 1.8h1c.9-.7 2.1-1.3 3.5-1.8 3 1.5 4 5.5 4 9.5-1.6 1.5-3.6 2.4-5.5 2.6l-.7-1.4c-1.5.4-3.1.4-4.6 0l-.7 1.4c-1.9-.2-3.9-1.1-5.5-2.6z"/><circle cx="9.5" cy="12.5" r="1"/><circle cx="14.5" cy="12.5" r="1"/></svg>
+          </div>
+          <h3>Discordサーバー</h3>
+          <p>日々の連絡や運営への相談は、Discordサーバー内の窓口が最も早く確実です。まずはサーバーにご参加ください。</p>
+          <span class="link-arrow">
+            サーバーに参加する
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </a>
+        <a class="link-card" href="#" target="_blank" rel="noopener">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l5 5v13H6z"/><path d="M15 3v5h5M9 12h6M9 15.5h6M9 8.5h3"/></svg>
+          </div>
+          <h3>note</h3>
+          <p>運営による技術解説や、コミュニティの運営方針に関する記事を発信しています。背景を詳しく知りたい方はこちらをご覧ください。</p>
+          <span class="link-arrow">
+            note記事を読む
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <a href="index.html" class="brand"><span class="brand-mark">◠</span>架け橋</a>
+    <div class="footer-links">
+      <a href="bots.html">参加Bot一覧</a>
+      <a href="developers.html">開発者向け</a>
+      <a href="users.html">ユーザー向け</a>
+      <a href="join.html">運営・参加</a>
+      <a href="contact.html">コンタクト</a>
+    </div>
+    <p class="footer-copy">© 2026 架け橋（Kakehashi） — 日本語Discord Bot ハブコミュニティ</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

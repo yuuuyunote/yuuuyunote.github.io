@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>架け橋 | 日本語Discord Bot ハブコミュニティ</title>
+<meta name="description" content="架け橋は、国内の優れたDiscord Botの開発者と利用者をつなぐ、中立的なハブコミュニティです。">
+<script>
+  (function () {
+    try {
+      var saved = localStorage.getItem("kakehashi-theme");
+      document.documentElement.setAttribute("data-theme", saved || "light");
+    } catch (e) {}
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header" data-site-header>
+  <div class="container">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">◠</span>架け橋<span class="brand-sub">Kakehashi</span>
+    </a>
+    <nav class="main-nav" data-main-nav>
+      <a href="index.html" aria-current="page">ホーム</a>
+      <a href="bots.html">参加Bot一覧</a>
+      <a href="developers.html">開発者向け</a>
+      <a href="users.html">ユーザー向け</a>
+      <a href="join.html">運営・参加</a>
+      <a href="contact.html">コンタクト</a>
+    </nav>
+    <div class="header-actions">
+      <button class="theme-toggle" data-theme-toggle aria-label="ダークモードを切り替える" type="button">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.6 4.6l1.7 1.7M17.7 17.7l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.6 19.4l1.7-1.7M17.7 6.3l1.7-1.7"/></svg>
+      </button>
+      <button class="nav-toggle" data-nav-toggle aria-label="メニューを開く" aria-expanded="false" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero">
+    <span class="hero-glow hero-glow-a" aria-hidden="true"></span>
+    <span class="hero-glow hero-glow-b" aria-hidden="true"></span>
+    <div class="container hero-inner">
+      <div>
+        <span class="hero-eyebrow">NEUTRAL DISCORD BOT HUB</span>
+        <h1>国内の優れたDiscord Botの<br>開発者と利用者を<span class="highlight">つなぐ</span>場所です。</h1>
+        <p class="hero-lead">架け橋は、特定の思想や利害に偏らない中立な立場で運営されているコミュニティです。開発者には実利のあるサポートを、利用者には信頼できるBotとの出会いを提供します。</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="join.html">
+            Discordに参加する
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="btn btn-secondary" href="bots.html">参加Botを見る</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <svg class="bridge-figure" viewBox="0 0 260 180" xmlns="http://www.w3.org/2000/svg">
+          <path class="bridge-arc" d="M30 140 C 90 30, 170 30, 230 140" />
+          <circle class="bridge-node" cx="30" cy="140" r="16" />
+          <circle class="bridge-node-dot" cx="30" cy="140" r="4" />
+          <circle class="bridge-node" cx="230" cy="140" r="16" />
+          <circle class="bridge-node-dot" cx="230" cy="140" r="4" />
+          <text class="bridge-label" x="8" y="168" text-anchor="middle">DEV</text>
+          <text class="bridge-label" x="252" y="168" text-anchor="middle">USER</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="axis">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-eyebrow">WHY KAKEHASHI</span>
+        <h2>このハブを選ぶ理由</h2>
+        <p>運営として大切にしている、3つの基本方針です。</p>
+      </div>
+      <div class="card-grid">
+        <article class="feature-card">
+          <span class="feature-number">01</span>
+          <h3>中立性</h3>
+          <p>基幹システムには特定の国産Botを採用せず、世界標準の定番Botや公式機能のみで構成しています。特定の開発者や勢力に偏らない立場を保っています。</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-number">02</span>
+          <h3>実利</h3>
+          <p>参加者にとって実際に役立つ情報交換やサポートの集約を重視しています。形だけの交流にとどまらない、実務的な運営を行っています。</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-number">03</span>
+          <h3>フラットな運営</h3>
+          <p>サーバー主を含め、運営陣は上下関係のないフラットな体制で活動しています。特定の意見が優先されることのない、対等な話し合いを基本としています。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="system">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-eyebrow">HOW IT WORKS</span>
+        <h2>サーバーの仕組み</h2>
+        <p>運営方針を実際の設計に落とし込んだ、4つの取り組みです。</p>
+      </div>
+      <div class="spec-list">
+        <div class="spec-item">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z"/></svg>
+          </div>
+          <div>
+            <h3>中立性の徹底</h3>
+            <p>基幹システムに特定の国産Botを使わず、世界標準の定番Botや公式機能を採用しています。</p>
+          </div>
+        </div>
+        <div class="spec-item">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 13a7.6 7.6 0 0 0 0-2l2-1.5-2-3.4-2.4.7a7.6 7.6 0 0 0-1.7-1l-.4-2.5H9.1l-.4 2.5a7.6 7.6 0 0 0-1.7 1l-2.4-.7-2 3.4L4.6 11a7.6 7.6 0 0 0 0 2l-2 1.5 2 3.4 2.4-.7c.5.4 1.1.8 1.7 1l.4 2.5h5.8l.4-2.5c.6-.2 1.2-.6 1.7-1l2.4.7 2-3.4-2-1.5z"/></svg>
+          </div>
+          <div>
+            <h3>スマートなオンボーディング</h3>
+            <p>公式機能による属性ロール付与とチャンネル表示の最適化を自動化しています。</p>
+          </div>
+        </div>
+        <div class="spec-item">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v5M12 17h.01"/><path d="M10.3 3.9 2.7 17.5a1.8 1.8 0 0 0 1.6 2.7h15.4a1.8 1.8 0 0 0 1.6-2.7L13.7 3.9a1.8 1.8 0 0 0-3.4 0z"/></svg>
+          </div>
+          <div>
+            <h3>スパム対策</h3>
+            <p>自作Botにより、認証後の投稿制限を状況に応じて即時に解除する仕組みを備えています。</p>
+          </div>
+        </div>
+        <div class="spec-item">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4" width="17" height="16" rx="2"/><path d="M3.5 9.5h17M8 4v5.5M14.5 13v3M8.5 13h3"/></svg>
+          </div>
+          <div>
+            <h3>フォーラムの活用</h3>
+            <p>話題ごとにフォーラムチャンネルを使い分け、チャンネル数の肥大化を防いでいます。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="cta-panel">
+        <h2>まずはサーバーをのぞいてみませんか。</h2>
+        <p>参加は無料です。開発者・利用者どちらの立場でも歓迎しています。</p>
+        <a class="btn btn-primary" href="join.html">Discordに参加する</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <a href="index.html" class="brand"><span class="brand-mark">◠</span>架け橋</a>
+    <div class="footer-links">
+      <a href="bots.html">参加Bot一覧</a>
+      <a href="developers.html">開発者向け</a>
+      <a href="users.html">ユーザー向け</a>
+      <a href="join.html">運営・参加</a>
+      <a href="contact.html">コンタクト</a>
+    </div>
+    <p class="footer-copy">© 2026 架け橋（Kakehashi） — 日本語Discord Bot ハブコミュニティ</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

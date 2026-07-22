@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>開発者向け | 架け橋</title>
+<meta name="description" content="架け橋に参加するDiscord Bot開発者向けのご案内です。参加メリットと審査・導入の流れを紹介します。">
+<script>
+  (function () {
+    try {
+      var saved = localStorage.getItem("kakehashi-theme");
+      document.documentElement.setAttribute("data-theme", saved || "light");
+    } catch (e) {}
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header" data-site-header>
+  <div class="container">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">◠</span>架け橋<span class="brand-sub">Kakehashi</span>
+    </a>
+    <nav class="main-nav" data-main-nav>
+      <a href="index.html">ホーム</a>
+      <a href="bots.html">参加Bot一覧</a>
+      <a href="developers.html" aria-current="page">開発者向け</a>
+      <a href="users.html">ユーザー向け</a>
+      <a href="join.html">運営・参加</a>
+      <a href="contact.html">コンタクト</a>
+    </nav>
+    <div class="header-actions">
+      <button class="theme-toggle" data-theme-toggle aria-label="ダークモードを切り替える" type="button">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.6 4.6l1.7 1.7M17.7 17.7l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.6 19.4l1.7-1.7M17.7 6.3l1.7-1.7"/></svg>
+      </button>
+      <button class="nav-toggle" data-nav-toggle aria-label="メニューを開く" aria-expanded="false" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="section-eyebrow">FOR DEVELOPERS</span>
+      <h1>開発者向け</h1>
+      <p>自作のDiscord Botを開発・運用している方向けのページです。架け橋への参加によって得られるメリットと、参加までの流れをご案内します。</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 32px;">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-eyebrow">BENEFITS</span>
+        <h2>参加のメリット</h2>
+        <p>開発だけでなく、運用面での負担を軽くすることを目的としています。</p>
+      </div>
+      <div class="card-grid">
+        <article class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H8l-4 4V4z"/><path d="M8 9h8M8 12.5h5"/></svg>
+          </div>
+          <h3>サポート窓口の集約</h3>
+          <p>ユーザーからの問い合わせや不具合報告を、Bot単位のスレッドにまとめて受け取れます。個別に窓口を用意する手間を減らせます。</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h9M13 12l-3-3M13 12l-3 3"/><rect x="15" y="5" width="5" height="14" rx="1"/></svg>
+          </div>
+          <h3>PR枠の提供</h3>
+          <p>更新情報や新機能の告知ができる専用チャンネルを用意しています。開発の進捗を継続的に発信できます。</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3v4M15 3v4M4 8h16M6 8v11a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V8"/><path d="M9.5 13.5l2 2 3-3.5"/></svg>
+          </div>
+          <h3>デバッグ協力</h3>
+          <p>他の開発者やユーザーと連携し、動作確認や不具合の切り分けに協力し合える環境があります。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-eyebrow">SCREENING</span>
+        <h2>審査と参加の流れ</h2>
+        <p>導入のスピードを優先し、参加時点での実機での動作確認は行いません。参加にあたっては、以下の基本5項目を確認しています。</p>
+      </div>
+      <ul class="numbered-list">
+        <li>
+          <span class="num">01</span>
+          <span class="li-text">Discordの利用規約に準拠していること</span>
+        </li>
+        <li>
+          <span class="num">02</span>
+          <span class="li-text">Botの用途・機能が明記されていること</span>
+        </li>
+        <li>
+          <span class="num">03</span>
+          <span class="li-text">過度な権限を要求しない設計であること</span>
+        </li>
+        <li>
+          <span class="num">04</span>
+          <span class="li-text">個人情報を不必要に収集しない設計であること</span>
+        </li>
+        <li>
+          <span class="num">05</span>
+          <span class="li-text">開発者と連絡が取れる窓口があること</span>
+        </li>
+      </ul>
+      <div class="callout">
+        <strong>事後対応シフトについて。</strong> 参加時の実機テストは免除していますが、参加後に問題が確認された場合は、運営から個別に連絡のうえ対応をお願いしています。導入の速さと、参加者全体の安心のバランスを取った運用です。
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="cta-panel">
+        <h2>Botの参加を検討している方へ</h2>
+        <p>まずはDiscordサーバーにご参加のうえ、参加申請の案内をご確認ください。</p>
+        <a class="btn btn-primary" href="join.html">Discordに参加する</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <a href="index.html" class="brand"><span class="brand-mark">◠</span>架け橋</a>
+    <div class="footer-links">
+      <a href="bots.html">参加Bot一覧</a>
+      <a href="developers.html">開発者向け</a>
+      <a href="users.html">ユーザー向け</a>
+      <a href="join.html">運営・参加</a>
+      <a href="contact.html">コンタクト</a>
+    </div>
+    <p class="footer-copy">© 2026 架け橋（Kakehashi） — 日本語Discord Bot ハブコミュニティ</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

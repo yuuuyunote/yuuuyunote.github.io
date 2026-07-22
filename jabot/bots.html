@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>参加Bot一覧 | 架け橋</title>
+<meta name="description" content="架け橋に参加している国産Discord Botの一覧です。名称・説明・タグから検索できます。">
+<script>
+  (function () {
+    try {
+      var saved = localStorage.getItem("kakehashi-theme");
+      document.documentElement.setAttribute("data-theme", saved || "light");
+    } catch (e) {}
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header" data-site-header>
+  <div class="container">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">◠</span>架け橋<span class="brand-sub">Kakehashi</span>
+    </a>
+    <nav class="main-nav" data-main-nav>
+      <a href="index.html">ホーム</a>
+      <a href="bots.html" aria-current="page">参加Bot一覧</a>
+      <a href="developers.html">開発者向け</a>
+      <a href="users.html">ユーザー向け</a>
+      <a href="join.html">運営・参加</a>
+      <a href="contact.html">コンタクト</a>
+    </nav>
+    <div class="header-actions">
+      <button class="theme-toggle" data-theme-toggle aria-label="ダークモードを切り替える" type="button">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.6 4.6l1.7 1.7M17.7 17.7l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.6 19.4l1.7-1.7M17.7 6.3l1.7-1.7"/></svg>
+      </button>
+      <button class="nav-toggle" data-nav-toggle aria-label="メニューを開く" aria-expanded="false" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="section-eyebrow">BOT DIRECTORY</span>
+      <h1>参加Bot一覧</h1>
+      <p>架け橋に参加している国産Discord Botの一覧です。名称や説明、タグから絞り込めます。</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 32px;">
+    <div class="container">
+
+      <div class="bots-toolbar">
+        <div class="search-field">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          <label for="bot-search" class="visually-hidden">Botを検索</label>
+          <input type="text" id="bot-search" data-bot-search placeholder="Bot名・説明・タグで検索">
+        </div>
+      </div>
+
+      <div class="tag-filters" data-tag-filters aria-label="タグで絞り込み"></div>
+
+      <p class="bots-meta" data-bots-meta style="margin-top: 24px;"></p>
+
+      <div class="bot-grid" data-bot-grid></div>
+
+      <div class="bots-state" data-state-empty>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="12" rx="1.5"/><path d="M4 8l3-4h10l3 4"/><path d="M9 12h6"/></svg>
+        <h3>該当するBotが見つかりませんでした</h3>
+        <p>検索キーワードを変えるか、タグの絞り込みを解除してお試しください。</p>
+      </div>
+
+      <div class="bots-state" data-state-error>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 16.5h.01"/><path d="M10.3 3.9 2.7 17.5a1.8 1.8 0 0 0 1.6 2.7h15.4a1.8 1.8 0 0 0 1.6-2.7L13.7 3.9a1.8 1.8 0 0 0-3.4 0z"/></svg>
+        <h3>一覧の読み込みに失敗しました</h3>
+        <p>時間をおいて再度ページを開き直してください。問題が続く場合はコンタクトページからご連絡ください。</p>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <a href="index.html" class="brand"><span class="brand-mark">◠</span>架け橋</a>
+    <div class="footer-links">
+      <a href="bots.html">参加Bot一覧</a>
+      <a href="developers.html">開発者向け</a>
+      <a href="users.html">ユーザー向け</a>
+      <a href="join.html">運営・参加</a>
+      <a href="contact.html">コンタクト</a>
+    </div>
+    <p class="footer-copy">© 2026 架け橋（Kakehashi） — 日本語Discord Bot ハブコミュニティ</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script src="bots.js"></script>
+</body>
+</html>
