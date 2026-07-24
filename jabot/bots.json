@@ -1,86 +1,98 @@
 [
   {
-    "id": "guardloop",
+    "id": "100000000000000001",
     "name": "GuardLoop",
     "description": "荒らし対策と権限管理に特化したモデレーションBot。NGワードや連投を検知し、段階的な制限を自動で行います。",
     "tags": ["モデレーション", "自動化"],
-    "url": "#"
+    "url": "#",
+    "icon": null
   },
   {
-    "id": "tunecarrier",
+    "id": "100000000000000002",
     "name": "TuneCarrier",
     "description": "遅延の少ない音楽再生Bot。プレイリストの共同編集や、複数チャンネルでの同時再生に対応しています。",
     "tags": ["音楽", "エンタメ"],
-    "url": "#"
+    "url": "#",
+    "icon": null
   },
   {
-    "id": "ranknote",
+    "id": "100000000000000003",
     "name": "RankNote",
     "description": "発言量に応じたレベリングシステム。ロール連携やランキング表示をサーバーごとに細かく設定できます。",
     "tags": ["レベリング", "ランキング"],
-    "url": "#"
+    "url": "#",
+    "icon": null
   },
   {
-    "id": "ticketport",
+    "id": "100000000000000004",
     "name": "TicketPort",
     "description": "問い合わせ対応をチケット形式で管理するサポートBot。担当者の割り当てや対応履歴の記録が行えます。",
     "tags": ["サポート", "自動化"],
-    "url": "#"
+    "url": "#",
+    "icon": null
   },
   {
-    "id": "linguabridge",
+    "id": "100000000000000005",
     "name": "LinguaBridge",
     "description": "チャンネル内の発言をリアルタイムで翻訳するBot。海外ユーザーとの交流があるサーバーで利用されています。",
     "tags": ["翻訳", "国際化"],
-    "url": "#"
+    "url": "#",
+    "icon": null
   },
   {
-    "id": "coinforge",
+    "id": "100000000000000006",
     "name": "CoinForge",
     "description": "サーバー内通貨とミニゲームを提供するBot。ロール購入や抽選イベントなど、コミュニティ活性化に使われています。",
     "tags": ["ミニゲーム", "経済"],
-    "url": "#"
+    "url": "#",
+    "icon": null
   },
   {
-    "id": "pulsehook",
+    "id": "100000000000000007",
     "name": "PulseHook",
     "description": "外部サービスからの通知をDiscordに集約するWebhook連携Bot。開発の進捗やアラートをチャンネルへ自動投稿します。",
     "tags": ["連携", "自動化"],
-    "url": "#"
+    "url": "#",
+    "icon": null
   },
   {
-    "id": "pollcraft",
+    "id": "100000000000000008",
     "name": "PollCraft",
     "description": "投票やアンケートをスラッシュコマンドから簡単に作成できるBot。集計結果はグラフ表示にも対応しています。",
     "tags": ["アンケート", "コミュニティ運営"],
-    "url": "#"
+    "url": "#",
+    "icon": null
   },
   {
-    "id": "tracekeep",
+    "id": "100000000000000009",
     "name": "TraceKeep",
     "description": "メッセージの編集・削除やメンバーの入退室を記録するログBot。運営チームによる状況把握を助けます。",
     "tags": ["ログ管理", "モデレーション"],
-    "url": "#"
+    "url": "#",
+    "icon": null
   },
   {
-    "id": "welcomeanchor",
+    "id": "100000000000000010",
     "name": "WelcomeAnchor",
     "description": "新規参加者への挨拶と属性ロール付与を自動化するオンボーディングBot。案内文はテンプレートで細かく調整できます。",
     "tags": ["オンボーディング", "自動化"],
-    "url": "#"
+    "url": "#",
+    "icon": null
   },
   {
-    "id": "eventweave",
+    "id": "100000000000000011",
     "name": "EventWeave",
     "description": "イベントの告知からリマインド、参加者管理までをまとめて行えるBot。定期イベントのテンプレート化にも対応します。",
     "tags": ["イベント", "コミュニティ運営"],
-    "url": "#"
+    "url": "#",
+    "icon": null
   },
   {
-    "id": "voicepulse",
+    "id": "100000000000000012",
     "name": "VoicePulse",
     "description": "ボイスチャンネルの利用状況を可視化するBot。自動アーカイブや、通話時間に応じたロール付与ができます。",
     "tags": ["ボイス連携", "レベリング"],
-    "url": "#"
+    "url": "#",
+    "icon": null
   }
 ]
