@@ -74,6 +74,20 @@
       })
       .join("");
 
+    var fallback =
+      '<div class="bot-avatar bot-avatar-fallback" aria-hidden="true"' +
+      (bot.icon ? ' style="display: none;"' : "") +
+      ">" +
+      escapeHtml(getInitial(bot.name)) +
+      "</div>";
+
+    var image = bot.icon
+      ? '<img class="bot-avatar bot-avatar-img" src="' +
+        escapeHtml(bot.icon) +
+        '" alt="" loading="lazy" ' +
+        'onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';">'
+      : "";
+
     var link = bot.url
       ? '<a class="bot-link" href="' +
         escapeHtml(bot.url) +
@@ -85,8 +99,9 @@
     return (
       '<article class="bot-card">' +
       '<div class="bot-card-head">' +
-      '<div class="bot-avatar" aria-hidden="true">' +
-      escapeHtml(getInitial(bot.name)) +
+      '<div class="bot-avatar-wrap">' +
+      image +
+      fallback +
       "</div>" +
       "<h3>" +
       escapeHtml(bot.name) +
