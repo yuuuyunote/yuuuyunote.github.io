@@ -1,80 +1,65 @@
-/* ===================================================
-   script.js — ゆううゆ Portfolio
-   共通処理: ダークモード切替 / ハンバーガーメニュー
-   =================================================== */
-
 (function () {
   'use strict';
 
-  /* ── Theme ── */
-  const THEME_KEY = 'portfolio-theme';
+  /* ===== theme toggle (light / dark, localStorage) ===== */
+  var root = document.documentElement;
+  var themeCheckbox = document.getElementById('theme-checkbox');
+  var STORAGE_KEY = 'yuuuyu-theme';
 
   function applyTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-    const toggle = document.getElementById('theme-checkbox');
-    if (toggle) toggle.checked = theme === 'dark';
-    localStorage.setItem(THEME_KEY, theme);
+    root.setAttribute('data-theme', theme);
+    if (themeCheckbox) themeCheckbox.checked = theme === 'dark';
   }
 
-  function initTheme() {
-    const saved = localStorage.getItem(THEME_KEY);
-    if (saved) {
-      applyTheme(saved);
-    } else {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      applyTheme(prefersDark ? 'dark' : 'light');
-    }
+  var saved = null;
+  try { saved = localStorage.getItem(STORAGE_KEY); } catch (e) {}
+  if (saved === 'light' || saved === 'dark') {
+    applyTheme(saved);
+  } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    applyTheme('dark');
   }
 
-  function toggleTheme() {
-    const current = document.documentElement.getAttribute('data-theme');
-    applyTheme(current === 'dark' ? 'light' : 'dark');
+  if (themeCheckbox) {
+    themeCheckbox.addEventListener('change', function () {
+      var next = themeCheckbox.checked ? 'dark' : 'light';
+      applyTheme(next);
+      try { localStorage.setItem(STORAGE_KEY, next); } catch (e) {}
+    });
   }
 
-  /* ── Hamburger ── */
-  function initHamburger() {
-    const btn  = document.getElementById('hamburger-btn');
-    const menu = document.getElementById('mobile-menu');
-    if (!btn || !menu) return;
+  /* ===== hamburger / mobile menu ===== */
+  var hamburger = document.getElementById('hamburger-btn');
+  var mobileMenu = document.getElementById('mobile-menu');
 
-    btn.addEventListener('click', () => {
-      const open = btn.classList.toggle('open');
-      menu.classList.toggle('open', open);
-      btn.setAttribute('aria-expanded', open);
+  if (hamburger && mobileMenu) {
+    hamburger.addEventListener('click', function () {
+      var isOpen = mobileMenu.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     });
 
-    // close on nav link click
-    menu.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => {
-        btn.classList.remove('open');
-        menu.classList.remove('open');
+    mobileMenu.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        mobileMenu.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
       });
     });
   }
 
-  /* ── Active link ── */
-  function initActiveLink() {
-    const current = window.location.pathname.split('/').pop() || 'index.html';
-    const navLinks = document.querySelectorAll('.nav-links a, .mobile-menu a');
-    navLinks.forEach(link => {
-      const href = link.getAttribute('href') || '';
-      const page = href.split('/').pop();
-      if (page === current || (current === '' && page === 'index.html')) {
-        link.classList.add('active');
-      }
-    });
-  }
-
-  /* ── Init ── */
-  document.addEventListener('DOMContentLoaded', () => {
-    initTheme();
-    initHamburger();
-    initActiveLink();
-
-    const toggleCheckbox = document.getElementById('theme-checkbox');
-    if (toggleCheckbox) {
-      toggleCheckbox.addEventListener('change', toggleTheme);
+  /* ===== fade-up reveal (one-time, on entering viewport) ===== */
+  var fadeEls = document.querySelectorAll('.fade-up');
+  if (fadeEls.length) {
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      fadeEls.forEach(function (el) { observer.observe(el); });
+    } else {
+      fadeEls.forEach(function (el) { el.classList.add('in-view'); });
     }
-  });
-
+  }
 })();
