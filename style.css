@@ -53,7 +53,7 @@ button { font: inherit; color: inherit; }
 
 /* ===== layout ===== */
 .container { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad); }
-.section { padding: 40px 0 16px; }
+.section { padding-top: 40px; padding-bottom: 16px; }
 .section:last-of-type { padding-bottom: 72px; }
 
 .section-heading {
@@ -151,7 +151,7 @@ a.card:hover { border-color: var(--ink); }
   position: sticky;
   top: 0;
   z-index: 10;
-  background: rgba(255, 255, 255, 0.94);
+  background: #fafafa;
   border-bottom: 1px solid rgba(20, 20, 20, 0.08);
 }
 .header-inner {
@@ -248,7 +248,7 @@ a.card:hover { border-color: var(--ink); }
   margin-bottom: 12px;
 }
 .page-desc { color: var(--muted); max-width: 58ch; }
-.page-body { padding: 36px 0 72px; }
+.page-body { padding-top: 36px; padding-bottom: 72px; }
 
 /* ===== home ===== */
 .hero {
