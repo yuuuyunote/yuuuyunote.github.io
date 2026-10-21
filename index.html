@@ -1,247 +1,212 @@
 <!DOCTYPE html>
-<html lang="ja" data-theme="light">
+<html lang="ja">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>ゆううゆ — Portfolio</title>
-<meta name="description" content="ゆううゆのポートフォリオサイト。Discordコミュニティ運営・Bot設定・note記事作成を行っています。" />
-<link rel="stylesheet" href="style.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-<script src="script.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ゆううゆ — Portfolio</title>
+  <meta name="description" content="ゆううゆのポートフォリオサイト。Discordコミュニティ運営・Bot設定・note記事作成を行っています。" />
+  <link rel="icon" type="image/png" href="images/profileicon" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="script.js" defer></script>
 </head>
 <body>
-<!-- ===== NAVIGATION ===== -->
-<nav class="nav" role="navigation" aria-label="グローバルナビゲーション">
-  <div class="nav-inner">
-    <a href="index.html" class="nav-logo" aria-label="ホームへ">
-      <div class="nav-logo-icon">
-        <img src="images/profileicon" alt="ゆううゆアイコン" />
-      </div>
-      <span class="nav-logo-text">ゆううゆ</span>
-    </a>
-    <ul class="nav-links" role="list">
-      <li><a href="index.html" aria-current="page">ホーム</a></li>
-      <li><a href="works.html">実績</a></li>
-      <li><a href="services.html">依頼できる内容</a></li>
-      <li><a href="contact.html">コンタクト</a></li>
-      <li><a href="search.html">note検索</a></li>
-    </ul>
-    <div class="nav-right">
-      <label class="theme-toggle" aria-label="ダークモード切り替え">
-        <input type="checkbox" id="theme-checkbox" />
-        <div class="theme-toggle-track"></div>
-        <div class="theme-toggle-thumb">
-          <i class="fa-solid fa-moon" style="color:var(--accent);"></i>
-        </div>
-      </label>
-      <button class="hamburger" id="hamburger-btn" aria-label="メニューを開く" aria-expanded="false" aria-controls="mobile-menu">
-        <span></span><span></span><span></span>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="brand" aria-label="ホームへ">
+        <span class="brand-mark"><img src="images/profileicon" alt="" width="34" height="34" /></span>
+        <span>ゆううゆ</span>
+      </a>
+      <button type="button" class="menu-toggle" id="menu-toggle" aria-label="メニューを開く" aria-expanded="false" aria-controls="site-nav">
+        <i class="fa-solid fa-bars" aria-hidden="true"></i>
       </button>
+      <nav class="site-nav" id="site-nav" aria-label="グローバルナビゲーション">
+        <a href="index.html" aria-current="page">ホーム</a>
+        <a href="works.html">実績</a>
+        <a href="services.html">依頼できる内容</a>
+        <a href="contact.html">コンタクト</a>
+        <a href="search.html">note検索</a>
+      </nav>
     </div>
-  </div>
-</nav>
-<div class="mobile-menu" id="mobile-menu" role="menu">
-  <a href="index.html" role="menuitem">ホーム</a>
-  <a href="works.html" role="menuitem">実績</a>
-  <a href="services.html" role="menuitem">依頼できる内容</a>
-  <a href="contact.html" role="menuitem">コンタクト</a>
-  <a href="search.html" role="menuitem">note検索</a>
-</div>
+  </header>
 
-<!-- ===== MAIN ===== -->
-<main class="page-wrap">
+  <main>
+    <section class="hero container">
+      <div class="hero-copy">
+        <p class="eyebrow">Portfolio</p>
+        <h1>ゆううゆ</h1>
+        <p class="hero-role">Discord Operator · Writer</p>
+        <ul class="sns-list" aria-label="SNSリンク">
+          <li>
+            <a href="https://x.com/yuuuyu0000" class="sns-link" target="_blank" rel="noopener" aria-label="X (旧Twitter) @yuuuyu0000">
+              <i class="fa-brands fa-x-twitter" aria-hidden="true"></i><span>@yuuuyu0000</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://note.com/yuuuyugbp" class="sns-link" target="_blank" rel="noopener" aria-label="note yuuuyugbp">
+              <img src="images/note-logo.svg" alt="" /><span>yuuuyugbp</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://discord.gg/g78KdZSfrb" class="sns-link" target="_blank" rel="noopener" aria-label="Discord サーバー Guide Base +">
+              <i class="fa-brands fa-discord" aria-hidden="true"></i><span>Guide Base +</span>
+            </a>
+          </li>
+        </ul>
+        <a href="works.html" class="primary-link">実績を見る <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="hero-art">
+        <div class="avatar-frame"><img src="images/profileicon" alt="ゆううゆのアイコン" /></div>
+      </div>
+    </section>
 
-  <!-- Hero -->
-  <section class="home-hero">
-    <div class="home-avatar">
-      <img src="images/profileicon" alt="ゆううゆアイコン" />
-    </div>
-    <h1 class="home-name">ゆううゆ</h1>
-    <p class="home-role">Discord Operator · Writer</p>
-    <div class="home-line" aria-hidden="true"></div>
-    <nav aria-label="SNSリンク">
-      <ul class="home-sns" role="list">
-        <li>
-          <a href="https://x.com/yuuuyu0000" class="home-sns-link" target="_blank" rel="noopener" aria-label="X (旧Twitter)">
-            <i class="fa-brands fa-x-twitter"></i>
-            <span>@yuuuyu0000</span>
-          </a>
-        </li>
-        <li>
-          <a href="https://note.com/yuuuyugbp" class="home-sns-link" target="_blank" rel="noopener" aria-label="note">
-            <img src="images/note-logo.svg" alt="" style="width:16px; height:16px;" />
-            <span>yuuuyugbp</span>
-          </a>
-        </li>
-        <li>
-          <a href="https://discord.gg/g78KdZSfrb" class="home-sns-link" target="_blank" rel="noopener" aria-label="Discord">
-            <i class="fa-brands fa-discord"></i>
-            <span>Guide Base +</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
-    <div class="home-sublinks">
-      <a href="works.html" class="home-sublink">実績を見る <i class="fa-solid fa-arrow-right"></i></a>
-      <a href="services.html" class="home-sublink">依頼できる内容 <i class="fa-solid fa-arrow-right"></i></a>
-      <a href="contact.html" class="home-sublink">コンタクト <i class="fa-solid fa-arrow-right"></i></a>
-      <a href="search.html" class="home-sublink">note記事を検索 <i class="fa-solid fa-arrow-right"></i></a>
-    </div>
-  </section>
-
-  <!-- Profile -->
-  <section class="home-profile">
-    <div class="home-profile-inner">
-      <p class="section-label" style="text-align:center; margin-bottom:20px;">About</p>
-      <p class="home-bio">
+    <section class="section container" aria-labelledby="about-title">
+      <div class="section-heading"><h2 class="section-title" id="about-title">About</h2></div>
+      <p class="bio">
         Discordの日本語情報サーバー「Guide Base +」を運営しています。
         Bot設定・正規表現を活用したセキュリティ設計・SNS成長戦略を主にやっています。
         海外コミュニティやBot開発チームとも連携しながら、情報発信を続けています。
       </p>
-      <ul class="home-tags" aria-label="スキルタグ">
+      <ul class="tag-list" aria-label="スキル">
         <li class="tag">Discord運営</li>
         <li class="tag">Bot設定</li>
         <li class="tag">セキュリティ設計</li>
         <li class="tag">note執筆</li>
         <li class="tag">SNS戦略</li>
       </ul>
-    </div>
-  </section>
+    </section>
 
-  <!-- Numbers -->
-  <section class="home-stats">
-    <div class="home-stats-inner">
-      <p class="section-label" style="text-align:center; margin-bottom:20px;">Numbers</p>
-      <div class="stats-grid" role="list">
-        <div class="stat-item" role="listitem">
+    <section class="section container" aria-labelledby="numbers-title">
+      <div class="section-heading"><h2 class="section-title" id="numbers-title">Numbers</h2></div>
+      <ul class="stats-grid">
+        <li class="card stat-card">
           <p class="stat-num">15<span>万+</span></p>
           <p class="stat-label">note記事PV</p>
-        </div>
-        <div class="stat-item" role="listitem">
+        </li>
+        <li class="card stat-card">
           <p class="stat-num">2<span>年+</span></p>
           <p class="stat-label">サーバー運営</p>
-        </div>
-        <div class="stat-item" role="listitem">
+        </li>
+        <li class="card stat-card">
           <p class="stat-num">50<span>+</span></p>
           <p class="stat-label">経験運営サーバー</p>
-        </div>
-        <div class="stat-item" role="listitem">
+        </li>
+        <li class="card stat-card">
           <p class="stat-num">0<span>円</span></p>
-          <p class="stat-label">サポート</p>
-        </div>
-      </div>
-    </div>
-  </section>
+          <p class="stat-label">サポート費用</p>
+        </li>
+      </ul>
+    </section>
 
-  <!-- Contribution -->
-  <section class="home-contribution">
-    <div class="home-contribution-inner">
-      <p class="section-label" style="text-align:center; margin-bottom:20px;">Contribution</p>
-      <p style="font-family:'DM Serif Display',serif; font-size:24px; text-align:center; margin:0 0 8px;">情報を届ける場所を、ひとつに絞らない</p>
-      <p class="section-desc" style="text-align:center; max-width:52ch; margin:0 auto;">
-        コミュニティ・記事・個別の質問対応と、届け方を変えながら同じ知識を回している。
-      </p>
-      <div class="contribution-grid">
-        <div class="card contribution-item">
-          <div class="contribution-icon" aria-hidden="true"><i class="fa-brands fa-discord"></i></div>
+    <section class="section container" aria-labelledby="contribution-title">
+      <div class="section-heading"><h2 class="section-title" id="contribution-title">情報を届ける場所を、ひとつに絞らない</h2></div>
+      <p class="section-lead">コミュニティ・記事・個別の質問対応と、届け方を変えながら同じ知識を回している。</p>
+      <ul class="contribution-grid">
+        <li class="card contribution-item">
+          <div class="icon-tile" aria-hidden="true"><i class="fa-brands fa-discord"></i></div>
           <div>
-            <p class="contribution-title">Guide Base + の運営</p>
-            <p class="contribution-desc">Discordの設定・セキュリティ・Bot運用を扱う669人規模の日本語コミュニティを無償で運営。</p>
+            <h3 class="item-title">Guide Base + の運営</h3>
+            <p class="item-desc">Discordの設定・セキュリティ・Bot運用を扱う669人規模の日本語コミュニティを無償で運営。</p>
           </div>
-        </div>
-        <div class="card contribution-item">
-          <div class="contribution-icon" aria-hidden="true"><i class="fa-solid fa-pen-nib"></i></div>
+        </li>
+        <li class="card contribution-item">
+          <div class="icon-tile" aria-hidden="true"><i class="fa-solid fa-pen-nib"></i></div>
           <div>
-            <p class="contribution-title">noteでの体系的な発信</p>
-            <p class="contribution-desc">Discord運用のノウハウを記事化し、年間15万PV超の読者に一次情報として届けている。</p>
+            <h3 class="item-title">noteでの体系的な発信</h3>
+            <p class="item-desc">Discord運用のノウハウを記事化し、年間15万PV超の読者に一次情報として届けている。</p>
           </div>
-        </div>
-        <div class="card contribution-item">
-          <div class="contribution-icon" aria-hidden="true"><i class="fa-solid fa-comment-dots"></i></div>
+        </li>
+        <li class="card contribution-item">
+          <div class="icon-tile" aria-hidden="true"><i class="fa-solid fa-comment-dots"></i></div>
           <div>
-            <p class="contribution-title">Yahoo!知恵袋での回答活動</p>
-            <p class="contribution-desc">回答グレード13。検索でたどり着いた一件ずつの質問に、Discord関連の知識で個別に答えている。</p>
+            <h3 class="item-title">Yahoo!知恵袋での回答活動</h3>
+            <p class="item-desc">回答グレード13。検索でたどり着いた一件ずつの質問に、Discord関連の知識で個別に答えている。</p>
           </div>
-        </div>
-        <div class="card contribution-item">
-          <div class="contribution-icon" aria-hidden="true"><i class="fa-brands fa-x-twitter"></i></div>
+        </li>
+        <li class="card contribution-item">
+          <div class="icon-tile" aria-hidden="true"><i class="fa-solid fa-earth-asia"></i></div>
           <div>
-            <p class="contribution-title">海外コミュニティとの橋渡し</p>
-            <p class="contribution-desc">X上で海外のBot開発者やコミュニティ運営者とやり取りし、情報を国内外につないでいる。</p>
+            <h3 class="item-title">海外コミュニティとの橋渡し</h3>
+            <p class="item-desc">X上で海外のBot開発者やコミュニティ運営者とやり取りし、情報を国内外につないでいる。</p>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
+        </li>
+      </ul>
+    </section>
 
-  <!-- Latest note articles (RSS via rss2json.com) -->
-  <section class="home-notes">
-    <div class="home-notes-inner">
-      <div class="notes-header">
-        <div class="notes-header-left">
-          <p class="section-label" style="margin-bottom:4px;">Latest</p>
-          <p style="font-family:'DM Serif Display',serif; font-size:22px; color:var(--text);">最新のnote記事</p>
-        </div>
-        <a href="https://note.com/yuuuyugbp" class="notes-more" target="_blank" rel="noopener">
-          すべて見る <i class="fa-solid fa-arrow-right"></i>
-        </a>
+    <section class="section container" aria-labelledby="latest-title">
+      <div class="section-heading">
+        <h2 class="section-title" id="latest-title">最新のnote記事</h2>
+        <a href="https://note.com/yuuuyugbp" class="text-link" target="_blank" rel="noopener">すべて見る <span aria-hidden="true">→</span></a>
       </div>
       <div id="note-list" class="note-list">
-        <p class="note-loading"><i class="fa-solid fa-circle-notch fa-spin"></i> 読み込み中...</p>
+        <p class="note-status">読み込み中...</p>
       </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner container">
+      <p class="footer-copy">© 2026 ゆううゆ. All rights reserved.</p>
+      <nav class="footer-links" aria-label="フッターナビゲーション">
+        <a href="index.html">ホーム</a>
+        <a href="works.html">実績</a>
+        <a href="services.html">依頼できる内容</a>
+        <a href="contact.html">コンタクト</a>
+        <a href="search.html">note検索</a>
+      </nav>
     </div>
-  </section>
+  </footer>
 
-</main>
+  <script>
+    (function () {
+      var container = document.getElementById('note-list');
+      if (!container) return;
 
-<!-- ===== FOOTER ===== -->
-<footer class="footer">
-  <div class="footer-inner">
-    <p class="footer-copy">© 2026 ゆううゆ. All rights reserved.</p>
-    <nav class="footer-links" aria-label="フッターナビゲーション">
-      <a href="index.html">ホーム</a>
-      <a href="works.html">実績</a>
-      <a href="services.html">依頼できる内容</a>
-      <a href="contact.html">コンタクト</a>
-    </nav>
-  </div>
-</footer>
+      function esc(str) {
+        return String(str)
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+      }
 
-<!-- note RSS fetch -->
-<script>
-(function () {
-  const container = document.getElementById('note-list');
-  if (!container) return;
+      function formatDate(dateStr) {
+        var d = new Date(dateStr);
+        if (isNaN(d)) return '';
+        return d.getFullYear() + '.' +
+          String(d.getMonth() + 1).padStart(2, '0') + '.' +
+          String(d.getDate()).padStart(2, '0');
+      }
 
-  function formatDate(dateStr) {
-    const d = new Date(dateStr);
-    if (isNaN(d)) return '';
-    return d.getFullYear() + '.' +
-      String(d.getMonth() + 1).padStart(2, '0') + '.' +
-      String(d.getDate()).padStart(2, '0');
-  }
+      function showError() {
+        container.innerHTML =
+          '<p class="note-status">記事を取得できませんでした。' +
+          '<a href="https://note.com/yuuuyugbp" target="_blank" rel="noopener" style="text-decoration:underline;">noteで確認する</a></p>';
+      }
 
-  fetch('note-articles.json')
-    .then(function (res) { return res.json(); })
-    .then(function (items) {
-      if (!items || items.length === 0) throw new Error('empty');
-      container.innerHTML = items.map(function (item) {
-        return [
-          '<a href="' + item.link + '" class="note-item" target="_blank" rel="noopener">',
-          '<div class="note-item-icon"><i class="fa-solid fa-pen-nib"></i></div>',
-          '  <div class="note-item-body">',
-          '    <p class="note-item-title">' + item.title.replace(/</g, '&lt;') + '</p>',
-          '    <p class="note-item-meta">' + formatDate(item.date) + '</p>',
-          '  </div>',
-          '  <i class="fa-solid fa-arrow-right note-item-arrow"></i>',
-          '</a>'
-        ].join('');
-      }).join('');
-    })
-    .catch(function () {
-      container.innerHTML = '<p style="font-size:13px;color:var(--text-sub);">記事を取得できませんでした。<a href="https://note.com/yuuuyugbp" target="_blank" rel="noopener" style="color:var(--accent);">noteで確認する</a></p>';
-    });
-})();
-</script>
+      fetch('note-articles.json')
+        .then(function (res) {
+          if (!res.ok) throw new Error('fetch failed');
+          return res.json();
+        })
+        .then(function (items) {
+          if (!Array.isArray(items) || items.length === 0) throw new Error('empty');
+          container.innerHTML = items
+            .filter(function (item) { return /^https:\/\//.test(item.link || ''); })
+            .map(function (item) {
+              return '<a href="' + esc(item.link) + '" class="note-item" target="_blank" rel="noopener">' +
+                '<div class="note-item-icon" aria-hidden="true"><i class="fa-solid fa-pen-nib"></i></div>' +
+                '<div class="note-item-body">' +
+                  '<p class="note-item-title">' + esc(item.title) + '</p>' +
+                  '<p class="note-item-meta">' + formatDate(item.date) + '</p>' +
+                '</div>' +
+                '<i class="fa-solid fa-arrow-right note-item-arrow" aria-hidden="true"></i>' +
+              '</a>';
+            }).join('');
+        })
+        .catch(showError);
+    })();
+  </script>
+
 </body>
 </html>
