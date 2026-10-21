@@ -1,65 +1,35 @@
 (function () {
   'use strict';
 
-  /* ===== theme toggle (light / dark, localStorage) ===== */
-  var root = document.documentElement;
-  var themeCheckbox = document.getElementById('theme-checkbox');
-  var STORAGE_KEY = 'yuuuyu-theme';
+  /* ===== mobile menu ===== */
+  var toggle = document.getElementById('menu-toggle');
+  var nav = document.getElementById('site-nav');
+  if (!toggle || !nav) return;
 
-  function applyTheme(theme) {
-    root.setAttribute('data-theme', theme);
-    if (themeCheckbox) themeCheckbox.checked = theme === 'dark';
+  function setOpen(open) {
+    nav.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    toggle.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
+    var icon = toggle.querySelector('i');
+    if (icon) icon.className = open ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
   }
 
-  var saved = null;
-  try { saved = localStorage.getItem(STORAGE_KEY); } catch (e) {}
-  if (saved === 'light' || saved === 'dark') {
-    applyTheme(saved);
-  } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    applyTheme('dark');
-  }
+  toggle.addEventListener('click', function () {
+    setOpen(!nav.classList.contains('open'));
+  });
 
-  if (themeCheckbox) {
-    themeCheckbox.addEventListener('change', function () {
-      var next = themeCheckbox.checked ? 'dark' : 'light';
-      applyTheme(next);
-      try { localStorage.setItem(STORAGE_KEY, next); } catch (e) {}
-    });
-  }
+  nav.addEventListener('click', function (e) {
+    if (e.target.closest('a')) setOpen(false);
+  });
 
-  /* ===== hamburger / mobile menu ===== */
-  var hamburger = document.getElementById('hamburger-btn');
-  var mobileMenu = document.getElementById('mobile-menu');
-
-  if (hamburger && mobileMenu) {
-    hamburger.addEventListener('click', function () {
-      var isOpen = mobileMenu.classList.toggle('open');
-      hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-    });
-
-    mobileMenu.querySelectorAll('a').forEach(function (link) {
-      link.addEventListener('click', function () {
-        mobileMenu.classList.remove('open');
-        hamburger.setAttribute('aria-expanded', 'false');
-      });
-    });
-  }
-
-  /* ===== fade-up reveal (one-time, on entering viewport) ===== */
-  var fadeEls = document.querySelectorAll('.fade-up');
-  if (fadeEls.length) {
-    if ('IntersectionObserver' in window) {
-      var observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('in-view');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.15 });
-      fadeEls.forEach(function (el) { observer.observe(el); });
-    } else {
-      fadeEls.forEach(function (el) { el.classList.add('in-view'); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && nav.classList.contains('open')) {
+      setOpen(false);
+      toggle.focus();
     }
-  }
+  });
+
+  window.addEventListener('resize', function () {
+    if (window.innerWidth > 760) setOpen(false);
+  });
 })();
